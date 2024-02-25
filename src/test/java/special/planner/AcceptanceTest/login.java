@@ -7,8 +7,8 @@ public class login {
     public void theUserAccessesTheSignInCommand() {
         // Write code here that turns the phrase above into concrete actions
     }
-    @When("the user provides valid information {string} , {string}")
-    public void theUserProvidesValidInformation(String string, String string2) {
+    @When("the user provides valid information {string} , {string}, {string}")
+    public void theUserProvidesValidInformation(String string, String string2, String string3) {
         // Write code here that turns the phrase above into concrete actions
     }
     @Then("the user should be successfully logged in")

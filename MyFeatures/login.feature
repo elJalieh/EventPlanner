@@ -2,14 +2,14 @@ Feature: User Login
 
   Scenario Outline: User logs in successfully with valid credentials
     Given the user accesses the sign-in command
-    When the user provides valid information '<username>' , '<password>'
+    When the user provides valid information '<username>' , '<password>', '<role>'
     Then the user should be successfully logged in
     Examples:
-      | username                | password  |
-      | Ayman                   | 132       |
-      | s12127670@stu.najah.edu | 12345     |
-      | s12127747@stu.najah.edu | 12345     |
-      | asd2@gmail.com           | 1323      |
+      | username                | password  | role |
+      | Ayman                   | 132       | a    |
+      | s12127670@stu.najah.edu | 12345     | u    |
+      | s12127747@stu.najah.edu | 12345     | u    |
+      | asd2@gmail.com          | 1323      | s    |
 
   Scenario: User login failed with valid credentials
     Given the user accesses the login command

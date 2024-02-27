@@ -1,4 +1,4 @@
-package special.planner.AcceptanceTest;
+package special.planner;
 
 import io.cucumber. junit. Cucumber;
 import io.cucumber.junit.CucumberOptions;
@@ -7,7 +7,7 @@ import org. junit.runner. RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "MyFeatures", monochrome = true, snippets = SnippetType.CAMELCASE,
-        glue = {"special.planner.AcceptanceTest"})
+        glue = {"special.planner"})
 public class AcceptanceTest {
 
 }

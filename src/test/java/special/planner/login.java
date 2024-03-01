@@ -1,4 +1,4 @@
-package special.planner.AcceptanceTest;
+package special.planner;
 
 import io.cucumber.java.en.*;
 

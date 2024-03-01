@@ -7,6 +7,7 @@ public class User {
 
     String firstName;
     String lastName;
+    boolean Organizer;
 
     public User(String email, String password, String type) {
         this.email = email;
@@ -44,5 +45,13 @@ public class User {
     public void setType(String type) {
         this.type = type;
     }
+    public void setAsOrganizer(){
+        this.Organizer = true;
+    }
+    public void setAsNotOrganizer(){
+        this.Organizer = false;
+
+    }
+
 
 }

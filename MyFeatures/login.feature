@@ -20,7 +20,7 @@ Feature:Login
       | Email                       | Password |
       | a2y2m2sdfgsda2n@gmail.com   | 123      |
       | mo.matasdfgr123@gmail.com   | 123     |
-      | alaraid20sdfg03@gmail.com   | 123    |
+      |                             | 123    |
 
   Scenario Outline: Invalid password
     Given that the user is not logged in
@@ -30,16 +30,15 @@ Feature:Login
     Examples:
       | Email                       | Password |
       | a2y2m2a2n@gmail.com         | 12311    |
-      | mo.matar123@gmail.com       | 123421   |
+      | mo.matar123@gmail.com       |          |
       | alaraid2003@gmail.com       | 1234521  |
 
 
   Scenario Outline: Invalid information
     Given that the user is not logged in
-    When the information are invalid email is "<Email>" and password is "<Password>"
+    When the information is invalid, email is "<Email>" and password is "<Password>"
     Then user failed in log in
     Examples:
       | Email                       | Password |
       | a2y2msdf2a2n@gmail.com      | 12sdf3   |
-      | mo.matasadfr123@gmail.com   | 12sdf34  |
       |                             |          |

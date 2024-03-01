@@ -41,6 +41,7 @@ public class loginStepDefinition {
     @Then("user successfully log in")
     public void userSuccessfullyLogIn() {
         // Write code here that turns the phrase above into concrete actions
+        //System.out.println("welcome");
 
     }
 
@@ -61,14 +62,50 @@ public class loginStepDefinition {
     }
 
     @When("the password is invalid email is {string} and password is {string}")
-    public void thePasswordIsInvalidEmailIsAndPasswordIs(String string, String string2) {
+    public void thePasswordIsInvalidEmailIsAndPasswordIs(String email, String password) {
+        // Write code here that turns the phrase above into concrete actions
+        if(!login.isValid(email, password)){
+            login.logInStatus = false;
+        }
+        assertFalse(login.logInStatus);
+
+    }
+
+    @When("the information is invalid, email is {string} and password is {string}")
+    public void theInformationAreInvalidEmailIsAndPasswordIs(String email, String password) {
+        // Write code here that turns the phrase above into concrete actions
+        if(!login.isValid(email, password)){
+            login.logInStatus = false;
+        }
+        assertFalse(login.logInStatus);
+
+
+    }
+
+    @When("the information exists, the email is {string}")
+    public void theInformationExistsTheEmailIs(String email) {
+        // Write code here that turns the phrase above into concrete actions
+        assertTrue(login.emailExists(email));
+    }
+    @Then("signing up fails")
+    public void signingUpFails() {
+        // Write code here that turns the phrase above into concrete actions
+    }
+
+    @When("the email format is incorrect")
+    public void theEmailFormatIsIncorrect() {
         // Write code here that turns the phrase above into concrete actions
 
     }
 
-    @When("the information are invalid email is {string} and password is {string}")
-    public void theInformationAreInvalidEmailIsAndPasswordIs(String string, String string2) {
+    @When("the information exists, the email is not {string}")
+    public void theInformationExistsTheEmailIsNot(String email) {
         // Write code here that turns the phrase above into concrete actions
-
+        assertFalse(login.emailExists(email));
     }
+    @Then("signing up succeeds")
+    public void signingUpSucceeds() {
+        // Write code here that turns the phrase above into concrete actions
+    }
+
 }

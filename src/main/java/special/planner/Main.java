@@ -12,14 +12,7 @@ public class Main {
     public static final String SERVICE_PROVIDER = "Service Provider";
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
     public static void main(String[] args) {
-
-
-
         manageUserRegistration();
-
-
-
-
     }
 
     public static void manageUserRegistration(){
@@ -48,6 +41,9 @@ public class Main {
 
     private static void serviceProviderScreen() {
         LOGGER.info("sp screen");
+
+
+
 
     }
 
@@ -188,7 +184,10 @@ public class Main {
     }
 
     private static void adminScreen() {
-        LOGGER.info("admin screen");
+        LOGGER.info("Welcome to admin screen \n1- Create account for Service Provider \n2- Exit");
+
+
+
     }
 
     private static void signUp() {

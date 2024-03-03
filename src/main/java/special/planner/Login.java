@@ -84,6 +84,13 @@ public class Login {
 //        }
 //        return null;
 //    }
+
+    public void addServiceProvider(String email, String password) {
+        User newUser = new User(email, password, serviceProvider);
+        users.add(newUser);
+    }
+
+    public void deleteUser(User u){ users.remove(u);}
 }
 
 

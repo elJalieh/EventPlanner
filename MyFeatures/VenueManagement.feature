@@ -5,7 +5,7 @@ Feature: Venue Management
     Given I am an admin
     When I add a new venue with the following details:
       | Venue Name       | Capacity | Amenities                               | Pricing     |
-      | Grand Banquet Hall | 100      | Parking, Wi-Fi, Catering, AV Equipment | $5000/day   |
+      | Grand Banquet Hall | 100      | Parking, Wi-Fi, Catering, AV Equipment | 5000   |
     Then the new venue "Grand Banquet Hall" should be added to the venue list
 
   @EDIT2
@@ -13,7 +13,7 @@ Feature: Venue Management
     Given I am an admin
     When I edit the details for the venue "Grand Banquet Hall" as follows:
       | Venue Name         | Capacity | Amenities                               | Pricing     |
-      | Grand Banquet Hall | 150      | Parking, Wi-Fi, Catering                | $5555/day   |
+      | Grand Banquet Hall | 150      | Parking, Wi-Fi, Catering                | 5555   |
     Then the details for the venue "Grand Banquet Hall" should be updated in the venue list
 
   @DELETE2

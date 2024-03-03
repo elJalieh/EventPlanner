@@ -58,5 +58,11 @@ public class Event {
         this.AttendeeCount = AttendeeCount;
     }
 
+    public void printEventDetails(){
+        LOGGER.info("====================================================================================\n"
+                +"event organizer: " + this.Organizer.getEmail()+"\nevent theme: " + this.EventTheme + "\t" + "event description: " + this.EventDescription + "\t" +
+                "event Date: " + this.EventDate + "\n" + "event Time: " + this.EventTime);
+    }
+
 
 }

@@ -28,9 +28,9 @@ Event eventToBeDeleted;
 
    public EventManagmentStepDefinition(EventManagement eventManagement){
         this.eventManagement = eventManagement;
-        currentUser = new User("email@email", "123", "user");
-        attendeeUser1 = new User("attendee user1", "123", "user");
-        attendeeUser2 = new User("attendee user2", "123", "user");
+        currentUser = new User("email@email", "123", "User");
+        attendeeUser1 = new User("attendee user1", "123", "User");
+        attendeeUser2 = new User("attendee user2", "123", "User");
         eventToBeEdited = new Event("hello", "hello", "hello", "hello", "hello", 10, currentUser);
         eventToBeDeleted = new Event("hello", "hello", "hello", "hello", "hello", 10, currentUser);
 

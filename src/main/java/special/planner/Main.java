@@ -4,7 +4,8 @@ import java.util.logging.*;
 
 public class Main {
     static User currentUser;
-    static EventManagement manager;
+    static EventManagement eventManager;
+    static VenueManagement venueManager;
     static Scanner scanner = new Scanner(System.in);
    static Login login = new Login();
     public static final String ADMIN = "Admin";
@@ -13,6 +14,9 @@ public class Main {
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
     public static void main(String[] args) {
 
+        eventManager = new EventManagement();
+        venueManager = new VenueManagement();
+        venueManager.initializeVenues();// will be removed later
 
 
         manageUserRegistration();
@@ -65,16 +69,28 @@ public class Main {
         }
     }
 
+    private static void bookVenue() {
+        printVenues();
+        LOGGER.info("enter venue number to book: ");
+        int venueNo = scanner.nextInt();
+        scanner.nextLine();
+        if(venueNo > venueManager.Venues.size()){
+            LOGGER.info("number does not exist!");
+            userScreen();
+        }
+        venueManager.Venues.get(venueNo-1).setAssociatedEvent(eventManager.Events.get(eventManager.Events.size()-1));
+    }
+
     private static void registerInEvent() {
-        manager.printEvents();
+        eventManager.printEvents();
         LOGGER.info("enter event number to register: ");
         int eventNo = scanner.nextInt();
         scanner.nextLine();
-        if(eventNo > manager.Events.size()){
+        if(eventNo > eventManager.Events.size()){
             LOGGER.info("number does not exist!");
             registerInEvent();
         }
-        manager.Events.get(eventNo-1).addAttendee(currentUser);
+        eventManager.Events.get(eventNo-1).addAttendee(currentUser);
         LOGGER.info("registration successful!");
         userScreen();
 
@@ -89,7 +105,7 @@ public class Main {
             case 1 -> createEvent();
             case 2 -> editEvent();
             case 3 -> deleteEvent();
-            case 4 -> manager.printEvents();
+            case 4 -> eventManager.printEvents();
             case 5 -> displayAttendees();
             case 6 -> userScreen();
             case 7 -> System.exit(0);
@@ -103,11 +119,11 @@ public class Main {
         LOGGER.info("enter event number: ");
         int eventNo = scanner.nextInt();
         scanner.nextLine();
-        if(eventNo > manager.Events.size()){
+        if(eventNo > eventManager.Events.size()){
             LOGGER.info("event number does not exist!");
             displayAttendees();
         }
-        manager.Events.get(eventNo-1).printAttendees();
+        eventManager.Events.get(eventNo-1).printAttendees();
 
     }
 
@@ -116,11 +132,11 @@ public class Main {
         LOGGER.info("enter event number: ");
         int eventNo = scanner.nextInt();
         scanner.nextLine();
-        if(eventNo > manager.Events.size()){
+        if(eventNo > eventManager.Events.size()){
             LOGGER.info("event number does not exist!");
             deleteEvent();
         }
-        manager.deleteEvent(manager.Events.get(eventNo-1));
+        eventManager.deleteEvent(eventManager.Events.get(eventNo-1));
         LOGGER.info("event updated successfully!\n");
         manageEvents();
     }
@@ -129,7 +145,7 @@ public class Main {
         LOGGER.info("enter event number: ");
         int eventNo = scanner.nextInt();
         scanner.nextLine();
-        if(eventNo > manager.Events.size()){
+        if(eventNo > eventManager.Events.size()){
             LOGGER.info("number does not exist!");
             editEvent();
         }
@@ -151,7 +167,7 @@ public class Main {
         LOGGER.info("enter the Attendee Count: ");
         String attendeeCountString = scanner.nextLine();
         int attendeeCount = Integer.parseInt(attendeeCountString);
-        manager.Events.get(eventNo-1).updateEvent(date, time, location, theme, description, attendeeCount);
+        eventManager.Events.get(eventNo-1).updateEvent(date, time, location, theme, description, attendeeCount);
         LOGGER.info("event updated successfully!\n");
         manageEvents();
     }
@@ -176,19 +192,129 @@ public class Main {
         LOGGER.info("enter the Attendee Count: ");
         String attendeeCountString = scanner.nextLine();
         int attendeeCount = Integer.parseInt(attendeeCountString);
-        manager = new EventManagement();
-        manager.addEvent(new Event(date, time, location, theme, description, attendeeCount, currentUser));
-        manager.addEvent(new Event(date, time, location, theme, description, attendeeCount, currentUser));
-        manager.addEvent(new Event(date, time, location, theme, description, attendeeCount, currentUser));
+
+        eventManager.addEvent(new Event(date, time, location, theme, description, attendeeCount, currentUser));
+//        eventManager.addEvent(new Event(date, time, location, theme, description, attendeeCount, currentUser));
+//        eventManager.addEvent(new Event(date, time, location, theme, description, attendeeCount, currentUser));
         LOGGER.info("event added successfully!\n");
-        manageEvents();
+        bookVenue();
+
 
 
 
     }
 
     private static void adminScreen() {
-        LOGGER.info("admin screen");
+        LOGGER.info("admin screen\n");
+        LOGGER.info("please enter your choice\n1. manage venues\n2. logout\n3. exit");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+        switch (choice) {
+            case 1 -> manageVenues();
+            case 2 -> manageUserRegistration();
+            case 3 -> System.exit(0);
+            default -> LOGGER.info("Invalid choice! Please try again.");
+        }
+    }
+
+    private static void manageVenues() {
+        LOGGER.info("enter your choice of management:\n1. add venue\n2. edit venue\n3. delete venue\n4. display the venues\n5.display booked event\n6. go back to user screen\n7. exit");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+        switch (choice) {
+            case 1 -> addVenue();
+            case 2 -> editVenue();
+            case 3 -> deleteVenue();
+            case 4 -> printVenues();
+            case 5 -> displayBookedEvent();
+            case 6 -> userScreen();
+            case 7 -> System.exit(0);
+
+            default -> LOGGER.info("Invalid choice! Please try again.");
+        }
+        manageVenues();
+    }
+
+    private static void displayBookedEvent() {
+        LOGGER.info("enter venue number: ");
+        int venueNo = scanner.nextInt();
+        scanner.nextLine();
+        if(venueNo > venueManager.Venues.size()){
+            LOGGER.info("number does not exist!");
+            manageVenues();
+        }
+        if(venueManager.Venues.get(venueNo - 1).associatedEvent != null)
+             venueManager.Venues.get(venueNo-1).associatedEvent.printEventDetails();
+        else{
+            LOGGER.info("venue is not booked!");
+        }
+        manageVenues();
+
+    }
+
+    private static void printVenues() {
+        venueManager.displayVenues();
+    }
+
+    private static void deleteVenue() {
+        LOGGER.info("enter venue number to delete: ");
+        int venueNo = scanner.nextInt();
+        scanner.nextLine();
+        if(venueNo > venueManager.Venues.size()){
+            LOGGER.info("number does not exist!");
+            manageVenues();
+        }
+        venueManager.deleteVenue(venueManager.Venues.get(venueNo-1));
+        LOGGER.info("venue deleted successfully!");
+
+    }
+
+    private static void editVenue() {
+        LOGGER.info("enter venue number: ");
+        int venueNo = scanner.nextInt();
+        scanner.nextLine();
+        if(venueNo > venueManager.Venues.size()){
+            LOGGER.info("number does not exist!");
+            editVenue();
+        }
+
+        LOGGER.info("enter the updated Name: ");
+        String Name = scanner.nextLine();
+
+        LOGGER.info("enter the updated Capacity: ");
+        String capacityStr = scanner.nextLine();
+        int capacity = Integer.parseInt(capacityStr);
+        LOGGER.info("enter the updated amenities: ");
+        String amenities = scanner.nextLine();
+
+        LOGGER.info("enter the updated pricing: ");
+        String pricingStr = scanner.nextLine();
+        int pricing = Integer.parseInt(pricingStr);
+
+        venueManager.Venues.get(venueNo-1).editVenue(Name, capacity, amenities, pricing);
+        LOGGER.info("venue updated successfully!\n");
+        manageVenues();
+    }
+
+    private static void addVenue() {
+        //String venueName, int capacity, String amenities, int pricing
+        LOGGER.info("enter the Name: ");
+        String Name = scanner.nextLine();
+
+        LOGGER.info("enter the Capacity: ");
+        String capacityStr = scanner.nextLine();
+        int capacity = Integer.parseInt(capacityStr);
+        LOGGER.info("enter the amenities: ");
+        String amenities = scanner.nextLine();
+
+        LOGGER.info("enter the pricing: ");
+        String pricingStr = scanner.nextLine();
+        int pricing = Integer.parseInt(pricingStr);
+
+        venueManager.addVenue(new Venue(Name, capacity, amenities, pricing));
+        LOGGER.info("venue added successfully!\n");
+        manageVenues();
+
     }
 
     private static void signUp() {

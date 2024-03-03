@@ -8,8 +8,10 @@ public class EventManagement {
 
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
     public List<Event> Events = new ArrayList<>();
-    public void initializer(){
-        //Event u1=new Event("alaraid2003@gmail.com","123", admin);
+    public void initializer(User currentUser){
+        Event e1 = new Event("ee1", "sd", "hello", "hello", "hello", 30, currentUser);
+        Event e2 = new Event("ee2", "hedfgsdllo", "hello", "hello", "hello", 50, currentUser);
+        Event e3 = new Event("ee3", "hedfgsdllo", "hello", "hello", "hello", 50, currentUser);
 
     }
     public void addEvent(Event newEvent){

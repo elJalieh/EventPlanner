@@ -1,20 +1,18 @@
 package special.planner;
 
+import java.util.Objects;
+
 public class User {
     String email;
     String password;
     String type;
-
-    String firstName;
-    String lastName;
     boolean Organizer;
 
     public User(String email, String password, String type) {
         this.email = email;
         this.password = password;
         this.type = type;
-        firstName="Mahmood";
-        lastName="Ahmed";
+
     }
 
     public User(String email, String password) {
@@ -51,6 +49,16 @@ public class User {
     public void setAsNotOrganizer(){
         this.Organizer = false;
 
+    }
+    public boolean isAdmin(){
+        return Objects.equals(this.getType(), "Admin");
+    }
+
+    public boolean isServiceProvider(){
+        return Objects.equals(this.getType(), "Service Provider");
+    }
+    public boolean isOrganizer(){
+        return Organizer;
     }
 
 

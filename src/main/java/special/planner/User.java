@@ -42,6 +42,10 @@ public class User {
         return type;
     }
 
+    public boolean isOrganizer(){
+        return Organizer;
+    }
+
     public void setType(String type) {
         this.type = type;
     }

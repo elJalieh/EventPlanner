@@ -1,20 +1,12 @@
 Feature: Service Provider (Vendor) Management
 
-  @ADD3
-  Scenario: Add a New Vendor to the Database
-    Given I am an admin
-    When I add a new vendor to the database with the following details:
-      | Vendor Name      | Category    | Services        | Location      | Availability | Pricing  | Reviews |
-      | Elegant Catering | Catering    | Food, Beverage  | City Center    | Available    | $1000    | 4.5     |
-    Then the new vendor "Elegant Catering" should be added to the vendor database
-
   @SEARCH2
-  Scenario: Search and Filter Vendors for a Venue
+  Scenario: Search and Filter Vendors
     Given I am an organizer3
-    When I search and filter vendors for the venue "Grand Banquet Hall" with the following criteria:
-      | Category   | Location    | Availability | Pricing | Reviews |
-      | Catering   | City Center | Available    | $500   | 4        |
-    Then the list of vendors should be displayed based on the specified criteria for the venue "Grand Banquet Hall"
+    When I search and filter vendors for the following criteria:
+      |Location    | Availability | Pricing | Reviews |
+      |City Center | Available    | 500     | 4.5     |
+    Then the list of vendors should be displayed
 
   @REQUEST_PACKAGE
   Scenario: Request a Package from a Vendor

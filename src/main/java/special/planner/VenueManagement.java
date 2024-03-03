@@ -36,7 +36,7 @@ public class VenueManagement {
                 Venues) {
             LOGGER.info("venue no." +index +"\n" + i+"====================================================================================\n"
                     +"venue name: " + i.venueName+"\nvenue capacity: " + i.capacity + "\t" + "venue amenities: " + i.amenities + "\t" +
-                    "venue pricing: " + i.pricing);
+                    "venue pricing: " + i.pricing + "\t" + "booking status: " + i.booked);
             index++;
         }
 

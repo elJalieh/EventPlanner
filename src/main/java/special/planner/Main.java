@@ -97,7 +97,7 @@ public class Main {
     }
 
     private static void manageEvents() {
-        LOGGER.info("enter your choice of management:\n1. create event\n2. edit event\n3. delete event\n4. display the events\n5.display attendees of an event\n6. go back to user screen\n7. exit");
+        LOGGER.info("enter your choice of management:\n1. create event\n2. edit event\n3. delete event\n4. display the events\n5. display attendees of an event\n6. go back to user screen\n7. exit");
         int choice = scanner.nextInt();
         scanner.nextLine();
         switch (choice) {
@@ -217,7 +217,7 @@ public class Main {
     }
 
     private static void manageVenues() {
-        LOGGER.info("enter your choice of management:\n1. add venue\n2. edit venue\n3. delete venue\n4. display the venues\n5.display booked event\n6. go back to user screen\n7. exit");
+        LOGGER.info("enter your choice of management:\n1. add venue\n2. edit venue\n3. delete venue\n4. display the venues\n5. display booked event\n6. go back to user screen\n7. exit");
         int choice = scanner.nextInt();
         scanner.nextLine();
         switch (choice) {

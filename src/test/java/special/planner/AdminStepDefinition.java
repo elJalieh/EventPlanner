@@ -58,7 +58,7 @@ public class AdminStepDefinition {
     public void iDeleteTheAccountWithEmail(String email) {
         // Write code here that turns the phrase above into concrete actions
         login.addServiceProvider(testUser1.email, testUser1.password);
-        login.deleteUser(testUser1);
+        login.deleteUser(testUser1.email);
 
     }
     @Then("I should see a success message confirming the account deletion")

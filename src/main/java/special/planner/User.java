@@ -41,10 +41,6 @@ public class User {
         return type;
     }
 
-    public boolean isOrganizer(){
-        return Organizer;
-    }
-
     public void setType(String type) {
         this.type = type;
     }
@@ -65,17 +61,6 @@ public class User {
     public boolean isOrganizer(){
         return Organizer;
     }
-    public void setAsAdmin(){
-        this.Admin = true;
-    }
-
-    public boolean isAdmin(){
-        return Objects.equals(this.getType(), "Admin");
-    }
-
-    public boolean isServiceProvider(){
-        return Objects.equals(this.getType(), "Service Provider");
-    }
-
+    public void setAsAdmin(){this.Admin = true;}
 
 }

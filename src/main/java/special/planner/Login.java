@@ -54,7 +54,6 @@ public class Login {
 
         }
         return false;
-
     }
     public User getCurrentUser(String email, String password){
         if(email.isEmpty() || password.isEmpty()) return null;
@@ -90,7 +89,15 @@ public class Login {
         users.add(newUser);
     }
 
-    public void deleteUser(User u){ users.remove(u);}
+    public void deleteUser(String email){
+        int toRemove = -1;
+        for (User i: users){
+            if(i.email.equals(email)){
+                toRemove++;
+            }
+
+        }
+        users.remove(toRemove);}
 }
 
 

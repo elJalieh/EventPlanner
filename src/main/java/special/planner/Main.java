@@ -20,10 +20,6 @@ public class Main {
 
 
         manageUserRegistration();
-
-
-
-
     }
 
     public static void manageUserRegistration(){
@@ -52,6 +48,9 @@ public class Main {
 
     private static void serviceProviderScreen() {
         LOGGER.info("sp screen");
+
+
+
 
     }
 
@@ -314,6 +313,10 @@ public class Main {
         venueManager.addVenue(new Venue(Name, capacity, amenities, pricing));
         LOGGER.info("venue added successfully!\n");
         manageVenues();
+
+        LOGGER.info("Welcome to admin screen \n1- Create account for Service Provider \n2- Exit");
+
+
 
     }
 

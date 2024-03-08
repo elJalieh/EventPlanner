@@ -7,6 +7,7 @@ public class User {
     String password;
     String type;
     boolean Organizer;
+    boolean Admin = false;
 
     public User(String email, String password, String type) {
         this.email = email;
@@ -59,6 +60,17 @@ public class User {
     }
     public boolean isOrganizer(){
         return Organizer;
+    }
+    public void setAsAdmin(){
+        this.Admin = true;
+    }
+
+    public boolean isAdmin(){
+        return Objects.equals(this.getType(), "Admin");
+    }
+
+    public boolean isServiceProvider(){
+        return Objects.equals(this.getType(), "Service Provider");
     }
 
 

@@ -228,9 +228,9 @@ public class Main {
         scanner.nextLine();
         switch (choice) {
             case 1 -> manageVenues();
-            case 4 -> manageUserRegistration();
-            case 3 -> addServiceProviderAccount();
             case 2 -> deleteAccount();
+            case 3 -> addServiceProviderAccount();
+            case 4 -> manageUserRegistration();
             case 5 -> System.exit(0);
             default -> LOGGER.info("Invalid choice! Please try again.");
         }

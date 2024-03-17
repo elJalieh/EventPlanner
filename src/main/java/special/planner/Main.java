@@ -205,15 +205,41 @@ public class Main {
 
     private static void adminScreen() {
         LOGGER.info("admin screen\n");
-        LOGGER.info("please enter your choice\n1. manage venues\n2. logout\n3. exit");
+        LOGGER.info("please enter your choice" +
+                "\n1. manage venues" +
+                "\n2. logout" +
+                "\n3. create account for \"Service Provider\"" +
+                "\n4. delete account"+
+                "\n5. exit");
         int choice = scanner.nextInt();
         scanner.nextLine();
         switch (choice) {
             case 1 -> manageVenues();
             case 2 -> manageUserRegistration();
-            case 3 -> System.exit(0);
+            case 3 -> addServiceProviderAccount();
+            case 4 -> deleteAccount();
+            case 5 -> System.exit(0);
             default -> LOGGER.info("Invalid choice! Please try again.");
         }
+    }
+
+    private static void deleteAccount() {
+        String emailToDelete;
+        LOGGER.info("Enter email to delete:\n");
+        emailToDelete = scanner.nextLine();
+        login.deleteUser(emailToDelete);
+        adminScreen();
+    }
+
+    private static void addServiceProviderAccount() {
+        String serviceProviderEmail;
+        String serviceProviderPassword;
+        LOGGER.info("Enter Service Provider Email:\n");
+        serviceProviderEmail = scanner.nextLine();
+        LOGGER.info("Enter Password:\n");
+        serviceProviderPassword =scanner.nextLine();
+        login.addServiceProvider(serviceProviderEmail,serviceProviderPassword);
+        adminScreen();
     }
 
     private static void manageVenues() {

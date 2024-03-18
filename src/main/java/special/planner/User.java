@@ -9,6 +9,7 @@ public class User {
     boolean Organizer;
     boolean Admin = false;
 
+
     public User(String email, String password, String type) {
         this.email = email;
         this.password = password;
@@ -63,4 +64,7 @@ public class User {
     }
     public void setAsAdmin(){this.Admin = true;}
 
+    public void linkWithVendor( Vendor V) {
+        V.setBooker(this);
+    }
 }

@@ -1,0 +1,159 @@
+package special.planner;
+import io.cucumber.java.en.*;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.picocontainer.annotations.Inject;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.logging.Logger;
+
+import static org.junit.Assert.*;
+
+public class VendorManagementStepDefinition {
+    public static final String ADMIN = "Admin";
+    public static final String USER = "User";
+    private final Login login;
+    Vendor vendorByLocation;
+    Vendor vendorByPrice;
+    Vendor vendorByAvailability;
+    Vendor vendorByReview;
+    Vendor vendorPackage;
+    Vendor vendorRequist;
+    User currentUserOrg;
+    String email;
+    private String packageName;
+    Event associatedEvent;
+
+
+    public VendorManagementStepDefinition(Login login) {
+        this.login = login;
+        currentUserOrg = new User("hello@email", "123", USER);
+        currentUserOrg.setAsOrganizer();
+        vendorByLocation = new Vendor("loc@gmail.com","123", "singers", "salfeet",
+                500, 2, "my price is 1000 brother take it or leave it");
+        vendorByLocation.setAvailability(false);
+        vendorByPrice = new Vendor("price@gmail.com","123", "singers", "asdf",
+                1000, 3, "my price is 1000 brother take it or leave it");
+        vendorByPrice.setAvailability(false);
+        vendorByReview = new Vendor("rev@gmail.com","123", "singers", "werg",
+                2000, 4, "my price is 1000 brother take it or leave it");
+        vendorByReview.setAvailability(false);
+        vendorByAvailability = new Vendor("avail@gmail.com","123", "singers", "ewr",
+                595858048, 5, "my price is 1000 brother take it or leave it");
+        vendorPackage = new Vendor("package@gmail.com","123", "singers", "wow",
+                2345, 1, "my price is 1000 brother take it or leave it");
+
+        vendorRequist = new Vendor("requist@gmail.com","123", "singers", "woah woah woah",
+                4444, 0, "my price is 1000 brother take it or leave it");
+        associatedEvent = new Event("date", "time", "location", "theme", "desc", 50, currentUserOrg);
+
+
+
+        vendorPackage.addPackage("cookies");
+        vendorPackage.addPackage("cola");
+        vendorPackage.addPackage("m3aleq wo s7oon");
+        vendorPackage.addPackage("sharashif");
+
+        login.addVendor(vendorByLocation);
+        login.addVendor(vendorByPrice);
+        login.addVendor(vendorByReview);
+        login.addVendor(vendorByAvailability);
+//        login.addVendor(vendorRequist);
+//        login.addVendor(vendorPackage);
+
+
+
+    }
+
+    @Given("I am an organizer3")
+    public void iAmAnOrganizer3() {
+        // Write code here that turns the phrase above into concrete actions
+        assertTrue(currentUserOrg.isOrganizer());
+    }
+    @When("I search for the vendor by location {string}")
+    public void iSearchForTheVendorByLocation(String location) {
+          email = login.displayVendorByLocation( location);
+    }
+    @Then("the list of vendors for the location appears.")
+    public void theListOfVendorsForTheLocationAppears() {
+        // Write code here that turns the phrase above into concrete actions
+        assertEquals("loc@gmail.com", email);
+
+    }
+
+    @When("I search for the vendor by the price {int}")
+    public void iSearchForTheVendorByThePrice(Integer price) {
+        // Write code here that turns the phrase above into concrete actions
+        email = login.displayVendorByPrice( price);
+
+    }
+    @Then("the list of vendors for the price appears.")
+    public void theListOfVendorsForThePriceAppears() {
+        // Write code here that turns the phrase above into concrete actions
+        assertEquals("price@gmail.com", email);
+    }
+    @When("I search for the vendor by availability true")
+    public void iSearchForTheVendorByAvailabilityTrue() {
+        // Write code here that turns the phrase above into concrete actions
+        email = login.displayVendorByAvailability(true);
+
+
+    }
+    @Then("the list of vendors for the availability appears.")
+    public void theListOfVendorsForTheAvailabilityAppears() {
+        // Write code here that turns the phrase above into concrete actions
+        assertEquals("avail@gmail.com", email);
+    }
+
+    @When("I search for the vendor by the review {int}")
+    public void iSearchForTheVendorByTheReview(Integer int1) {
+        // Write code here that turns the phrase above into concrete actions
+        email = login.displayVendorByReview(int1);
+    }
+    @Then("the list of vendors for that review appears.")
+    public void theListOfVendorsForThatReviewAppears() {
+        // Write code here that turns the phrase above into concrete actions
+        assertEquals("rev@gmail.com", email);
+
+    }
+
+    @When("I negotiate the contract terms with the vendor")
+    public void iNegotiateTheContractTermsWithTheVendor() {
+        // Write code here that turns the phrase above into concrete actions
+        System.out.println(vendorPackage.contractDescription);
+    }
+    @When("I accept the contract")
+    public void iAcceptTheContract() {
+        // Write code here that turns the phrase above into concrete actions
+        currentUserOrg.linkWithVendor( vendorPackage);
+
+    }
+    @When("I have booked the vendor")
+    public void iHaveBookedTheVendor() {
+        // Write code here that turns the phrase above into concrete actions
+        assertFalse(vendorPackage.isAvailable());
+    }
+
+    @When("I request a package {int} from the vendor for an event")
+    public void iRequestAPackageFromTheVendorForAnEvent(int packageIndex) {
+        // Write code here that turns the phrase above into concrete actions
+        associatedEvent.setPackage(vendorPackage.getPackageName(packageIndex, currentUserOrg));
+    }
+    @Then("the vendor with his packets will be booked by me")
+    public void thePacketWillBeBookedForMe() {
+        // Write code here that turns the phrase above into concrete actions
+        assertEquals(vendorPackage.Booker.email, currentUserOrg.email);
+        assertEquals(associatedEvent.Package, vendorPackage.Packages.get(2-1));
+    }
+
+
+
+
+
+
+
+
+}

@@ -14,6 +14,7 @@ public class Event {
     String EventDescription;
     int AttendeeCount;
     User Organizer;
+    String Package;
      int id = 0;
     List<User> guestList=new ArrayList<>();
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
@@ -47,6 +48,9 @@ public class Event {
             LOGGER.info("Attendee No." + index
             + " email: " + i.getEmail() + "\n");
         }
+    }
+    public void setPackage(String Package){
+        this.Package = Package;
     }
 
     public void updateEvent(String Date, String Time,String Location, String Theme,String Description,int AttendeeCount){

@@ -37,9 +37,29 @@ public class EventManagement {
 
         for (Event i:
              Events) {
-            LOGGER.info("event no." +index +"\n" + i+"====================================================================================\n"
-                    +"event organizer: " + i.Organizer.getEmail()+"\nevent theme: " + i.EventTheme + "\t" + "event description: " + i.EventDescription + "\t" +
-                    "event Date: " + i.EventDate + "\n" + "event Time: " + i.EventTime);
+            LOGGER.info("event no." +index +"\n");
+            i.printEventDetails();
+            index++;
+        }
+    }
+    public boolean isOrganizerOfEvent(User organizer){
+        for (Event i :
+                Events) {
+            if (i.Organizer.equals(organizer)) {
+                return true;
+            }
+            }
+        return false;
+    }
+
+    public void displayEventsForOrganizer(User currentUser) {
+        int index = 1;
+        for (Event i:
+                Events) {
+            if (i.Organizer.equals(currentUser)){
+                LOGGER.info("Event No. " + index);
+                i.printEventDetails();
+            }
             index++;
         }
     }

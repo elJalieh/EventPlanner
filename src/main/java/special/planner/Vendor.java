@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class Vendor {
+    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+
     String email;
     String password;
     String Category;
@@ -31,6 +33,9 @@ public class Vendor {
         this.Booker = Booker;
         this.Availability = false;
     }
+    public String getContractDescription(){
+        return this.contractDescription;
+    }
 
     public void setAvailability(boolean availability) {
         Availability = availability;
@@ -41,12 +46,27 @@ public class Vendor {
     }
 
     public String getPackageName(int packageIndex, User Booker) {
-        return (this.Booker.equals(Booker)) ? Packages.get(packageIndex-1) : "Not Permitted";
+        return (this.Booker.equals(Booker)) ? Packages.get(packageIndex) : "Not Permitted";
 
+    }
+    public String getEmail(){
+        return this.email;
+    }
+    public String getPassword(){
+        return this.password;
     }
 
     public boolean isAvailable() {
         return this.Availability;
+    }
+
+    public void displayPackages() {
+        int index = 1;
+        for (String i :
+                Packages) {
+            LOGGER.info(index +". "+ i + "\n");
+            index++;
+        }
     }
     //    public Vendor(  String Location, String Availability, int Pricing, float Reviews){
 //        this.Location=Location;

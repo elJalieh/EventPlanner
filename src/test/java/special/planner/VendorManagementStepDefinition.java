@@ -32,6 +32,7 @@ public class VendorManagementStepDefinition {
         this.login = login;
         currentUserOrg = new User("hello@email", "123", USER);
         currentUserOrg.setAsOrganizer();
+        currentUserOrg.setBudget(1_000_000);
         vendorByLocation = new Vendor("loc@gmail.com","123", "singers", "salfeet",
                 500, 2, "my price is 1000 brother take it or leave it");
         vendorByLocation.setAvailability(false);
@@ -129,7 +130,6 @@ public class VendorManagementStepDefinition {
     public void iAcceptTheContract() {
         // Write code here that turns the phrase above into concrete actions
         currentUserOrg.linkWithVendor( vendorPackage);
-
     }
     @When("I have booked the vendor")
     public void iHaveBookedTheVendor() {
@@ -141,12 +141,14 @@ public class VendorManagementStepDefinition {
     public void iRequestAPackageFromTheVendorForAnEvent(int packageIndex) {
         // Write code here that turns the phrase above into concrete actions
         associatedEvent.setPackage(vendorPackage.getPackageName(packageIndex, currentUserOrg));
+        associatedEvent.setVendor(vendorPackage);
     }
     @Then("the vendor with his packets will be booked by me")
     public void thePacketWillBeBookedForMe() {
         // Write code here that turns the phrase above into concrete actions
         assertEquals(vendorPackage.Booker.email, currentUserOrg.email);
-        assertEquals(associatedEvent.Package, vendorPackage.Packages.get(2-1));
+        assertEquals(associatedEvent.Package, vendorPackage.Packages.get(2));
+       assertEquals(associatedEvent.eventVendor, vendorPackage);
     }
 
 

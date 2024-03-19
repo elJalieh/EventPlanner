@@ -87,6 +87,16 @@ public class Login {
         }
         return false;
     }
+    public boolean vendorExists(String email){
+        for (Vendor i :
+                vendors) {
+            if (i.getEmail().equals(email) ) {
+                return true;
+            }
+
+        }
+        return false;
+    }
     public User getCurrentUser(String email, String password){
         if(email.isEmpty() || password.isEmpty()) return null;
         for (User i :
@@ -129,9 +139,9 @@ public class Login {
 //        return null;
 //    }
 
-    public void addServiceProvider(String email, String password) {
-        User newUser = new User(email, password, serviceProvider);
-        users.add(newUser);
+    public void addServiceProvider(String email, String password,String Category, String Location, int Pricing, int Reviews, String contractDescription){
+        Vendor newVendor = new Vendor(email, password, Category, Location, Pricing, Reviews, contractDescription);
+        vendors.add(newVendor);
     }
 
     public void removeVendor(Vendor V){
@@ -142,11 +152,12 @@ public class Login {
         int toRemove = -1;
         for (User i: users){
             if(i.email.equals(email)){
-                toRemove++;
+                toRemove = users.indexOf(i);
+                break;
             }
-
         }
-        users.remove(toRemove);}
+        users.remove(toRemove);
+    }
 
     public void addVendor(Vendor vendor) {
         vendors.add(vendor);

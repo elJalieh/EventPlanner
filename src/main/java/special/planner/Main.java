@@ -4,12 +4,15 @@ import java.util.logging.*;
 
 public class Main {
     static User currentUser;
+    static Vendor currentVendor;
     static EventManagement eventManager;
     static VenueManagement venueManager;
     static Scanner scanner = new Scanner(System.in);
    static Login login = new Login();
     public static final String ADMIN = "Admin";
     public static final String USER = "User";
+    public static final int USER_TYPE = 1;
+    public static final int VENDOR_TYPE = 2;
     public static final String SERVICE_PROVIDER = "Service Provider";
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
     public static void main(String[] args) {
@@ -56,7 +59,10 @@ public class Main {
 
     private static void userScreen() {
         LOGGER.info("user screen\n");
-        LOGGER.info("please enter your choice\n1. manage events\n2. register in an event\n3. logout\n4. exit");
+        LOGGER.info("please enter your choice" +
+                "\n1. manage events" +
+                "\n2. register in" +
+                " an event\n3. logout\n4. exit");
         int choice = scanner.nextInt();
         scanner.nextLine();
         switch (choice) {
@@ -78,6 +84,7 @@ public class Main {
             userScreen();
         }
         venueManager.Venues.get(venueNo-1).setAssociatedEvent(eventManager.Events.get(eventManager.Events.size()-1));
+        eventManager.Events.get(eventManager.Events.size()-1).setAssociatedVenue(venueManager.Venues.get(venueNo-1));
     }
 
     private static void registerInEvent() {
@@ -97,7 +104,15 @@ public class Main {
     }
 
     private static void manageEvents() {
-        LOGGER.info("enter your choice of management:\n1. create event\n2. edit event\n3. delete event\n4. display the events\n5. display attendees of an event\n6. go back to user screen\n7. exit");
+        LOGGER.info("enter your choice of management:" +
+                "\n1. create event" +
+                "\n2. edit event" +
+                "\n3. delete event" +
+                "\n4. display the events" +
+                "\n5. display attendees of an event" +
+                "\n6. filter and assign vendors to an event" +
+                "\n7. go back to user screen" +
+                "\n8. exit");
         int choice = scanner.nextInt();
         scanner.nextLine();
         switch (choice) {
@@ -106,13 +121,104 @@ public class Main {
             case 3 -> deleteEvent();
             case 4 -> eventManager.printEvents();
             case 5 -> displayAttendees();
-            case 6 -> userScreen();
-            case 7 -> System.exit(0);
+            case 6 -> assignVendors();
+            case 7 -> userScreen();
+            case 8 -> System.exit(0);
 
             default -> LOGGER.info("Invalid choice! Please try again.");
         }
         userScreen();
     }
+
+    private static void assignVendors() {
+        if(!eventManager.isOrganizerOfEvent(currentUser)){
+            LOGGER.info("you're not an organizer of an event!\n");
+            userScreen();
+        }
+        eventManager.displayEventsForOrganizer(currentUser);
+        LOGGER.info("Enter the event number you want to associate the vendor with\n");
+        int eventNo = scanner.nextInt();
+        scanner.nextLine();
+        if(eventNo > eventManager.Events.size()){
+            LOGGER.info("event number does not exist!");
+            userScreen();
+        }
+        Event associatedEvent = eventManager.Events.get(eventNo-1);
+
+        LOGGER.info("select how to filter vendors: \n"+
+                        "\n1. display all vendors" +
+                        "\n2. display vendors by availability" +
+                        "\n3. display vendors by pricing" +
+                        "\n4. display vendors by location" +
+                        "\n5. display vendors by reviews" +
+                        "\n6. go back to user screen" +
+                        "\n7. exit");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+        switch (choice){
+            case 1 -> login.displayAllVendors();
+            case 2 -> login.displayVendorByAvailability(true);
+            case 3 -> displayByPricing();
+            case 4 -> displayByLocation();
+            case 5 -> displayByReviews();
+            case 6 -> userScreen();
+            case 7 -> System.exit(0);
+            default -> assignVendors();
+        }
+
+        int vendorNo = scanner.nextInt();
+        scanner.nextLine();
+        if(vendorNo > login.getNumberOfVendors()){
+            LOGGER.info("vendor number does not exist!");
+            userScreen();
+        }
+        Vendor selectedVendor = login.vendors.get(vendorNo-1);
+        LOGGER.info(selectedVendor.getContractDescription()+"\n");
+        LOGGER.info("accept contract? y/n\n");
+        String YN = scanner.nextLine();
+        if(YN.equalsIgnoreCase("n")){
+            LOGGER.info("contract failed!");
+            userScreen();
+        }else if(YN.equalsIgnoreCase("Y")) {
+            currentUser.linkWithVendor(selectedVendor);
+            LOGGER.info("linked with vendor successfully!\n");
+            LOGGER.info("enter number of a package:\n");
+            selectedVendor.displayPackages();
+            int packageChoice;
+            while(true) {
+                 packageChoice = scanner.nextInt();
+                scanner.nextLine();
+                if (packageChoice > selectedVendor.Packages.size()) {
+                    LOGGER.info("package number does not exist!, try again.");
+                    continue;
+                }
+                break;
+            }
+            associatedEvent.setPackage(selectedVendor.getPackageName(packageChoice-1, currentUser));
+            associatedEvent.setVendor(selectedVendor);
+            LOGGER.info("package is added to event successfully!\n");
+        }
+        manageEvents();
+
+    }
+
+    private static void displayByReviews() {
+        LOGGER.info("Enter desired review: \n");
+        int review = Integer.parseInt(scanner.nextLine());
+        login.displayVendorByPrice(review);
+    }
+
+    private static void displayByLocation() {
+        LOGGER.info("Enter desired location: \n");
+        login.displayVendorByLocation(scanner.nextLine());
+    }
+
+    private static void displayByPricing() {
+        LOGGER.info("Enter desired price: \n");
+        int price = Integer.parseInt(scanner.nextLine());
+        login.displayVendorByPrice(price);
+    }
+
 
     private static void displayAttendees() {
         LOGGER.info("enter event number: ");
@@ -369,12 +475,20 @@ public class Main {
         String password = scanner.nextLine();
 
         login.initializeUsers();
-        boolean yo = login.isValid(email, password);
-        currentUser = login.getCurrentUser(email, password);
-        if(currentUser != null){
-            LOGGER.info("welcome, " + currentUser.email);
+        int vendorOrUser = login.isValid(email, password);
+        if(vendorOrUser == USER_TYPE) {
+            currentUser = login.getCurrentUser(email, password);
+            if (currentUser != null) {
+                LOGGER.info("welcome, " + currentUser.email);
+            } else LOGGER.info("not welcome");
+        } else if (vendorOrUser == VENDOR_TYPE) {
+            currentVendor = login.getCurrentVendor(email, password);
+            if(currentVendor != null){
+                LOGGER.info("welcome, "+ currentVendor.email);
+            }else LOGGER.info("not welcome vendor!");
+
+
         }
-        else LOGGER.info("not welcome");
 
     }
 }

@@ -105,6 +105,7 @@ public class VenueManagementStepDefinition {
     public void iLinkTheVenueWithTheEvent(String string, String string2) {
         // Write code here that turns the phrase above into concrete actions
         venueToBeAssociated.setAssociatedEvent(associatedEvent);
+        associatedEvent.setAssociatedVenue(venueToBeAssociated);
 
     }
     @Then("the venue {string} should be associated with the event {string} in the system")

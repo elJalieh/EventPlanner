@@ -15,6 +15,8 @@ public class Event {
     int AttendeeCount;
     User Organizer;
     String Package;
+    Vendor eventVendor;
+    Venue eventVenue;
      int id = 0;
     List<User> guestList=new ArrayList<>();
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
@@ -27,6 +29,9 @@ public class Event {
         this.EventTime = Time;
         this.AttendeeCount = AttendeeCount;
         this.Organizer = Organizer;
+        Package = "not set!";
+        eventVendor = null;
+        eventVenue = null;
 
     }
     public void addAttendee(User Attendee){
@@ -63,10 +68,38 @@ public class Event {
     }
 
     public void printEventDetails(){
+        String vendorName;
+        if(this.eventVendor == null){
+            vendorName = "not set!";
+        }
+        else{
+            vendorName = this.eventVendor.email;
+        }
         LOGGER.info("====================================================================================\n"
                 +"event organizer: " + this.Organizer.getEmail()+"\nevent theme: " + this.EventTheme + "\t" + "event description: " + this.EventDescription + "\t" +
-                "event Date: " + this.EventDate + "\n" + "event Time: " + this.EventTime);
+                "event Date: " + this.EventDate + "\n" + "event Time: " + this.EventTime + "\t Associated Vendor: " + vendorName +"\t Associated Package: " + this.Package + "\n");
     }
 
 
+    public void setVendor(Vendor selectedVendor) {
+        this.eventVendor = selectedVendor;
+        this.Organizer.budget -= selectedVendor.Pricing;
+    }
+
+    public void setAssociatedVenue(Venue venueToBeAssociated) {
+        this.eventVenue = venueToBeAssociated;
+        this.Organizer.budget -= venueToBeAssociated.pricing;
+    }
+
+
+    public void printReport(){
+        int total = this.eventVendor.Pricing + this.eventVenue.pricing;
+
+        LOGGER.info("Vendor payment : \t" + this.eventVendor.Pricing + "\n"+
+                    "Venue payment : \t" + this.eventVenue.pricing + "\n"+
+                    "=========================================================\n" +
+                    "Event Total : \t" + total + "\tremaining budget: \t" + this.Organizer.budget+"\n"
+                );
+
+    }
 }

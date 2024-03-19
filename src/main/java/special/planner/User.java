@@ -8,6 +8,7 @@ public class User {
     String type;
     boolean Organizer;
     boolean Admin = false;
+    int budget;
 
 
     public User(String email, String password, String type) {
@@ -67,4 +68,8 @@ public class User {
     public void linkWithVendor( Vendor V) {
         V.setBooker(this);
     }
+    public void setBudget(int budgetValue){
+        this.budget = budgetValue;
+    }
+
 }

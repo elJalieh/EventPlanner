@@ -21,8 +21,21 @@ public class Login {
     public void initializeUsers(){
         User u1=new User("alaraid2003@gmail.com","123", admin);
         User u2=new User("a2y2m2a2n@gmail.com","123", user);
-        Vendor v =new Vendor("a2y2m2a2n@gmail.com","123", "singers", "salfeet",
-        1000, 5, "my price is 1000 brother take it or leave it");
+        Vendor v =new Vendor("v1","123", "singers", "salfeet",
+        1000, 3, "my price is 1000 brother take it or leave it");
+        Vendor v2 =new Vendor("v2","123", "resturants", "Nablus",
+        5000, 4, "my price is 5000 brother take it or leave it");
+        Vendor v3 =new Vendor("v3","123", "cleaners", "betoonia",
+        4000, 5, "my price is 4000 brother take it or leave it");
+        v.addPackage("7afleh");
+        v.addPackage("7aaafleeeeh");
+        v.addPackage("daance");
+        v2.addPackage("cookies");
+        v2.addPackage("catering");
+        v2.addPackage("sharshaf");
+        v3.addPackage("broom");
+        v3.addPackage("water");
+        v3.addPackage("cleaner");
 
         User u3=new User("mo.matar123@gmail.com","123", user);
         User u4=new User("u1","123", user);
@@ -37,21 +50,31 @@ public class Login {
         users.add(u6);
         users.add(u7);
         vendors.add(v);
+        vendors.add(v2);
+        vendors.add(v3);
         logInStatus = false;
         //System.out.println("enter email:");
     }
 
-    public boolean isValid(String email, String password) {
-        if(email.isEmpty() || password.isEmpty()) return false;
+    public int isValid(String email, String password) {
+        if(email.isEmpty() || password.isEmpty()) return 0;
         for (User i :
                 users) {
             if (i.getEmail().equals(email) && i.getPassword().equals(password)) {
                 logInStatus = true;
-                return true;
+                return 1;
             }
 
         }
-        return false;
+        for (Vendor i :
+                vendors) {
+            if (i.getEmail().equals(email) && i.getPassword().equals(password)) {
+                logInStatus = true;
+                return 2;
+            }
+
+        }
+        return 0;
     }
 
     public boolean emailExists(String email){
@@ -68,6 +91,19 @@ public class Login {
         if(email.isEmpty() || password.isEmpty()) return null;
         for (User i :
                 users) {
+            if (i.getEmail().equals(email) && i.getPassword().equals(password)) {
+
+                return i;
+            }
+
+        }
+        return null;
+    }
+
+    public Vendor getCurrentVendor(String email, String password){
+        if(email.isEmpty() || password.isEmpty()) return null;
+        for (Vendor i :
+                vendors) {
             if (i.getEmail().equals(email) && i.getPassword().equals(password)) {
 
                 return i;
@@ -114,6 +150,16 @@ public class Login {
 
     public void addVendor(Vendor vendor) {
         vendors.add(vendor);
+    }
+
+    public void displayAllVendors(){
+        int index = 1;
+        for (Vendor v :
+                vendors) {
+            LOGGER.info(index + ". " + "Vendor email: " + v.email + " location: "+ v.Location + " availability: " + v.Availability +"\n"
+                    + "Review: "+ v.Reviews + " price: " + v.Pricing + "\n");
+            index++;
+        }
     }
 
     public String displayVendorByLocation(String location) {
@@ -175,6 +221,10 @@ public class Login {
                 index++;
         }
         return email;
+    }
+
+    public int getNumberOfVendors(){
+        return this.vendors.size();
     }
 
 

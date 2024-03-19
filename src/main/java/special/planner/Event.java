@@ -82,14 +82,44 @@ public class Event {
 
 
     public void setVendor(Vendor selectedVendor) {
-        this.eventVendor = selectedVendor;
-        this.Organizer.budget -= selectedVendor.Pricing;
+        if (this.eventVendor != null){
+            LOGGER.info("vendor already booked!");
+            return;
+        }
+        else if (this.Organizer.budget >= selectedVendor.Pricing) {
+            this.eventVendor = selectedVendor;
+            this.Organizer.budget -= selectedVendor.Pricing;
+            LOGGER.info("vendor associated successfully!");
+
+        }
+        else{
+            LOGGER.info("Not enough budget!");
+        }
     }
 
     public void setAssociatedVenue(Venue venueToBeAssociated) {
-        this.eventVenue = venueToBeAssociated;
-        this.Organizer.budget -= venueToBeAssociated.pricing;
+        if (this.eventVenue != null){
+            LOGGER.info("venue already booked!");
+        }
+        else if (this.Organizer.budget >= venueToBeAssociated.pricing) {
+            this.eventVenue = venueToBeAssociated;
+            this.Organizer.budget -= venueToBeAssociated.pricing;
+            LOGGER.info("venue associated successfully!");
+        }
+        else{
+            LOGGER.info("Not enough budget!");
+        }
     }
+
+    public void releaseVendor( ){
+        this.eventVendor = null;
+    }
+
+    public void releaseVenue(){
+        this.eventVenue = null;
+    }
+
+
 
 
     public void printReport(){
@@ -101,5 +131,9 @@ public class Event {
                     "Event Total : \t" + total + "\tremaining budget: \t" + this.Organizer.budget+"\n"
                 );
 
+    }
+
+    public void setOrganizer(User Orginizer) {
+        this.Organizer = Orginizer;
     }
 }

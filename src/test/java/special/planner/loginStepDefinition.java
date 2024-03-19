@@ -28,20 +28,18 @@ public class loginStepDefinition {
     @When("the information is valid email is {string} and password is {string}")
     public void theInformationIsValidEmailIsAndPasswordIs(String email, String password) {
         // Write code here that turns the phrase above into concrete actions
-
-        for (User i : login.users) {
-            if (i.getEmail().equals(email) && i.getPassword().equals(password)) {
-                login.logInStatus = true;
-                break;
-            }
+        if(login.isValid(email, password ) == 1 || login.isValid(email, password ) == 2){
+            login.logInStatus = true;
         }
-        assertTrue(login.logInStatus);
+
 
     }
     @Then("user successfully log in")
     public void userSuccessfullyLogIn() {
         // Write code here that turns the phrase above into concrete actions
         //System.out.println("welcome");
+        assertTrue(login.logInStatus);
+
 
     }
 
@@ -51,13 +49,13 @@ public class loginStepDefinition {
         if(login.isValid(email, password ) == 0){
             login.logInStatus = false;
         }
-        assertFalse(login.logInStatus);
 
 
     }
     @Then("user failed in log in")
     public void userFailedInLogIn() {
         // Write code here that turns the phrase above into concrete actions
+        assertFalse(login.logInStatus);
 
     }
 

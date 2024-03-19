@@ -98,7 +98,9 @@ public class VenueManagementStepDefinition {
     @Given("I am an organizer2")
     public void iAmAnOrganizer2() {
         // Write code here that turns the phrase above into concrete actions
+
         currentUserOrg.setAsOrganizer();
+
         assertTrue(currentUserOrg.isOrganizer());
     }
     @When("I link the venue {string} with the event {string}")

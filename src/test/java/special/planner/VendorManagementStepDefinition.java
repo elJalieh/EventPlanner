@@ -32,6 +32,7 @@ public class VendorManagementStepDefinition {
         this.login = login;
         currentUserOrg = new User("hello@email", "123", USER);
         currentUserOrg.setAsOrganizer();
+        currentUserOrg.setBudget(1_000_000);
         vendorByLocation = new Vendor("loc@gmail.com","123", "singers", "salfeet",
                 500, 2, "my price is 1000 brother take it or leave it");
         vendorByLocation.setAvailability(false);

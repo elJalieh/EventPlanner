@@ -21,5 +21,5 @@ Scenario: Don't have enough budget for vendor
   Scenario: I have enough budget
     Given I am an organizer4
     And I have sufficient budget for vendor
-    And I have sufficient budget for venue
+    And I have sufficient budget for venue and vendor
     Then the venue and vendor will be associated with the event

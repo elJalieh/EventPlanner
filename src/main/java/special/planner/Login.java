@@ -20,6 +20,7 @@ public class Login {
 
     public void initializeUsers(){
         User u1=new User("alaraid2003@gmail.com","123", admin);
+        //User u1=new User("a","123", admin);
         User u2=new User("a2y2m2a2n@gmail.com","123", user);
         Vendor v =new Vendor("v1","123", "singers", "salfeet",
         1000, 3, "my price is 1000 brother take it or leave it");

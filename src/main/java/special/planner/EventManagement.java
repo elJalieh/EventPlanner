@@ -32,13 +32,26 @@ public class EventManagement {
         return false;
     }
 
-    public void printEvents() {
+    public void printEventsForOrganizer(User organizer) {
         int index = 1;
 
         for (Event i:
              Events) {
-            LOGGER.info("event no." +index +"\n");
-            i.printEventDetails();
+            if (i.Organizer == organizer) {
+                LOGGER.info("event no." + index + "\n");
+                i.printEventDetails();
+            }
+            index++;
+        }
+    }
+
+    public void printEvents() {
+        int index = 1;
+
+        for (Event i:
+                Events) {
+                LOGGER.info("event no." + index + "\n");
+                i.printEventDetails();
             index++;
         }
     }
@@ -59,6 +72,18 @@ public class EventManagement {
             if (i.Organizer.equals(currentUser)){
                 LOGGER.info("Event No. " + index);
                 i.printEventDetails();
+            }
+            index++;
+        }
+    }
+
+    public void printEventsReports(User currentUser) {
+        int index = 1;
+        for (Event i:
+                Events) {
+            if (i.Organizer.equals(currentUser)){
+                LOGGER.info("Event No. " + index);
+                i.printReport();
             }
             index++;
         }

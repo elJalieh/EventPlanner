@@ -2,6 +2,7 @@ package special.planner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 public class Event {
@@ -80,7 +81,9 @@ public class Event {
                 "event Date: " + this.EventDate + "\n" + "event Time: " + this.EventTime + "\t Associated Vendor: " + vendorName +"\t Associated Package: " + this.Package + "\n");
     }
 
-
+    public boolean isTheOrganizerOfTheEvent(User org){
+        return Objects.equals(this.Organizer, org);
+    }
     public void setVendor(Vendor selectedVendor) {
         if (this.eventVendor != null){
             LOGGER.info("vendor already booked!");
@@ -95,6 +98,9 @@ public class Event {
         else{
             LOGGER.info("Not enough budget!");
         }
+    }
+    public boolean hasVenue(){
+        return this.eventVenue != null;
     }
 
     public void setAssociatedVenue(Venue venueToBeAssociated) {
@@ -135,5 +141,9 @@ public class Event {
 
     public void setOrganizer(User Orginizer) {
         this.Organizer = Orginizer;
+    }
+
+    public boolean hasVendor() {
+        return this.eventVendor != null;
     }
 }

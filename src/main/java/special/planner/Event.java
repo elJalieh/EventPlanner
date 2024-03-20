@@ -129,10 +129,29 @@ public class Event {
 
 
     public void printReport(){
-        int total = this.eventVendor.Pricing + this.eventVenue.pricing;
-
-        LOGGER.info("Vendor payment : \t" + this.eventVendor.Pricing + "\n"+
-                    "Venue payment : \t" + this.eventVenue.pricing + "\n"+
+        int total;
+        String vendorPricing;
+        String venuePricing;
+        if (!this.hasVendor() && this.hasVenue()){
+            venuePricing = String.valueOf(this.eventVenue.pricing);
+            vendorPricing = "N/A";
+             total = this.eventVenue.pricing;
+        } else if (this.hasVendor() && !this.hasVenue()) {
+            venuePricing = "N/A";
+            vendorPricing = String.valueOf(this.eventVendor.Pricing);
+            total = this.eventVendor.Pricing;
+        } else if (this.hasVenue() && this.hasVenue()) {
+            venuePricing = String.valueOf(this.eventVenue.pricing);
+            vendorPricing = String.valueOf(this.eventVendor.Pricing);
+            total = this.eventVendor.Pricing + this.eventVenue.pricing;
+        }
+        else {
+            venuePricing = "N/A";
+            vendorPricing = "N/A";
+            total = 0;
+        }
+        LOGGER.info("Vendor payment : \t" + vendorPricing + "\n"+
+                    "Venue payment : \t" + venuePricing + "\n"+
                     "=========================================================\n" +
                     "Event Total : \t" + total + "\tremaining budget: \t" + this.Organizer.budget+"\n"
                 );

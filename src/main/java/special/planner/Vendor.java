@@ -68,6 +68,22 @@ public class Vendor {
             index++;
         }
     }
+
+    public boolean isPackageInlist(String package0) {
+        return this.Packages.contains(package0);
+    }
+
+    public void deletePackage(String package0) {
+        int toRemove = -1;
+        for (String i: Packages){
+            if(i.equals(package0)){
+                toRemove = Packages.indexOf(i);
+                break;
+            }
+        }
+        Packages.remove(toRemove);
+    }
+
     //    public Vendor(  String Location, String Availability, int Pricing, float Reviews){
 //        this.Location=Location;
 //        this.Availability=Availability;

@@ -129,7 +129,7 @@ public class Main {
         scanner.nextLine();
         if (eventNo > eventManager.Events.size()) {
             LOGGER.info("Number does not exist!");
-            registerInEvent();
+            userScreen();
         }
         eventManager.Events.get(eventNo - 1).addAttendee(currentUser);
         LOGGER.info("Registration successful!");

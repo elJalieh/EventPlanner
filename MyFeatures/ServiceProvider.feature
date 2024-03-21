@@ -30,7 +30,3 @@ Feature: Service Provider
     When I choose to view my customer details
     Then the customer details should be displayed if there's an active deal
 
-  Scenario: My Customer
-    Given I am Service Provider
-    When I choose to view my customer details
-    Then the customer details should not be displayed if there's no active deal

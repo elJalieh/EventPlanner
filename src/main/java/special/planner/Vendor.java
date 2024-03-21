@@ -98,7 +98,7 @@ public class Vendor {
     }
 
     public boolean viewPackages() {
-        for (int i = 0; i < Packages.size(); i++) LOGGER.info(Packages.get(i));
+        for (String aPackage : Packages) LOGGER.info(aPackage);
         return true;
     }
 
@@ -114,7 +114,13 @@ public class Vendor {
         this.vendorEvent = associatedEvent;
     }
 
+    public void releaseEvent() {
+        this.vendorEvent = null;
+    }
 
+    public void setContractDescription(String contractDescription) {
+        this.contractDescription = contractDescription;
+    }
     //    public Vendor(  String Location, String Availability, int Pricing, float Reviews){
 //        this.Location=Location;
 //        this.Availability=Availability;

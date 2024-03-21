@@ -115,6 +115,8 @@ public class ServiceProviderStepDefinition {
     public void theCustomerDetailsShouldNotBeDisplayedIfThereSNoActiveDeal() {
         // Write code here that turns the phrase above into concrete actions
         v.Booker = null;
+        v.releaseEvent();
         assertFalse(v.checkBooker());
+        assertNull(v.vendorEvent);
     }
 }

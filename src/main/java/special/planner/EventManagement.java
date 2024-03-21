@@ -7,6 +7,9 @@ import java.util.logging.Logger;
 public class EventManagement {
 
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+    public static final int DATED = 0;
+    public static final int WITHIN_2_DAYS = 1;
+    public static final int WITHIN_3_OR_MORE = 2;
     public List<Event> Events = new ArrayList<>();
     public void initializer(User currentUser){
         Event e1 = new Event("ee1", "sd", "hello", "hello", "hello", 30, currentUser);
@@ -84,6 +87,30 @@ public class EventManagement {
             if (i.Organizer.equals(currentUser)){
                 LOGGER.info("Event No. " + index);
                 i.printReport();
+            }
+            index++;
+        }
+    }
+
+    public void displayUpComingEvents(User user) {
+        int index = 1;
+        for (Event i:
+                Events) {
+            if (i.guestList.contains(user) && CalendarUtil.eventDateType(i.EventDate) != DATED){
+                LOGGER.info("Event No. " + index);
+                i.printEventDetails();
+            }
+            index++;
+        }
+    }
+
+    public void displayEventsWithin2Days(User user) {
+        int index = 1;
+        for (Event i:
+                Events) {
+            if (i.guestList.contains(user) && CalendarUtil.eventDateType(i.EventDate) == WITHIN_2_DAYS){
+                LOGGER.info("Event No. " + index);
+                i.printEventDetails();
             }
             index++;
         }

@@ -11,7 +11,7 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 public class EventManagmentStepDefinition {
-    private final special.planner.EventManagement eventManagement;
+private final special.planner.EventManagement eventManagement;
 User currentUser;
 User attendeeUser1;
 User attendeeUser2;

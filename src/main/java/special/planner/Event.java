@@ -18,7 +18,6 @@ public class Event {
     String Package;
     Vendor eventVendor;
     Venue eventVenue;
-     int id = 0;
     List<User> guestList=new ArrayList<>();
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
@@ -30,6 +29,7 @@ public class Event {
         this.EventTime = Time;
         this.AttendeeCount = AttendeeCount;
         this.Organizer = Organizer;
+        this.guestList.add(Organizer);
         Package = "not set!";
         eventVendor = null;
         eventVenue = null;

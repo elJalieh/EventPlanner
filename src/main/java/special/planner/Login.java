@@ -7,11 +7,9 @@ import java.util.logging.Logger;
 
 public class Login {
     String admin = "Admin";
-    String serviceProvider = "Service Provider";
     String user = "User";
     List<User> users=new ArrayList<>();
     List<Vendor> vendors = new ArrayList<>();
-
     boolean logInStatus;
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
@@ -77,6 +75,13 @@ public class Login {
         }
         return 0;
     }
+    public boolean isLoggedIn(){
+        return this.logInStatus;
+    }
+
+    public void setLogInStatus(boolean logInStatus) {
+        this.logInStatus = logInStatus;
+    }
 
     public boolean emailExists(String email){
         for (User i :
@@ -128,17 +133,7 @@ public class Login {
         User newUser = new User(email, password, user);
         users.add(newUser);
     }
-//    public String getUser(String email, String password){
-//        for (User i :
-//                users) {
-//            if (i.getEmail().equals(email) && i.getPassword().equals(password)) {
-//                logInStatus = true;
-//                return true;
-//            }
-//
-//        }
-//        return null;
-//    }
+
 
     public void addServiceProvider(String email, String password,String Category, String Location, int Pricing, int Reviews, String contractDescription){
         Vendor newVendor = new Vendor(email, password, Category, Location, Pricing, Reviews, contractDescription);

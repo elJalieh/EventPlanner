@@ -11,12 +11,7 @@ public class EventManagement {
     public static final int WITHIN_2_DAYS = 1;
     public static final int WITHIN_3_OR_MORE = 2;
     public List<Event> Events = new ArrayList<>();
-    public void initializer(User currentUser){
-        Event e1 = new Event("ee1", "sd", "hello", "hello", "hello", 30, currentUser);
-        Event e2 = new Event("ee2", "hedfgsdllo", "hello", "hello", "hello", 50, currentUser);
-        Event e3 = new Event("ee3", "hedfgsdllo", "hello", "hello", "hello", 50, currentUser);
 
-    }
     public void addEvent(Event newEvent){
         Events.add(newEvent);
     }
@@ -30,7 +25,6 @@ public class EventManagement {
             if (i.equals(EventSearch) ) {
                 return true;
             }
-
         }
         return false;
     }

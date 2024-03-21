@@ -313,6 +313,7 @@ public class Main {
             }
             associatedEvent.setPackage(selectedVendor.getPackageName(packageChoice - 1, currentUser));
             associatedEvent.setVendor(selectedVendor);
+            selectedVendor.setEvent(associatedEvent);
             LOGGER.info("package is added to event successfully!\n");
         }
         manageEvents();

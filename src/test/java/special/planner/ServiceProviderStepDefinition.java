@@ -14,13 +14,23 @@ public class ServiceProviderStepDefinition {
     private final special.planner.Login login;
     Vendor v ;
     String package0;
+    User u;
+    Event e;
+    int index = -1;
 
     public ServiceProviderStepDefinition(Login login){
         this.login = login;
         v = new Vendor("Ayman","123", "Singer", "Salfit",
                 4000, 5, "my price is 4000 brother take it or leave it");
         v.addPackage("Cristiano Ronaldo");
+        v.addPackage("Siiiuuuuu");
+        v.addPackage("Ankara messi");
+        v.addPackage("Juventus");
 
+        u = new User("u","123", "User");
+        e = new Event("Event", "hhhh", "Nablus", "World Cup", "hello", 50, u);
+
+        e.eventVendor = v;
     }
 
 
@@ -45,12 +55,13 @@ public class ServiceProviderStepDefinition {
     @When("I choose to edit an existing package")
     public void iChooseToEditAnExistingPackage() {
         // Write code here that turns the phrase above into concrete actions
-
+        index = v.getPackageNum("Cristiano Ronaldo");
+        v.Packages.set(index,"Edited Package");
     }
     @Then("the package should be updated in the list")
     public void thePackageShouldBeUpdatedInTheList() {
         // Write code here that turns the phrase above into concrete actions
-
+        assertEquals("Edited Package",v.Packages.get(index));
     }
 
     @When("I choose to delete an existing package")
@@ -68,12 +79,12 @@ public class ServiceProviderStepDefinition {
     @When("I decide to make changes to my contract")
     public void iDecideToMakeChangesToMyContract() {
         // Write code here that turns the phrase above into concrete actions
-
+        v.contractDescription = "New contract";
     }
     @Then("a new contract should be created")
     public void aNewContractShouldBeCreated() {
         // Write code here that turns the phrase above into concrete actions
-
+        assertEquals("New contract",v.contractDescription);
     }
 
     @When("I choose to view my list of packages")
@@ -84,7 +95,7 @@ public class ServiceProviderStepDefinition {
     @Then("a list for my packages will be displayed")
     public void aListForMyPackagesWillBeDisplayed() {
         // Write code here that turns the phrase above into concrete actions
-
+        assertTrue(v.viewPackages());
     }
 
     @When("I choose to view my customer details")
@@ -92,9 +103,18 @@ public class ServiceProviderStepDefinition {
         // Write code here that turns the phrase above into concrete actions
 
     }
-    @Then("the customer details should be displayed")
+    @Then("the customer details should be displayed if there's an active deal")
     public void theCustomerDetailsShouldBeDisplayed() {
         // Write code here that turns the phrase above into concrete actions
-
+        v.Booker = u;
+        e.setVendor(v);
+        v.setEvent(e);
+        assertTrue(v.checkBooker());
+    }
+    @Then("the customer details should not be displayed if there's no active deal")
+    public void theCustomerDetailsShouldNotBeDisplayedIfThereSNoActiveDeal() {
+        // Write code here that turns the phrase above into concrete actions
+        v.Booker = null;
+        assertFalse(v.checkBooker());
     }
 }

@@ -17,6 +17,7 @@ public class Vendor {
     List<String> Packages = new ArrayList<>();
     String contractDescription;
     User Booker;
+    Event vendorEvent;
 
     public Vendor( String email, String password, String Category, String Location,
                     int Pricing, int Reviews, String contractDescription){
@@ -28,6 +29,7 @@ public class Vendor {
         this.Pricing=Pricing;
         this.Reviews=Reviews;
         this.contractDescription = contractDescription;
+        this.vendorEvent=null;
     }
     void setBooker(User Booker){
         this.Booker = Booker;
@@ -83,6 +85,35 @@ public class Vendor {
         }
         Packages.remove(toRemove);
     }
+
+    public int getPackageNum(String search) {
+        int index = -1;
+        for (String i: Packages){
+            if(i.equals(search)){
+                index = Packages.indexOf(i);
+                break;
+            }
+        }
+        return index;
+    }
+
+    public boolean viewPackages() {
+        for (int i = 0; i < Packages.size(); i++) LOGGER.info(Packages.get(i));
+        return true;
+    }
+
+    public Boolean checkBooker() {
+        if(Booker!=null){
+            vendorEvent.printEventDetails();
+            return true;
+        }
+        return false;
+    }
+
+    public void setEvent(Event associatedEvent) {
+        this.vendorEvent = associatedEvent;
+    }
+
 
     //    public Vendor(  String Location, String Availability, int Pricing, float Reviews){
 //        this.Location=Location;

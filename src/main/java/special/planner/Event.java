@@ -140,7 +140,7 @@ public class Event {
             venuePricing = "N/A";
             vendorPricing = String.valueOf(this.eventVendor.Pricing);
             total = this.eventVendor.Pricing;
-        } else if (this.hasVenue() && this.hasVenue()) {
+        } else if (this.hasVendor() && this.hasVenue()) {
             venuePricing = String.valueOf(this.eventVenue.pricing);
             vendorPricing = String.valueOf(this.eventVendor.Pricing);
             total = this.eventVendor.Pricing + this.eventVenue.pricing;

@@ -30,7 +30,8 @@ public class Main {
 
     public static void manageUserRegistration() {
         login.setLogInStatus(false);
-        while (true) {
+        boolean exitLoop = false;
+        while (!exitLoop) {
             LOGGER.info("""
                     Enter your choice:
                     1. Sign Up
@@ -41,7 +42,7 @@ public class Main {
             switch (choice) {
                 case 1 -> signUp();
                 case 2 -> signIn();
-                case 3 -> System.exit(0);
+                case 3 -> exitLoop = true;
                 default -> LOGGER.info("Invalid choice! Please try again.");
             }
             if (login.isLoggedIn()) {

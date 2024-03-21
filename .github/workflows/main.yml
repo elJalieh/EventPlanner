@@ -1,0 +1,47 @@
+name: Our first CI
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build-on-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Step 1 - Checkout main branch from GitHub
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: 21
+
+      - name: Step 3 - Build Maven Project
+        run: mvn --batch-mode clean package -DskipTests
+
+      - name: Step 4 - Run test cases
+        run: mvn --batch-mode -Dmaven.test.failure.ignore=true test
+
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B jacoco:prepare-agent test org.sonarsource.scanner.maven:sonar-maven-plugin:sonar jacoco:report -Dsonar.projectKey=elJalieh_EventPlanner

@@ -17,7 +17,6 @@ public class AdminStepDefinition {
         testUser = new User("Hi", "123", "User");
     }
 
-
     @Given("I logged in as an admin")
     public void iLoggedInAsAnAdmin() {
         // Write code here that turns the phrase above into concrete actions

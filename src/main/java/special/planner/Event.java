@@ -19,7 +19,7 @@ public class Event {
     Vendor eventVendor;
     Venue eventVenue;
     List<User> guestList=new ArrayList<>();
-    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Event.class.getName());
 
     Event(String date, String time,String location, String theme,String description,int attendeeCount, User organizer ){
         this.eventDate = date;

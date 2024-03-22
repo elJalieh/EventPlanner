@@ -188,11 +188,11 @@ public class Main {
         LOGGER.info("Enter venue number to book: ");
         int venueNo = scanner.nextInt();
         scanner.nextLine();
-        if (venueNo > venueManager.Venues.size()) {
+        if (venueNo > venueManager.venues.size()) {
             numberDoesntExistMessage();
             userScreen();
         }
-        Venue pickedVenue = venueManager.Venues.get(venueNo-1);
+        Venue pickedVenue = venueManager.venues.get(venueNo-1);
         if (pickedVenue.booked){
             LOGGER.info("venue is booked!");
             bookVenue();
@@ -212,11 +212,11 @@ public class Main {
         LOGGER.info("Enter event number to register: ");
         int eventNo = scanner.nextInt();
         scanner.nextLine();
-        if (eventNo > eventManager.Events.size()) {
+        if (eventNo > eventManager.events.size()) {
             numberDoesntExistMessage();
             userScreen();
         }
-        eventManager.Events.get(eventNo - 1).addAttendee(currentUser);
+        eventManager.events.get(eventNo - 1).addAttendee(currentUser);
         LOGGER.info("Registration successful!");
         userScreen();
 
@@ -307,11 +307,11 @@ public class Main {
     private static Event selectEvent() {
         int eventNo = scanner.nextInt();
         scanner.nextLine();
-        if (eventNo > eventManager.Events.size()) {
+        if (eventNo > eventManager.events.size()) {
             LOGGER.info("Event number does not exist!");
             userScreen();
         }
-        return eventManager.Events.get(eventNo - 1);
+        return eventManager.events.get(eventNo - 1);
     }
 
     private static void isOrganizerEventAndHasVendor(Event associatedEvent){
@@ -593,12 +593,12 @@ public class Main {
         LOGGER.info("Enter venue number: ");
         int venueNo = scanner.nextInt();
         scanner.nextLine();
-        if (venueNo > venueManager.Venues.size()) {
+        if (venueNo > venueManager.venues.size()) {
             numberDoesntExistMessage();
             manageVenues();
         }
-        if (venueManager.Venues.get(venueNo - 1).associatedEvent != null)
-            venueManager.Venues.get(venueNo - 1).associatedEvent.printEventDetails();
+        if (venueManager.venues.get(venueNo - 1).associatedEvent != null)
+            venueManager.venues.get(venueNo - 1).associatedEvent.printEventDetails();
         else {
             LOGGER.info("Venue is not booked!");
         }
@@ -614,11 +614,11 @@ public class Main {
         LOGGER.info("Enter venue number to delete: ");
         int venueNo = scanner.nextInt();
         scanner.nextLine();
-        if (venueNo > venueManager.Venues.size()) {
+        if (venueNo > venueManager.venues.size()) {
             numberDoesntExistMessage();
             manageVenues();
         }
-        venueManager.deleteVenue(venueManager.Venues.get(venueNo - 1));
+        venueManager.deleteVenue(venueManager.venues.get(venueNo - 1));
         LOGGER.info("Venue deleted successfully!");
 
     }
@@ -627,7 +627,7 @@ public class Main {
         LOGGER.info("Enter venue number you want to edit: ");
         int venueNo = scanner.nextInt();
         scanner.nextLine();
-        if (venueNo > venueManager.Venues.size()) {
+        if (venueNo > venueManager.venues.size()) {
             numberDoesntExistMessage();
             editVenue();
         }
@@ -645,7 +645,7 @@ public class Main {
         String pricingStr = scanner.nextLine();
         int pricing = Integer.parseInt(pricingStr);
 
-        venueManager.Venues.get(venueNo - 1).editVenue(Name, capacity, amenities, pricing);
+        venueManager.venues.get(venueNo - 1).editVenue(Name, capacity, amenities, pricing);
         LOGGER.info("Venue updated successfully!\n");
         manageVenues();
     }
@@ -653,7 +653,7 @@ public class Main {
     private static void addVenue() {
         //String venueName, int capacity, String amenities, int pricing
         LOGGER.info("Enter the Name: ");
-        String Name = scanner.nextLine();
+        String name = scanner.nextLine();
 
         LOGGER.info("Enter the Capacity: ");
         String capacityStr = scanner.nextLine();
@@ -665,7 +665,7 @@ public class Main {
         String pricingStr = scanner.nextLine();
         int pricing = Integer.parseInt(pricingStr);
 
-        venueManager.addVenue(new Venue(Name, capacity, amenities, pricing));
+        venueManager.addVenue(new Venue(name, capacity, amenities, pricing));
         LOGGER.info("Venue added successfully!\n");
         manageVenues();
     }

@@ -6,22 +6,22 @@ import java.util.logging.Logger;
 
 public class EventManagement {
 
-    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(EventManagement.class.getName());
     public static final int DATED = 0;
     public static final int WITHIN_2_DAYS = 1;
-    public List<Event> Events = new ArrayList<>();
+    public List<Event> events = new ArrayList<>();
 
     public void addEvent(Event newEvent){
-        Events.add(newEvent);
+        events.add(newEvent);
     }
     public void deleteEvent(Event deleteEvent){
-        Events.remove(deleteEvent);
+        events.remove(deleteEvent);
     }
 
-    public boolean isEventInList(Event EventSearch){
+    public boolean isEventInList(Event eventSearch){
         for (Event i :
-                Events) {
-            if (i.equals(EventSearch) ) {
+                events) {
+            if (i.equals(eventSearch) ) {
                 return true;
             }
         }
@@ -32,7 +32,7 @@ public class EventManagement {
         int index = 1;
 
         for (Event i:
-             Events) {
+             events) {
             if (i.organizer == organizer) {
                 LOGGER.info("Event no." + index + "\n");
                 i.printEventDetails();
@@ -44,7 +44,7 @@ public class EventManagement {
     public void printEvents() {
         int index = 1;
         for (Event i:
-                Events) {
+                events) {
                 LOGGER.info("Event no." + index + "\n");
                 i.printEventDetails();
             index++;
@@ -52,7 +52,7 @@ public class EventManagement {
     }
     public boolean isOrganizerOfEvent(User organizer){
         for (Event i :
-                Events) {
+                events) {
             if (i.organizer.equals(organizer)) {
                 return true;
             }
@@ -63,7 +63,7 @@ public class EventManagement {
     public void displayEventsForOrganizer(User currentUser) {
         int index = 1;
         for (Event i:
-                Events) {
+                events) {
             if (i.organizer.equals(currentUser)){
                 printEventNum(index);
                 i.printEventDetails();
@@ -75,7 +75,7 @@ public class EventManagement {
     public void printEventsReports(User currentUser) {
         int index = 1;
         for (Event i:
-                Events) {
+                events) {
             if (i.organizer.equals(currentUser)){
                 printEventNum(index);
                 i.printReport();
@@ -87,7 +87,7 @@ public class EventManagement {
     public void displayUpComingEvents(User user) {
         int index = 1;
         for (Event i:
-                Events) {
+                events) {
             if (i.guestList.contains(user) && CalendarUtil.eventDateType(i.eventDate) != DATED){
                 printEventNum(index);
                 i.printEventDetails();
@@ -99,7 +99,7 @@ public class EventManagement {
     public void displayEventsWithin2Days(User user) {
         int index = 1;
         for (Event i:
-                Events) {
+                events) {
             if (i.guestList.contains(user) && CalendarUtil.eventDateType(i.eventDate) == WITHIN_2_DAYS){
                 printEventNum(index);
                 i.printEventDetails();

@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class Vendor {
-    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
-
+    private static final Logger LOGGER = Logger.getLogger(Vendor.class.getName());
     String email;
     String password;
     String category;
@@ -19,15 +18,15 @@ public class Vendor {
     User booker;
     Event vendorEvent;
 
-    public Vendor( String email, String password, String Category, String Location,
-                    int Pricing, int Reviews, String contractDescription){
+    public Vendor( String email, String password, String category, String location,
+                    int pricing, int reviews, String contractDescription){
         this.email = email;
         this.password = password;
-        this.category=Category;
-        this.location=Location;
+        this.category=category;
+        this.location=location;
         this.availability=true;
-        this.pricing=Pricing;
-        this.reviews=Reviews;
+        this.pricing=pricing;
+        this.reviews=reviews;
         this.contractDescription = contractDescription;
         this.vendorEvent=null;
     }
@@ -47,8 +46,8 @@ public class Vendor {
         vendorPackages.add(p);
     }
 
-    public String getPackageName(int packageIndex, User Booker) {
-        return (this.booker.equals(Booker)) ? vendorPackages.get(packageIndex) : "Not Permitted";
+    public String getPackageName(int packageIndex, User booker) {
+        return (this.booker.equals(booker)) ? vendorPackages.get(packageIndex) : "Not Permitted";
 
     }
     public String getEmail(){

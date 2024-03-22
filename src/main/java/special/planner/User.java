@@ -48,8 +48,8 @@ public class User {
     }
     public void setAsAdmin(){this.admin = true;}
 
-    public void linkWithVendor( Vendor V) {
-        V.setBooker(this);
+    public void linkWithVendor( Vendor v) {
+        v.setBooker(this);
     }
     public void setBudget(int budgetValue){
         this.budget = budgetValue;

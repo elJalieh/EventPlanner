@@ -3,7 +3,7 @@ import io.cucumber.java.en.*;
 import static org.junit.Assert.*;
 
 public class VendorManagementStepDefinition {
-    public static final String user = "User";
+    public static final String USER = "User";
     private final Login login;
     Vendor vendorByLocation;
     Vendor vendorByPrice;
@@ -18,7 +18,7 @@ public class VendorManagementStepDefinition {
 
     public VendorManagementStepDefinition(Login login) {
         this.login = login;
-        currentUserOrg = new User("hello@email", "123", user);
+        currentUserOrg = new User("hello@email", "123", USER);
         currentUserOrg.setAsOrganizer();
         currentUserOrg.setBudget(1_000_000);
         vendorByLocation = new Vendor("loc@gmail.com","123", "singers", "salfeet",

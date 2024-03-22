@@ -1,9 +1,6 @@
 package special.planner;
 
 import java.util.logging.Logger;
-
-//| Venue Name       | Capacity              | Amenities                               | Pricing     |
-//      | Grand Banquet Hall | 100      | Parking, Wi-Fi, Catering, AV Equipment | $5000/day   |
 public class Venue {
     String venueName;
     int capacity;
@@ -11,7 +8,7 @@ public class Venue {
     int pricing;
     Event associatedEvent;
     boolean booked;
-    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Venue.class.getName());
 
     Venue(String venueName, int capacity, String amenities, int pricing){
         this.venueName = venueName;

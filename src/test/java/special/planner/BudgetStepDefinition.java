@@ -2,7 +2,7 @@ package special.planner;
 import io.cucumber.java.en.*;
 import static org.junit.Assert.*;
 public class BudgetStepDefinition {
-    User haveBudgetOrginizer;
+    User haveBudgetOrganizer;
     User doesntHaveBudgetOrganizer;
     Event budgetEvent;
     Event nobudgetEvent;
@@ -12,13 +12,13 @@ public class BudgetStepDefinition {
     public static final String USER = "User";
 
     public BudgetStepDefinition(){
-        haveBudgetOrginizer = new User("hello@email", "123", USER);
+        haveBudgetOrganizer = new User("hello@email", "123", USER);
         doesntHaveBudgetOrganizer = new User("hello@email", "123", USER);
-        haveBudgetOrginizer.setAsOrganizer();
+        haveBudgetOrganizer.setAsOrganizer();
         doesntHaveBudgetOrganizer.setAsOrganizer();
-        haveBudgetOrginizer.setBudget(10_000);
+        haveBudgetOrganizer.setBudget(10_000);
         doesntHaveBudgetOrganizer.setBudget(2_000);
-        budgetEvent = new Event("hello", "hello", "hello", "hello", "hello", 10, haveBudgetOrginizer);
+        budgetEvent = new Event("hello", "hello", "hello", "hello", "hello", 10, haveBudgetOrganizer);
         nobudgetEvent = new Event("hsdello", "2hello", "2hello", "2hello", "2hello", 12, doesntHaveBudgetOrganizer);
         associatedVendor = new Vendor("loc@gmail.com","123", "singers", "salfeet",
                 3000, 2, "my price is 1000 brother take it or leave it");
@@ -30,7 +30,7 @@ public class BudgetStepDefinition {
     @Given("I am an organizer4")
     public void iAmAnOrganizer4() {
         // Write code here that turns the phrase above into concrete actions
-        assertTrue(haveBudgetOrginizer.isOrganizer());
+        assertTrue(haveBudgetOrganizer.isOrganizer());
         budgetEvent.setAssociatedVenue(associatedVenue);
         budgetEvent.setVendor(associatedVendor);
 
@@ -45,8 +45,8 @@ public class BudgetStepDefinition {
     @Then("the system should display a report with all the venues and the vendors associated with the event and the remaining budget")
     public void theSystemShouldDisplayAReportWithAllTheVenuesAndTheVendorsAssociatedWithTheEvent() {
         // Write code here that turns the phrase above into concrete actions
-        assertEquals(this.haveBudgetOrginizer.budget, 2_000);
-        eventManagement.printEventsReports(haveBudgetOrginizer);
+        assertEquals(2_000, this.haveBudgetOrganizer.budget);
+        eventManagement.printEventsReports(haveBudgetOrganizer);
     }
 
     @Given("I don't have a sufficient budget for venue")
@@ -67,7 +67,7 @@ public class BudgetStepDefinition {
     @Then("the venue won't be associated with the event")
     public void theVenueWonTBeAssociatedWithTheEvent() {
         // Write code here that turns the phrase above into concrete actions
-        assertEquals(doesntHaveBudgetOrganizer.budget, 1_000);
+        assertEquals(1_000, doesntHaveBudgetOrganizer.budget);
 
     }
 
@@ -88,22 +88,22 @@ public class BudgetStepDefinition {
     @Then("the vendor won't be associated with the event")
     public void theVendorWonTBeAssociatedWithTheEvent() {
         // Write code here that turns the phrase above into concrete actions
-        assertEquals(doesntHaveBudgetOrganizer.budget, 1_500);
+        assertEquals(1_500, doesntHaveBudgetOrganizer.budget);
 
     }
 
     @Given("I have sufficient budget for vendor")
     public void iHaveSufficientBudgetForVendor() {
         // Write code here that turns the phrase above into concrete actions
-        haveBudgetOrginizer.setBudget(1_000_000);
-        budgetEvent.setOrganizer(haveBudgetOrginizer);
+        haveBudgetOrganizer.setBudget(1_000_000);
+        budgetEvent.setOrganizer(haveBudgetOrganizer);
         budgetEvent.releaseVenue();
         budgetEvent.releaseVendor();
     }
     @Given("I have sufficient budget for venue and vendor")
     public void iHaveSufficientBudgetForVenue() {
         // Write code here that turns the phrase above into concrete actions
-        assertTrue(haveBudgetOrginizer.budget >= (associatedVendor.pricing+associatedVenue.pricing));
+        assertTrue(haveBudgetOrganizer.budget >= (associatedVendor.pricing+associatedVenue.pricing));
     }
     @Then("the venue and vendor will be associated with the event")
     public void theVenueAndVendorWillBeAssociatedWithTheEvent() {
@@ -112,7 +112,4 @@ public class BudgetStepDefinition {
         budgetEvent.setAssociatedVenue(associatedVenue);
         budgetEvent.printReport();
     }
-
-
-
 }

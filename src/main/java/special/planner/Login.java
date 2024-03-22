@@ -11,11 +11,11 @@ public class Login {
     List<User> users=new ArrayList<>();
     List<Vendor> vendors = new ArrayList<>();
     boolean logInStatus;
-    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Login.class.getName());
 
     public void initializeUsers(){
+        User a=new User("a","123", admin);
         User u1=new User("alaraid2003@gmail.com","123", admin);
-        //User u1=new User("a","123", admin);
         User u2=new User("a2y2m2a2n@gmail.com","123", user);
         Vendor v =new Vendor("v1","123", "singers", "Salfit",
         1000, 3, "my price is 1000 brother take it or leave it");
@@ -45,11 +45,11 @@ public class Login {
         users.add(u5);
         users.add(u6);
         users.add(u7);
+        users.add(a);
         vendors.add(v);
         vendors.add(v2);
         vendors.add(v3);
         logInStatus = false;
-        //System.out.println("enter email:");
     }
 
     public int isValid(String email, String password) {
@@ -132,8 +132,8 @@ public class Login {
     }
 
 
-    public void addServiceProvider(String email, String password,String Category, String Location, int Pricing, int Reviews, String contractDescription){
-        Vendor newVendor = new Vendor(email, password, Category, Location, Pricing, Reviews, contractDescription);
+    public void addServiceProvider(String email, String password,String category, String location, int pricing, int reviews, String contractDescription){
+        Vendor newVendor = new Vendor(email, password, category, location, pricing, reviews, contractDescription);
         vendors.add(newVendor);
     }
 

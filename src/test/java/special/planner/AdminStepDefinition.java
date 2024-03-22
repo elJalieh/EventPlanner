@@ -22,7 +22,7 @@ public class AdminStepDefinition {
     public void iLoggedInAsAnAdmin() {
         // Write code here that turns the phrase above into concrete actions
         currentUser.setAsAdmin();
-        assertTrue(currentUser.Admin);
+        assertTrue(currentUser.admin);
     }
     @When("I create an account with {string}, {string}, {string}, {string}, {string}, {string}, {string}, and {string} as the following for a new service provider")
     public void iCreateAnAccountWithAndAsTheFollowing(String email, String password,String Location, String Category, String Availability, String Pricing, String Reviews, String contractDescription, io.cucumber.datatable.DataTable dataTable) {

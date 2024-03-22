@@ -81,8 +81,8 @@ public class Event {
                 "event Date: " + this.eventDate + "\n" + "event Time: " + this.eventTime + "\t Associated Vendor: " + vendorName +"\t Associated Package: " + this.vendorPackages + "\n");
     }
 
-    public boolean isTheOrganizerOfTheEvent(User org){
-        return Objects.equals(this.organizer, org);
+    public boolean isNotTheOrganizerOfTheEvent(User org){
+        return !Objects.equals(this.organizer, org);
     }
     public void setVendor(Vendor selectedVendor) {
         if (this.eventVendor != null){

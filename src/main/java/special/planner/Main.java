@@ -14,7 +14,7 @@ public class Main {
     public static final String USER = "User";
     private static final String INVALID_CHOICE_MESSAGE = "Invalid choice! Please try again.";
     public static final int USER_TYPE = 1;
-    public static int whichType = 0;
+    static int whichType = 0;
     public static final int VENDOR_TYPE = 2;
     public static final int NOT_VALID = 0;
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
@@ -37,8 +37,7 @@ public class Main {
 
     public static void manageUserRegistration() {
         login.setLogInStatus(false);
-        boolean exitLoop = false;
-        while (!exitLoop) {
+        while (true) {
             LOGGER.info("""
                     Enter your choice:
                     1. Sign Up
@@ -49,7 +48,7 @@ public class Main {
             switch (choice) {
                 case 1 -> signUp();
                 case 2 -> signIn();
-                case 3 -> exitLoop = true;
+                case 3 -> System.exit(0);
                 default -> LOGGER.info(INVALID_CHOICE_MESSAGE);
             }
             if (login.isLoggedIn()) {
@@ -181,7 +180,7 @@ public class Main {
         eventManager.printEventsForOrganizer(currentUser);
         LOGGER.info("Enter event number to book a venue for: ");
         Event pickedEvent = selectEvent();
-        if(!pickedEvent.isTheOrganizerOfTheEvent(currentUser)){
+        if(pickedEvent.isNotTheOrganizerOfTheEvent(currentUser)){
             printNotOrganizer();
             manageEvents();
         }
@@ -288,7 +287,7 @@ public class Main {
         eventManager.printEventsForOrganizer(currentUser);
         LOGGER.info("Enter event number to release the " + resourceName + " for: ");
         Event pickedEvent = selectEvent();
-        if (!pickedEvent.isTheOrganizerOfTheEvent(currentUser)) {
+        if (pickedEvent.isNotTheOrganizerOfTheEvent(currentUser)) {
             printNotOrganizer();
             manageEvents();
         }
@@ -321,7 +320,7 @@ public class Main {
     }
 
     private static void isOrganizerEventAndHasVendor(Event associatedEvent){
-        if (!associatedEvent.isTheOrganizerOfTheEvent(currentUser)){
+        if (associatedEvent.isNotTheOrganizerOfTheEvent(currentUser)){
             printNotOrganizer();
             assignVendors();
         }
@@ -403,13 +402,11 @@ public class Main {
         while (true) {
             packageChoice = scanner.nextInt();
             scanner.nextLine();
-            if (packageChoice > selectedVendor.vendorPackages.size()) {
-                LOGGER.info("Package number does not exist!, try again.");
-                continue;
+            if (packageChoice <= selectedVendor.vendorPackages.size()) {
+                return packageChoice;
             }
-            break;
+            LOGGER.info("Package number does not exist!, try again.");
         }
-        return packageChoice;
     }
 
     private static void displayByReviews() {
@@ -440,7 +437,7 @@ public class Main {
         eventManager.printEventsForOrganizer(currentUser);
         LOGGER.info("Enter event number you want to delete: ");
         Event pickedEvent = selectEvent();
-        if (!pickedEvent.isTheOrganizerOfTheEvent(currentUser)){
+        if (pickedEvent.isNotTheOrganizerOfTheEvent(currentUser)){
             printNotOrganizer();
             manageEvents();
         }
@@ -456,7 +453,7 @@ public class Main {
         eventManager.printEventsForOrganizer(currentUser);
         LOGGER.info("Enter event number: ");
         Event pickedEvent = selectEvent();
-        if (!pickedEvent.isTheOrganizerOfTheEvent(currentUser)){
+        if (pickedEvent.isNotTheOrganizerOfTheEvent(currentUser)){
             printNotOrganizer();
             editEvent();
         }

@@ -60,21 +60,20 @@ public class VenueManagementStepDefinition {
         List<Map<String, String>> data = dataTable.asMaps(String.class, String.class);
 
         // Assuming you have getters for these properties in your Event class
-         newVenueName = data.get(0).get("Venue Name");
-         newCapacity = Integer.parseInt(data.get(0).get("Capacity"));
-         newAmenities = data.get(0).get("Amenities");
-         newPricing = Integer.parseInt(data.get(0).get("Pricing"));
+         newVenueName = data.getFirst().get("Venue Name");
+         newCapacity = Integer.parseInt(data.getFirst().get("Capacity"));
+         newAmenities = data.getFirst().get("Amenities");
+         newPricing = Integer.parseInt(data.getFirst().get("Pricing"));
 
         venueToBeEdited.editVenue(newVenueName, newCapacity, newAmenities, newPricing);
     }
     @Then("the details for the venue {string} should be updated in the venue list")
     public void theDetailsForTheVenueShouldBeUpdatedInTheVenueList(String string) {
         // Write code here that turns the phrase above into concrete actions
-        if(venueToBeEdited.venueName.equals(newVenueName) && venueToBeEdited.amenities.equals(newAmenities)
-                && (venueToBeEdited.capacity == newCapacity) && (venueToBeEdited.pricing == newPricing)){
-
+        if(!(venueToBeEdited.venueName.equals(newVenueName) && venueToBeEdited.amenities.equals(newAmenities)
+                && (venueToBeEdited.capacity == newCapacity) && (venueToBeEdited.pricing == newPricing))){
+            fail();
         }
-        else fail();
     }
 
     @When("I delete the venue {string}")

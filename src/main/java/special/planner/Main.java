@@ -333,6 +333,7 @@ public class Main {
         Event pickedEvent = eventManager.Events.get(eventNo-1);
         if(!pickedEvent.isTheOrganizerOfTheEvent(currentUser)){
             LOGGER.info("you're not the organizer of the event!");
+
             manageEvents();
         }
         if (pickedEvent.hasVenue()){

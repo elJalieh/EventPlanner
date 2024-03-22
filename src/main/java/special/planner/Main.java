@@ -48,7 +48,9 @@ public class Main {
             switch (choice) {
                 case 1 -> signUp();
                 case 2 -> signIn();
-                case 3 -> System.exit(0);
+                case 3 -> {
+                    return;
+                }
                 default -> LOGGER.info(INVALID_CHOICE_MESSAGE);
             }
             if (login.isLoggedIn()) {

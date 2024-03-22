@@ -82,7 +82,7 @@ public class Main {
             case 6 -> showCostumerDetails();
             case 7 -> manageUserRegistration();
             case 8 -> System.exit(0);
-            default -> LOGGER.info("invalid choice!");
+            default -> LOGGER.info("Invalid choice!");
         }
         serviceProviderScreen();
 
@@ -115,14 +115,13 @@ public class Main {
         serviceProviderScreen();
     }
 
-
     private static void alterPackage(String alterationType) {
         if(currentVendor.Packages.isEmpty()){
-            LOGGER.info("add a package first to " + alterationType);
+            LOGGER.info("Add a package first to " + alterationType);
             serviceProviderScreen();
         }
         currentVendor.displayPackages();
-        LOGGER.info("enter package number you want to" + alterationType);
+        LOGGER.info("Enter package number you want to" + alterationType);
         int packageNo = scanner.nextInt();
         scanner.nextLine();
         if (packageNo > currentVendor.Packages.size()) {
@@ -136,10 +135,9 @@ public class Main {
             String editedPackage = scanner.nextLine();
             currentVendor.Packages.set(packageNo-1, editedPackage);
         }
-        LOGGER.info("package " + alterationType +"ed successfully!");
+        LOGGER.info("Package " + alterationType +"ed successfully!");
         serviceProviderScreen();
     }
-
 
     private static void addPackage() {
         LOGGER.info("enter package you want to add:\n");
@@ -303,11 +301,11 @@ public class Main {
         }
         if (resourceName.equals("venue") && pickedEvent.hasVenue()) {
             pickedEvent.releaseVenue();
-            LOGGER.info("the " + resourceName + " was released successfully!");
+            LOGGER.info("The " + resourceName + " was released successfully!");
         } else if (resourceName.equals("vendor") && pickedEvent.hasVenue()) {
             pickedEvent.eventVendor.releaseEvent();
             pickedEvent.releaseVendor();
-            LOGGER.info("the " + resourceName + " was released successfully!");
+            LOGGER.info("The " + resourceName + " was released successfully!");
         }
         manageEvents();
     }

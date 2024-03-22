@@ -12,6 +12,7 @@ public class Main {
     static Login login = new Login();
     public static final String ADMIN = "Admin";
     public static final String USER = "User";
+    private static final String INVALID_CHOICE_MESSAGE = "Invalid choice! Please try again.";
     public static final int USER_TYPE = 1;
     public static int whichType = 0;
     public static final int VENDOR_TYPE = 2;
@@ -43,7 +44,7 @@ public class Main {
                 case 1 -> signUp();
                 case 2 -> signIn();
                 case 3 -> exitLoop = true;
-                default -> LOGGER.info("Invalid choice! Please try again.");
+                default -> LOGGER.info(INVALID_CHOICE_MESSAGE);
             }
             if (login.isLoggedIn()) {
                 if(whichType == USER_TYPE) {
@@ -169,7 +170,7 @@ public class Main {
             case 2 -> registerInEvent();
             case 3 -> manageUserRegistration();
             case 4 -> System.exit(0);
-            default -> LOGGER.info("Invalid choice! Please try again.");
+            default -> LOGGER.info(INVALID_CHOICE_MESSAGE);
         }
         userScreen();
     }
@@ -177,13 +178,7 @@ public class Main {
     private static void bookVenue() {
         eventManager.printEventsForOrganizer(currentUser);
         LOGGER.info("Enter event number to book a venue for: ");
-        int eventNo = scanner.nextInt();
-        scanner.nextLine();
-        if (eventNo > eventManager.Events.size()) {
-            numberDoesntExistMessage();
-            manageEvents();
-        }
-        Event pickedEvent = eventManager.Events.get(eventNo-1);
+        Event pickedEvent = selectEvent();
         if(!pickedEvent.isTheOrganizerOfTheEvent(currentUser)){
             LOGGER.info("you're not the organizer of the event!");
             manageEvents();
@@ -219,13 +214,7 @@ public class Main {
     private static void registerInEvent() {
         eventManager.printEvents();
         LOGGER.info("Enter event number to register: ");
-        int eventNo = scanner.nextInt();
-        scanner.nextLine();
-        if (eventNo > eventManager.Events.size()) {
-            numberDoesntExistMessage();
-            userScreen();
-        }
-        eventManager.Events.get(eventNo - 1).addAttendee(currentUser);
+        selectEvent().addAttendee(currentUser);
         LOGGER.info("Registration successful!");
         userScreen();
 
@@ -269,7 +258,7 @@ public class Main {
             case 14 -> displayNearEvents();
             case 15 -> System.exit(0);
 
-            default -> LOGGER.info("Invalid choice! Please try again.");
+            default -> LOGGER.info(INVALID_CHOICE_MESSAGE);
         }
         userScreen();
     }
@@ -290,13 +279,7 @@ public class Main {
     private static void releaseResource(String resourceName) {
         eventManager.printEventsForOrganizer(currentUser);
         LOGGER.info("Enter event number to release the " + resourceName + " for: ");
-        int eventNo = scanner.nextInt();
-        scanner.nextLine();
-        if (eventNo > eventManager.Events.size()) {
-            numberDoesntExistMessage();
-            manageEvents();
-        }
-        Event pickedEvent = eventManager.Events.get(eventNo - 1);
+        Event pickedEvent = selectEvent();
         if (!pickedEvent.isTheOrganizerOfTheEvent(currentUser)) {
             LOGGER.info("you're not the organizer of the event!");
             manageEvents();
@@ -319,21 +302,17 @@ public class Main {
         scanner.nextLine();
         currentUser.setBudget(budget);
     }
-
-    private static void assignVendors() {
-        if (!eventManager.isOrganizerOfEvent(currentUser)) {
-            LOGGER.info("you're not an organizer of an event!\n");
-            manageEvents();
-        }
-        eventManager.displayEventsForOrganizer(currentUser);
-        LOGGER.info("Enter the event number you want to associate the vendor with\n");
+    private static Event selectEvent() {
         int eventNo = scanner.nextInt();
         scanner.nextLine();
         if (eventNo > eventManager.Events.size()) {
-            LOGGER.info("event number does not exist!");
+            LOGGER.info("Event number does not exist!");
             userScreen();
         }
-        Event associatedEvent = eventManager.Events.get(eventNo - 1);
+        return eventManager.Events.get(eventNo - 1);
+    }
+
+    private static void isOrganizerEventAndHasVendor(Event associatedEvent){
         if (!associatedEvent.isTheOrganizerOfTheEvent(currentUser)){
             LOGGER.info("you're not the organizer of the event!");
             assignVendors();
@@ -342,7 +321,18 @@ public class Main {
             LOGGER.info("this event already has a vendor!");
             manageEvents();
         }
-        while(true) {
+    }
+    private static void assignVendors() {
+        if (!eventManager.isOrganizerOfEvent(currentUser)) {
+            LOGGER.info("you're not an organizer of an event!\n");
+            manageEvents();
+        }
+        eventManager.displayEventsForOrganizer(currentUser);
+        LOGGER.info("Enter the event number you want to associate the vendor with\n");
+
+        Event associatedEvent = selectEvent();
+        isOrganizerEventAndHasVendor(associatedEvent);
+        do {
             LOGGER.info("""
                     select how to filter vendors:\s
 
@@ -367,9 +357,7 @@ public class Main {
                 default -> assignVendors();
             }
             LOGGER.info("want to try and filter again? y/n");
-            if(!scanner.nextLine().equalsIgnoreCase("y"))
-                break;
-        }
+        } while (scanner.nextLine().equalsIgnoreCase("y"));
         LOGGER.info("enter vendor you want to contact");
         int vendorNo = scanner.nextInt();
         scanner.nextLine();
@@ -393,16 +381,7 @@ public class Main {
             LOGGER.info("linked with vendor successfully!\n");
             LOGGER.info("enter number of a package:\n");
             selectedVendor.displayPackages();
-            int packageChoice;
-            while (true) {
-                packageChoice = scanner.nextInt();
-                scanner.nextLine();
-                if (packageChoice > selectedVendor.Packages.size()) {
-                    LOGGER.info("package number does not exist!, try again.");
-                    continue;
-                }
-                break;
-            }
+            int packageChoice = getPackageFromVendor(selectedVendor);
             associatedEvent.setPackage(selectedVendor.getPackageName(packageChoice - 1, currentUser));
             associatedEvent.setVendor(selectedVendor);
             selectedVendor.setEvent(associatedEvent);
@@ -410,6 +389,20 @@ public class Main {
         }
         manageEvents();
 
+    }
+
+    private static int getPackageFromVendor(Vendor selectedVendor){
+        int packageChoice;
+        while (true) {
+            packageChoice = scanner.nextInt();
+            scanner.nextLine();
+            if (packageChoice > selectedVendor.Packages.size()) {
+                LOGGER.info("package number does not exist!, try again.");
+                continue;
+            }
+            break;
+        }
+        return packageChoice;
     }
 
     private static void displayByReviews() {
@@ -432,27 +425,14 @@ public class Main {
 
     private static void displayAttendees() {
         LOGGER.info("Enter event number: ");
-        int eventNo = scanner.nextInt();
-        scanner.nextLine();
-        if (eventNo > eventManager.Events.size()) {
-            LOGGER.info("Event number does not exist!");
-            displayAttendees();
-        }
-        eventManager.Events.get(eventNo - 1).printAttendees();
-
+        selectEvent().printAttendees();
     }
 
 
     private static void deleteEvent() {
         eventManager.printEventsForOrganizer(currentUser);
         LOGGER.info("Enter event number: ");
-        int eventNo = scanner.nextInt();
-        scanner.nextLine();
-        if (eventNo > eventManager.Events.size()) {
-            LOGGER.info("Event number does not exist!");
-            manageEvents();
-        }
-        Event pickedEvent = eventManager.Events.get(eventNo - 1);
+        Event pickedEvent = selectEvent();
         if (!pickedEvent.isTheOrganizerOfTheEvent(currentUser)){
             LOGGER.info("you're not the organizer of the event!");
             manageEvents();
@@ -468,13 +448,7 @@ public class Main {
     private static void editEvent() {
         eventManager.printEventsForOrganizer(currentUser);
         LOGGER.info("Enter event number: ");
-        int eventNo = scanner.nextInt();
-        scanner.nextLine();
-        if (eventNo > eventManager.Events.size()) {
-            numberDoesntExistMessage();
-            editEvent();
-        }
-        Event pickedEvent = eventManager.Events.get(eventNo - 1);
+        Event pickedEvent = selectEvent();
         if (!pickedEvent.isTheOrganizerOfTheEvent(currentUser)){
             LOGGER.info("you're not the organizer of the event!");
             editEvent();
@@ -549,7 +523,7 @@ public class Main {
             case 3 -> addServiceProviderAccount();
             case 4 -> manageUserRegistration();
             case 5 -> System.exit(0);
-            default -> LOGGER.info("Invalid choice! Please try again.");
+            default -> LOGGER.info(INVALID_CHOICE_MESSAGE);
         }
     }
 
@@ -612,7 +586,7 @@ public class Main {
             case 6 -> userScreen();
             case 7 -> System.exit(0);
 
-            default -> LOGGER.info("Invalid choice! Please try again.");
+            default -> LOGGER.info(INVALID_CHOICE_MESSAGE);
         }
         manageVenues();
     }

@@ -433,7 +433,7 @@ public class Main {
 
     private static void deleteEvent() {
         eventManager.printEventsForOrganizer(currentUser);
-        LOGGER.info("Enter event number: ");
+        LOGGER.info("Enter event number you want to delete: ");
         Event pickedEvent = selectEvent();
         if (!pickedEvent.isTheOrganizerOfTheEvent(currentUser)){
             printNotOrganizer();
@@ -626,7 +626,7 @@ public class Main {
     }
 
     private static void editVenue() {
-        LOGGER.info("Enter venue number: ");
+        LOGGER.info("Enter venue number you want to edit: ");
         int venueNo = scanner.nextInt();
         scanner.nextLine();
         if (venueNo > venueManager.Venues.size()) {

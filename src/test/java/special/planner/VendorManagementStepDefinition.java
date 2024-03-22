@@ -1,36 +1,24 @@
 package special.planner;
 import io.cucumber.java.en.*;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.picocontainer.annotations.Inject;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.logging.Logger;
-
 import static org.junit.Assert.*;
 
 public class VendorManagementStepDefinition {
-    public static final String ADMIN = "Admin";
-    public static final String USER = "User";
+    public static final String user = "User";
     private final Login login;
     Vendor vendorByLocation;
     Vendor vendorByPrice;
     Vendor vendorByAvailability;
     Vendor vendorByReview;
     Vendor vendorPackage;
-    Vendor vendorRequist;
+    Vendor vendorRequest;
     User currentUserOrg;
     String email;
-    private String packageName;
     Event associatedEvent;
 
 
     public VendorManagementStepDefinition(Login login) {
         this.login = login;
-        currentUserOrg = new User("hello@email", "123", USER);
+        currentUserOrg = new User("hello@email", "123", user);
         currentUserOrg.setAsOrganizer();
         currentUserOrg.setBudget(1_000_000);
         vendorByLocation = new Vendor("loc@gmail.com","123", "singers", "salfeet",
@@ -47,7 +35,7 @@ public class VendorManagementStepDefinition {
         vendorPackage = new Vendor("package@gmail.com","123", "singers", "wow",
                 2345, 1, "my price is 1000 brother take it or leave it");
 
-        vendorRequist = new Vendor("requist@gmail.com","123", "singers", "woah woah woah",
+        vendorRequest = new Vendor("requist@gmail.com","123", "singers", "woah woah woah",
                 4444, 0, "my price is 1000 brother take it or leave it");
         associatedEvent = new Event("date", "time", "location", "theme", "desc", 50, currentUserOrg);
 
@@ -62,10 +50,6 @@ public class VendorManagementStepDefinition {
         login.addVendor(vendorByPrice);
         login.addVendor(vendorByReview);
         login.addVendor(vendorByAvailability);
-//        login.addVendor(vendorRequist);
-//        login.addVendor(vendorPackage);
-
-
 
     }
 
@@ -76,7 +60,7 @@ public class VendorManagementStepDefinition {
     }
     @When("I search for the vendor by location {string}")
     public void iSearchForTheVendorByLocation(String location) {
-          email = login.displayVendorByLocation( location);
+          email = login.displayVendorByLocation(location);
     }
     @Then("the list of vendors for the location appears.")
     public void theListOfVendorsForTheLocationAppears() {
@@ -146,8 +130,8 @@ public class VendorManagementStepDefinition {
     @Then("the vendor with his packets will be booked by me")
     public void thePacketWillBeBookedForMe() {
         // Write code here that turns the phrase above into concrete actions
-        assertEquals(vendorPackage.Booker.email, currentUserOrg.email);
-        assertEquals(associatedEvent.Package, vendorPackage.Packages.get(2));
+        assertEquals(vendorPackage.booker.email, currentUserOrg.email);
+        assertEquals(associatedEvent.vendorPackages, vendorPackage.vendorPackages.get(2));
        assertEquals(associatedEvent.eventVendor, vendorPackage);
     }
 

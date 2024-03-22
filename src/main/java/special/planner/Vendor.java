@@ -9,46 +9,46 @@ public class Vendor {
 
     String email;
     String password;
-    String Category;
-    String Location;
-    boolean Availability;
-    int Pricing;
-    int Reviews;
-    List<String> Packages = new ArrayList<>();
+    String category;
+    String location;
+    boolean availability;
+    int pricing;
+    int reviews;
+    List<String> vendorPackages = new ArrayList<>();
     String contractDescription;
-    User Booker;
+    User booker;
     Event vendorEvent;
 
     public Vendor( String email, String password, String Category, String Location,
                     int Pricing, int Reviews, String contractDescription){
         this.email = email;
         this.password = password;
-        this.Category=Category;
-        this.Location=Location;
-        this.Availability=true;
-        this.Pricing=Pricing;
-        this.Reviews=Reviews;
+        this.category=Category;
+        this.location=Location;
+        this.availability=true;
+        this.pricing=Pricing;
+        this.reviews=Reviews;
         this.contractDescription = contractDescription;
         this.vendorEvent=null;
     }
-    void setBooker(User Booker){
-        this.Booker = Booker;
-        this.Availability = false;
+    void setBooker(User booker){
+        this.booker = booker;
+        this.availability = false;
     }
     public String getContractDescription(){
         return this.contractDescription;
     }
 
     public void setAvailability(boolean availability) {
-        Availability = availability;
+        availability = availability;
     }
 
     public void addPackage(String p) {
-        Packages.add(p);
+        vendorPackages.add(p);
     }
 
     public String getPackageName(int packageIndex, User Booker) {
-        return (this.Booker.equals(Booker)) ? Packages.get(packageIndex) : "Not Permitted";
+        return (this.booker.equals(Booker)) ? vendorPackages.get(packageIndex) : "Not Permitted";
 
     }
     public String getEmail(){
@@ -59,38 +59,38 @@ public class Vendor {
     }
 
     public boolean isAvailable() {
-        return this.Availability;
+        return this.availability;
     }
 
     public void displayPackages() {
         int index = 1;
         for (String i :
-                Packages) {
+                vendorPackages) {
             LOGGER.info(index +". "+ i + "\n");
             index++;
         }
     }
 
     public boolean isPackageInlist(String package0) {
-        return this.Packages.contains(package0);
+        return this.vendorPackages.contains(package0);
     }
 
     public void deletePackage(String package0) {
         int toRemove = -1;
-        for (String i: Packages){
+        for (String i: vendorPackages){
             if(i.equals(package0)){
-                toRemove = Packages.indexOf(i);
+                toRemove = vendorPackages.indexOf(i);
                 break;
             }
         }
-        Packages.remove(toRemove);
+        vendorPackages.remove(toRemove);
     }
 
     public int getPackageNum(String search) {
         int index = -1;
-        for (String i: Packages){
+        for (String i: vendorPackages){
             if(i.equals(search)){
-                index = Packages.indexOf(i);
+                index = vendorPackages.indexOf(i);
                 break;
             }
         }
@@ -98,12 +98,12 @@ public class Vendor {
     }
 
     public boolean viewPackages() {
-        for (String aPackage : Packages) LOGGER.info(aPackage);
+        for (String aPackage : vendorPackages) LOGGER.info(aPackage);
         return true;
     }
 
     public Boolean checkBooker() {
-        if(Booker!=null){
+        if(booker!=null){
             vendorEvent.printEventDetails();
             return true;
         }

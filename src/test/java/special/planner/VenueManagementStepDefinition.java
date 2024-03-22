@@ -1,19 +1,13 @@
 package special.planner;
 import io.cucumber.java.en.*;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.picocontainer.annotations.Inject;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.*;
 
 public class VenueManagementStepDefinition {
-    public static final String ADMIN = "Admin";
-    public static final String USER = "User";
-    public static final String SERVICE_PROVIDER = "Service Provider";
+    public static final String admin = "Admin";
+    public static final String user = "User";
     private final VenueManagement venueManagement;
     User currentUserAdmin;
     User currentUserOrg;
@@ -28,11 +22,11 @@ public class VenueManagementStepDefinition {
     Event associatedEvent;
     public VenueManagementStepDefinition(VenueManagement venueManagement){
         this.venueManagement = venueManagement;
-        currentUserAdmin = new User("email@email", "123", ADMIN);
+        currentUserAdmin = new User("email@email", "123", admin);
         venueToBeEdited = new Venue("hello", 20, "am", 500);
          venueToBeDeleted = new Venue("hello", 20, "am", 500);
         venueToBeAssociated = new Venue("hello", 20, "am", 500);
-        currentUserOrg = new User("hello@email", "123", USER);
+        currentUserOrg = new User("hello@email", "123", user);
         associatedEvent = new Event("date", "time", "location", "theme", "desc", 50, currentUserOrg);
         venueManagement.initializeVenues();
     }
@@ -46,10 +40,10 @@ public class VenueManagementStepDefinition {
         List<Map<String, String>> data = dataTable.asMaps(String.class, String.class);
 
         // Assuming you have getters for these properties in your Event class
-        String venueName = data.get(0).get("Venue Name");
-        String amenities = data.get(0).get("Amenities");
-        int pricing = Integer.parseInt(data.get(0).get("Pricing"));
-        int capacity = Integer.parseInt(data.get(0).get("Capacity"));
+        String venueName = data.getFirst().get("Venue Name");
+        String amenities = data.getFirst().get("Amenities");
+        int pricing = Integer.parseInt(data.getFirst().get("Pricing"));
+        int capacity = Integer.parseInt(data.getFirst().get("Capacity"));
 
         newVenue = new Venue(venueName, capacity, amenities, pricing);
         venueManagement.addVenue(newVenue);

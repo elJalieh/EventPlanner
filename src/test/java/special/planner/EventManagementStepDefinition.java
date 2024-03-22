@@ -1,32 +1,26 @@
 package special.planner;
 import io.cucumber.java.en.*;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.picocontainer.annotations.Inject;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.*;
-public class EventManagmentStepDefinition {
+public class EventManagementStepDefinition {
 private final special.planner.EventManagement eventManagement;
 User currentUser;
 User attendeeUser1;
 User attendeeUser2;
 Event newEvent;
-int eventId;
-String newdate;
-String newtime ;
-String newlocation ;
-String newtheme ;
-String newdescription;
-int newattendeeCount;
+String newDate;
+String newTime ;
+String newLocation ;
+String newTheme ;
+String newDescription;
+int newAttendeeCount;
 Event eventToBeEdited;
 Event eventToBeDeleted;
 
-   public EventManagmentStepDefinition(EventManagement eventManagement){
+   public EventManagementStepDefinition(EventManagement eventManagement){
         this.eventManagement = eventManagement;
         currentUser = new User("email@email", "123", "User");
         attendeeUser1 = new User("attendee user1", "123", "User");
@@ -43,7 +37,7 @@ Event eventToBeDeleted;
     public void iAmAnOrganizer() {
         // Write code here that turns the phrase above into concrete actions
         currentUser.setAsOrganizer();
-        assertTrue(currentUser.Organizer);
+        assertTrue(currentUser.organizer);
         assertTrue(eventManagement.isOrganizerOfEvent(currentUser));
         assertFalse(eventManagement.isOrganizerOfEvent(attendeeUser1));
 
@@ -53,12 +47,12 @@ Event eventToBeDeleted;
         List<Map<String, String>> data = dataTable.asMaps(String.class, String.class);
 
         // Assuming you have getters for these properties in your Event class
-        String date = data.get(0).get("Date");
-        String time = data.get(0).get("Time");
-        String location = data.get(0).get("Location");
-        String theme = data.get(0).get("Theme");
-        String description = data.get(0).get("Description");
-        int attendeeCount = Integer.parseInt(data.get(0).get("Attendee Count"));
+        String date = data.getFirst().get("Date");
+        String time = data.getFirst().get("Time");
+        String location = data.getFirst().get("Location");
+        String theme = data.getFirst().get("Theme");
+        String description = data.getFirst().get("Description");
+        int attendeeCount = Integer.parseInt(data.getFirst().get("Attendee Count"));
 
         newEvent = new Event(date, time, location, theme, description, attendeeCount, currentUser);
         eventManagement.addEvent(newEvent);
@@ -80,13 +74,13 @@ Event eventToBeDeleted;
 
         // Assuming you have getters for these properties in your Event class
         eventManagement.displayEventsForOrganizer(currentUser);
-         newdate = data.get(0).get("Date");
-         newtime = data.get(0).get("Time");
-         newlocation = data.get(0).get("Location");
-         newtheme = data.get(0).get("Theme");
-         newdescription = data.get(0).get("Description");
-         newattendeeCount = Integer.parseInt(data.get(0).get("Attendee Count"));
-        eventToBeEdited.updateEvent(newdate, newtime, newlocation, newtheme, newdescription, newattendeeCount);
+         newDate = data.getFirst().get("Date");
+         newTime = data.getFirst().get("Time");
+         newLocation = data.getFirst().get("Location");
+         newTheme = data.getFirst().get("Theme");
+         newDescription = data.getFirst().get("Description");
+         newAttendeeCount = Integer.parseInt(data.getFirst().get("Attendee Count"));
+        eventToBeEdited.updateEvent(newDate, newTime, newLocation, newTheme, newDescription, newAttendeeCount);
     }
     @When("I manage the updated guest list for the event")
     public void iManageTheUpdatedGuestListForTheEvent() {
@@ -97,9 +91,9 @@ Event eventToBeDeleted;
     @Then("the event details for {string} should be updated in the event list and displayed")
     public void theEventDetailsForShouldBeUpdatedInTheEventList(String string) {
         // Write code here that turns the phrase above into concrete actions
-        if(eventToBeEdited.EventTime.equals(newtime) && eventToBeEdited.EventLocation.equals(newlocation)
-        && eventToBeEdited.EventDescription.equals(newdescription) && eventToBeEdited.EventDate.equals(newdate)
-        && (eventToBeEdited.AttendeeCount == newattendeeCount) && eventToBeEdited.EventTheme.equals(newtheme)){
+        if(eventToBeEdited.eventTime.equals(newTime) && eventToBeEdited.eventLocation.equals(newLocation)
+        && eventToBeEdited.eventDescription.equals(newDescription) && eventToBeEdited.eventDate.equals(newDate)
+        && (eventToBeEdited.attendeeCount == newAttendeeCount) && eventToBeEdited.eventTheme.equals(newTheme)){
             eventManagement.printEventsForOrganizer(currentUser);
         }
         else fail();

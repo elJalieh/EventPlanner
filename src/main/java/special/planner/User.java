@@ -6,7 +6,7 @@ public class User {
     String email;
     String password;
     String type;
-    boolean Organizer;
+    boolean organizer;
     boolean Admin = false;
     int budget;
 
@@ -36,25 +36,15 @@ public class User {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
     public void setAsOrganizer(){
-        this.Organizer = true;
-    }
-    public void setAsNotOrganizer(){
-        this.Organizer = false;
-
+        this.organizer = true;
     }
     public boolean isAdmin(){
         return Objects.equals(this.getType(), "Admin");
     }
 
-    public boolean isServiceProvider(){
-        return Objects.equals(this.getType(), "Service Provider");
-    }
     public boolean isOrganizer(){
-        return Organizer;
+        return organizer;
     }
     public void setAsAdmin(){this.Admin = true;}
 

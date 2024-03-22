@@ -13,18 +13,15 @@ public class Login {
     boolean logInStatus;
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
-
-
-
     public void initializeUsers(){
         User u1=new User("alaraid2003@gmail.com","123", admin);
         //User u1=new User("a","123", admin);
         User u2=new User("a2y2m2a2n@gmail.com","123", user);
-        Vendor v =new Vendor("v1","123", "singers", "salfeet",
+        Vendor v =new Vendor("v1","123", "singers", "Salfit",
         1000, 3, "my price is 1000 brother take it or leave it");
-        Vendor v2 =new Vendor("v2","123", "resturants", "Nablus",
+        Vendor v2 =new Vendor("v2","123", "Restaurant", "Nablus",
         5000, 4, "my price is 5000 brother take it or leave it");
-        Vendor v3 =new Vendor("v3","123", "cleaners", "betoonia",
+        Vendor v3 =new Vendor("v3","123", "cleaners", "Betoonia",
         4000, 5, "my price is 4000 brother take it or leave it");
         v.addPackage("7afleh");
         v.addPackage("7aaafleeeeh");
@@ -140,10 +137,6 @@ public class Login {
         vendors.add(newVendor);
     }
 
-    public void removeVendor(Vendor V){
-        vendors.remove(V);
-    }
-
     public void deleteUser(String email){
         int toRemove = -1;
         for (User i: users){
@@ -173,7 +166,7 @@ public class Login {
         int index = 1;
         for (Vendor v :
                 vendors) {
-            if(Objects.equals(v.Location, location)){
+            if(Objects.equals(v.location, location)){
                 printVendorDetails(index, v);
                 email = v.email;
             }
@@ -187,7 +180,7 @@ public class Login {
         int index = 1;
         for (Vendor v :
                 vendors) {
-            if(Objects.equals(v.Pricing, price)){
+            if(Objects.equals(v.pricing, price)){
                 printVendorDetails(index, v);
                 email = v.email;
             }
@@ -202,7 +195,7 @@ public class Login {
         int index = 1;
         for (Vendor v :
                 vendors) {
-            if(v.Availability == b){
+            if(v.availability == b){
                 printVendorDetails(index, v);
                 email = v.email;
             }
@@ -216,7 +209,7 @@ public class Login {
         int index = 1;
         for (Vendor v :
                 vendors) {
-            if(v.Reviews == int1){
+            if(v.reviews == int1){
                 printVendorDetails(index, v);
                 email = v.email;
             }
@@ -229,8 +222,8 @@ public class Login {
         return this.vendors.size();
     }
     public static void printVendorDetails(int index, Vendor v){
-        LOGGER.info(index + ". " + "Vendor email: " + v.email + " Location: "+ v.Location + " Availability: " + v.Availability +"\n"
-                + "Review: "+ v.Reviews + " Price: " + v.Pricing + "\n");
+        LOGGER.info(index + ". " + "Vendor email: " + v.email + " Location: "+ v.location + " Availability: " + v.availability +"\n"
+                + "Review: "+ v.reviews + " Price: " + v.pricing + "\n");
     }
 
 }

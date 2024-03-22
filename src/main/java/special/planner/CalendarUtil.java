@@ -5,12 +5,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 public class CalendarUtil {
-    public static final int DATED = 0;
-    public static final int WITHIN_2_DAYS = 1;
-    public static final int WITHIN_3_OR_MORE = 2;
+    public static final int dated = 0;
+    public static final int within2Days = 1;
+    public static final int within3OrMore = 2;
 
-
-
+    private CalendarUtil(){}
     public static int eventDateType(String eventDate) {
         // Parse the event date string to LocalDate
         LocalDate parsedEventDate = LocalDate.parse(eventDate);
@@ -24,13 +23,13 @@ public class CalendarUtil {
         // Determine the type of event date
         if (daysDifference <= 0) {
             // Event is today
-            return DATED;
+            return dated;
         } else if (daysDifference <= 2) {
             // Event is within 2 days
-            return WITHIN_2_DAYS;
+            return within2Days;
         } else {
             // Event is more than 2 days away
-            return WITHIN_3_OR_MORE;
+            return within3OrMore;
         }
     }
     public static String getDateAfterDays(int days) {

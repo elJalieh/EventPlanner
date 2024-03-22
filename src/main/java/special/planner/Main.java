@@ -85,8 +85,6 @@ public class Main {
             default -> LOGGER.info("Invalid choice!");
         }
         serviceProviderScreen();
-
-
     }
 
     private static void showCostumerDetails() {
@@ -116,7 +114,7 @@ public class Main {
     }
 
     private static void alterPackage(String alterationType) {
-        if(currentVendor.Packages.isEmpty()){
+        if(currentVendor.vendorPackages.isEmpty()){
             LOGGER.info("Add a package first to " + alterationType);
             serviceProviderScreen();
         }
@@ -124,16 +122,16 @@ public class Main {
         LOGGER.info("Enter package number you want to" + alterationType);
         int packageNo = scanner.nextInt();
         scanner.nextLine();
-        if (packageNo > currentVendor.Packages.size()) {
+        if (packageNo > currentVendor.vendorPackages.size()) {
             numberDoesntExistMessage();
             serviceProviderScreen();
         }
         if(alterationType.equalsIgnoreCase("delete")) {
-            currentVendor.Packages.remove(packageNo - 1);
+            currentVendor.vendorPackages.remove(packageNo - 1);
         } else if (alterationType.equalsIgnoreCase("edit")) {
             LOGGER.info("Enter edit:");
             String editedPackage = scanner.nextLine();
-            currentVendor.Packages.set(packageNo-1, editedPackage);
+            currentVendor.vendorPackages.set(packageNo-1, editedPackage);
         }
         LOGGER.info("Package " + alterationType +"ed successfully!");
         serviceProviderScreen();
@@ -376,14 +374,14 @@ public class Main {
             userScreen();
         }
         Vendor selectedVendor = login.vendors.get(vendorNo - 1);
-        if (!selectedVendor.Availability){
+        if (!selectedVendor.availability){
             LOGGER.info("vendor is not available!");
             assignVendors();
         }
         LOGGER.info(selectedVendor.getContractDescription() + "\n");
         LOGGER.info("accept contract? y/n\n");
         String YN = scanner.nextLine();
-        if (YN.equalsIgnoreCase("n") || (currentUser.budget < selectedVendor.Pricing)) {
+        if (YN.equalsIgnoreCase("n") || (currentUser.budget < selectedVendor.pricing)) {
             LOGGER.info("contract failed!");
             userScreen();
         } else if (YN.equalsIgnoreCase("Y")) {
@@ -395,7 +393,7 @@ public class Main {
             while (true) {
                 packageChoice = scanner.nextInt();
                 scanner.nextLine();
-                if (packageChoice > selectedVendor.Packages.size()) {
+                if (packageChoice > selectedVendor.vendorPackages.size()) {
                     LOGGER.info("package number does not exist!, try again.");
                     continue;
                 }
@@ -522,8 +520,6 @@ public class Main {
         int attendeeCount = Integer.parseInt(attendeeCountString);
         Event newEvent = new Event(date, time, location, theme, description, attendeeCount, currentUser);
         eventManager.addEvent(newEvent);
-//        eventManager.addEvent(new Event(date, time, location, theme, description, attendeeCount, currentUser));
-//        eventManager.addEvent(new Event(date, time, location, theme, description, attendeeCount, currentUser));
         LOGGER.info("Event added successfully!\n");
         manageEvents();
 

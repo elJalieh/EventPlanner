@@ -1,13 +1,5 @@
 package special.planner;
 import io.cucumber.java.en.*;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.picocontainer.annotations.Inject;
-
-import java.time.LocalDate;
-import java.util.List;
-
 import static org.junit.Assert.*;
 public class ServiceProviderStepDefinition {
 
@@ -23,7 +15,6 @@ public class ServiceProviderStepDefinition {
         v = new Vendor("Ayman","123", "Singer", "Salfit",
                 4000, 5, "my price is 4000 brother take it or leave it");
         v.addPackage("Cristiano Ronaldo");
-        v.addPackage("Siiiuuuuu");
         v.addPackage("Ankara messi");
         v.addPackage("Juventus");
 
@@ -44,7 +35,7 @@ public class ServiceProviderStepDefinition {
     public void iChooseToAddANewPackageToMyList() {
         // Write code here that turns the phrase above into concrete actions
         package0 = "يلا خيار يلا بندورة يلا باذنجان الكيلو ب10 شيكل";
-        v.Packages.add(package0);
+        v.vendorPackages.add(package0);
     }
     @Then("the package should be added to the list")
     public void thePackageShouldBeAddedToTheList() {
@@ -56,12 +47,12 @@ public class ServiceProviderStepDefinition {
     public void iChooseToEditAnExistingPackage() {
         // Write code here that turns the phrase above into concrete actions
         index = v.getPackageNum("Cristiano Ronaldo");
-        v.Packages.set(index,"Edited Package");
+        v.vendorPackages.set(index,"Edited Package");
     }
     @Then("the package should be updated in the list")
     public void thePackageShouldBeUpdatedInTheList() {
         // Write code here that turns the phrase above into concrete actions
-        assertEquals("Edited Package",v.Packages.get(index));
+        assertEquals("Edited Package",v.vendorPackages.get(index));
     }
 
     @When("I choose to delete an existing package")
@@ -73,7 +64,7 @@ public class ServiceProviderStepDefinition {
     @Then("the package should be deleted from the list")
     public void thePackageShouldBeDeletedFromTheList() {
         // Write code here that turns the phrase above into concrete actions
-        assertFalse(v.Packages.contains(package0));
+        assertFalse(v.vendorPackages.contains(package0));
     }
 
     @When("I decide to make changes to my contract")
@@ -106,7 +97,7 @@ public class ServiceProviderStepDefinition {
     @Then("the customer details should be displayed if there's an active deal")
     public void theCustomerDetailsShouldBeDisplayed() {
         // Write code here that turns the phrase above into concrete actions
-        v.Booker = u;
+        v.booker = u;
         e.setVendor(v);
         v.setEvent(e);
         assertTrue(v.checkBooker());
@@ -114,7 +105,7 @@ public class ServiceProviderStepDefinition {
     @Then("the customer details should not be displayed if there's no active deal")
     public void theCustomerDetailsShouldNotBeDisplayedIfThereSNoActiveDeal() {
         // Write code here that turns the phrase above into concrete actions
-        v.Booker = null;
+        v.booker = null;
         v.releaseEvent();
         assertFalse(v.checkBooker());
         assertNull(v.vendorEvent);

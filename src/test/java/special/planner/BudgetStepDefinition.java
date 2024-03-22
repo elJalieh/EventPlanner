@@ -1,11 +1,5 @@
 package special.planner;
 import io.cucumber.java.en.*;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.picocontainer.annotations.Inject;
-import java.time.LocalDate;
-import java.util.List;
 import static org.junit.Assert.*;
 public class BudgetStepDefinition {
     User haveBudgetOrginizer;
@@ -109,7 +103,7 @@ public class BudgetStepDefinition {
     @Given("I have sufficient budget for venue and vendor")
     public void iHaveSufficientBudgetForVenue() {
         // Write code here that turns the phrase above into concrete actions
-        assertTrue(haveBudgetOrginizer.budget >= (associatedVendor.Pricing+associatedVenue.pricing));
+        assertTrue(haveBudgetOrginizer.budget >= (associatedVendor.pricing+associatedVenue.pricing));
     }
     @Then("the venue and vendor will be associated with the event")
     public void theVenueAndVendorWillBeAssociatedWithTheEvent() {

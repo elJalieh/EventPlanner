@@ -33,7 +33,7 @@ public class EventManagement {
 
         for (Event i:
              Events) {
-            if (i.Organizer == organizer) {
+            if (i.organizer == organizer) {
                 LOGGER.info("Event no." + index + "\n");
                 i.printEventDetails();
             }
@@ -53,7 +53,7 @@ public class EventManagement {
     public boolean isOrganizerOfEvent(User organizer){
         for (Event i :
                 Events) {
-            if (i.Organizer.equals(organizer)) {
+            if (i.organizer.equals(organizer)) {
                 return true;
             }
             }
@@ -64,7 +64,7 @@ public class EventManagement {
         int index = 1;
         for (Event i:
                 Events) {
-            if (i.Organizer.equals(currentUser)){
+            if (i.organizer.equals(currentUser)){
                 printEventNum(index);
                 i.printEventDetails();
             }
@@ -76,7 +76,7 @@ public class EventManagement {
         int index = 1;
         for (Event i:
                 Events) {
-            if (i.Organizer.equals(currentUser)){
+            if (i.organizer.equals(currentUser)){
                 printEventNum(index);
                 i.printReport();
             }
@@ -88,7 +88,7 @@ public class EventManagement {
         int index = 1;
         for (Event i:
                 Events) {
-            if (i.guestList.contains(user) && CalendarUtil.eventDateType(i.EventDate) != DATED){
+            if (i.guestList.contains(user) && CalendarUtil.eventDateType(i.eventDate) != DATED){
                 printEventNum(index);
                 i.printEventDetails();
             }
@@ -100,7 +100,7 @@ public class EventManagement {
         int index = 1;
         for (Event i:
                 Events) {
-            if (i.guestList.contains(user) && CalendarUtil.eventDateType(i.EventDate) == WITHIN_2_DAYS){
+            if (i.guestList.contains(user) && CalendarUtil.eventDateType(i.eventDate) == WITHIN_2_DAYS){
                 printEventNum(index);
                 i.printEventDetails();
             }

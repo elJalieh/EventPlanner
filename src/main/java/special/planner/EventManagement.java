@@ -9,7 +9,6 @@ public class EventManagement {
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
     public static final int DATED = 0;
     public static final int WITHIN_2_DAYS = 1;
-    public static final int WITHIN_3_OR_MORE = 2;
     public List<Event> Events = new ArrayList<>();
 
     public void addEvent(Event newEvent){
@@ -35,7 +34,7 @@ public class EventManagement {
         for (Event i:
              Events) {
             if (i.Organizer == organizer) {
-                LOGGER.info("event no." + index + "\n");
+                LOGGER.info("Event no." + index + "\n");
                 i.printEventDetails();
             }
             index++;
@@ -46,7 +45,7 @@ public class EventManagement {
         int index = 1;
         for (Event i:
                 Events) {
-                LOGGER.info("event no." + index + "\n");
+                LOGGER.info("Event no." + index + "\n");
                 i.printEventDetails();
             index++;
         }
@@ -66,7 +65,7 @@ public class EventManagement {
         for (Event i:
                 Events) {
             if (i.Organizer.equals(currentUser)){
-                LOGGER.info("Event No. " + index);
+                printEventNum(index);
                 i.printEventDetails();
             }
             index++;
@@ -78,7 +77,7 @@ public class EventManagement {
         for (Event i:
                 Events) {
             if (i.Organizer.equals(currentUser)){
-                LOGGER.info("Event No. " + index);
+                printEventNum(index);
                 i.printReport();
             }
             index++;
@@ -90,7 +89,7 @@ public class EventManagement {
         for (Event i:
                 Events) {
             if (i.guestList.contains(user) && CalendarUtil.eventDateType(i.EventDate) != DATED){
-                LOGGER.info("Event No. " + index);
+                printEventNum(index);
                 i.printEventDetails();
             }
             index++;
@@ -102,10 +101,11 @@ public class EventManagement {
         for (Event i:
                 Events) {
             if (i.guestList.contains(user) && CalendarUtil.eventDateType(i.EventDate) == WITHIN_2_DAYS){
-                LOGGER.info("Event No. " + index);
+                printEventNum(index);
                 i.printEventDetails();
             }
             index++;
         }
     }
+    public static void printEventNum(int index){LOGGER.info("Event No. " + index);}
 }

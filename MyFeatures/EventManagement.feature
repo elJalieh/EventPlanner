@@ -16,7 +16,7 @@ Feature: Event Management
       | Date       | Time     | Location   | Theme    | Description                 | Attendee Count |
       | 2024-03-15 | 20:00:00 | VIP Lounge | Birthday | Exclusive Celebration Party | 60             |
     And I manage the updated guest list for the event
-    Then the event details for "Birthday Celebration Party" should be updated in the event list
+    Then the event details for "Birthday Celebration Party" should be updated in the event list and displayed
 
   @DELETE1
   Scenario: Delete an Event

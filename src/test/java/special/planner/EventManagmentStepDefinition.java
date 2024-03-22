@@ -33,6 +33,9 @@ Event eventToBeDeleted;
         attendeeUser2 = new User("attendee user2", "123", "User");
         eventToBeEdited = new Event("hello", "hello", "hello", "hello", "hello", 10, currentUser);
         eventToBeDeleted = new Event("hello", "hello", "hello", "hello", "hello", 10, currentUser);
+        eventManagement.addEvent(eventToBeEdited);
+        eventManagement.printEvents();
+
 
 
     }
@@ -41,6 +44,8 @@ Event eventToBeDeleted;
         // Write code here that turns the phrase above into concrete actions
         currentUser.setAsOrganizer();
         assertTrue(currentUser.Organizer);
+        assertTrue(eventManagement.isOrganizerOfEvent(currentUser));
+        assertFalse(eventManagement.isOrganizerOfEvent(attendeeUser1));
 
     }
     @When("I create a new event with the following details:")
@@ -74,6 +79,7 @@ Event eventToBeDeleted;
         List<Map<String, String>> data = dataTable.asMaps(String.class, String.class);
 
         // Assuming you have getters for these properties in your Event class
+        eventManagement.displayEventsForOrganizer(currentUser);
          newdate = data.get(0).get("Date");
          newtime = data.get(0).get("Time");
          newlocation = data.get(0).get("Location");
@@ -88,12 +94,13 @@ Event eventToBeDeleted;
         eventToBeEdited.addAttendee(attendeeUser2);
         eventToBeEdited.removeAttendee(attendeeUser2);
     }
-    @Then("the event details for {string} should be updated in the event list")
+    @Then("the event details for {string} should be updated in the event list and displayed")
     public void theEventDetailsForShouldBeUpdatedInTheEventList(String string) {
         // Write code here that turns the phrase above into concrete actions
         if(eventToBeEdited.EventTime.equals(newtime) && eventToBeEdited.EventLocation.equals(newlocation)
         && eventToBeEdited.EventDescription.equals(newdescription) && eventToBeEdited.EventDate.equals(newdate)
         && (eventToBeEdited.AttendeeCount == newattendeeCount) && eventToBeEdited.EventTheme.equals(newtheme)){
+            eventManagement.printEventsForOrganizer(currentUser);
         }
         else fail();
     }

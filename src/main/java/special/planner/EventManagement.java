@@ -44,7 +44,6 @@ public class EventManagement {
 
     public void printEvents() {
         int index = 1;
-
         for (Event i:
                 Events) {
                 LOGGER.info("event no." + index + "\n");

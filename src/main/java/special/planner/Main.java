@@ -125,7 +125,7 @@ public class Main {
         int packageNo = scanner.nextInt();
         scanner.nextLine();
         if (packageNo > currentVendor.Packages.size()) {
-            LOGGER.info("Number does not exist!");
+            numberDoesntExistMessage();
             serviceProviderScreen();
         }
         currentVendor.Packages.remove(packageNo-1);
@@ -143,7 +143,7 @@ public class Main {
         int packageNo = scanner.nextInt();
         scanner.nextLine();
         if (packageNo > currentVendor.Packages.size()) {
-            LOGGER.info("Number does not exist!");
+            numberDoesntExistMessage();
             serviceProviderScreen();
         }
         LOGGER.info("Enter edit:");
@@ -193,7 +193,7 @@ public class Main {
         int eventNo = scanner.nextInt();
         scanner.nextLine();
         if (eventNo > eventManager.Events.size()) {
-            LOGGER.info("Number does not exist!");
+            numberDoesntExistMessage();
             manageEvents();
         }
         Event pickedEvent = eventManager.Events.get(eventNo-1);
@@ -211,7 +211,7 @@ public class Main {
         int venueNo = scanner.nextInt();
         scanner.nextLine();
         if (venueNo > venueManager.Venues.size()) {
-            LOGGER.info("Number does not exist!");
+            numberDoesntExistMessage();
             userScreen();
         }
         Venue pickedVenue = venueManager.Venues.get(venueNo-1);
@@ -235,7 +235,7 @@ public class Main {
         int eventNo = scanner.nextInt();
         scanner.nextLine();
         if (eventNo > eventManager.Events.size()) {
-            LOGGER.info("Number does not exist!");
+            numberDoesntExistMessage();
             userScreen();
         }
         eventManager.Events.get(eventNo - 1).addAttendee(currentUser);
@@ -306,7 +306,7 @@ public class Main {
         int eventNo = scanner.nextInt();
         scanner.nextLine();
         if (eventNo > eventManager.Events.size()) {
-            LOGGER.info("Number does not exist!");
+            numberDoesntExistMessage();
             manageEvents();
         }
         Event pickedEvent = eventManager.Events.get(eventNo-1);
@@ -327,7 +327,7 @@ public class Main {
         int eventNo = scanner.nextInt();
         scanner.nextLine();
         if (eventNo > eventManager.Events.size()) {
-            LOGGER.info("Number does not exist!");
+            numberDoesntExistMessage();
             manageEvents();
         }
         Event pickedEvent = eventManager.Events.get(eventNo-1);
@@ -494,14 +494,17 @@ public class Main {
         LOGGER.info("Event deleted successfully!\n");
         manageEvents();
     }
+    private static void numberDoesntExistMessage(){
+        LOGGER.info("Number does not exist!");
 
+    }
     private static void editEvent() {
         eventManager.printEventsForOrganizer(currentUser);
         LOGGER.info("Enter event number: ");
         int eventNo = scanner.nextInt();
         scanner.nextLine();
         if (eventNo > eventManager.Events.size()) {
-            LOGGER.info("Number does not exist!");
+            numberDoesntExistMessage();
             editEvent();
         }
         Event pickedEvent = eventManager.Events.get(eventNo - 1);
@@ -652,7 +655,7 @@ public class Main {
         int venueNo = scanner.nextInt();
         scanner.nextLine();
         if (venueNo > venueManager.Venues.size()) {
-            LOGGER.info("Number does not exist!");
+            numberDoesntExistMessage();
             manageVenues();
         }
         if (venueManager.Venues.get(venueNo - 1).associatedEvent != null)
@@ -673,7 +676,7 @@ public class Main {
         int venueNo = scanner.nextInt();
         scanner.nextLine();
         if (venueNo > venueManager.Venues.size()) {
-            LOGGER.info("Number does not exist!");
+            numberDoesntExistMessage();
             manageVenues();
         }
         venueManager.deleteVenue(venueManager.Venues.get(venueNo - 1));
@@ -686,7 +689,7 @@ public class Main {
         int venueNo = scanner.nextInt();
         scanner.nextLine();
         if (venueNo > venueManager.Venues.size()) {
-            LOGGER.info("Number does not exist!");
+            numberDoesntExistMessage();
             editVenue();
         }
 

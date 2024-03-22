@@ -34,7 +34,7 @@ public class VenueManagementStepDefinition {
         venueToBeAssociated = new Venue("hello", 20, "am", 500);
         currentUserOrg = new User("hello@email", "123", USER);
         associatedEvent = new Event("date", "time", "location", "theme", "desc", 50, currentUserOrg);
-
+        venueManagement.initializeVenues();
     }
 
     @Given("I am an admin")
@@ -58,6 +58,7 @@ public class VenueManagementStepDefinition {
     public void theNewVenueShouldBeAddedToTheVenueList(String string) {
         // Write code here that turns the phrase above into concrete actions
         assertTrue(venueManagement.isVenueInList(newVenue));
+        venueManagement.displayVenues();
     }
 
     @When("I edit the details for the venue {string} as follows:")
@@ -106,6 +107,7 @@ public class VenueManagementStepDefinition {
     @When("I link the venue {string} with the event {string}")
     public void iLinkTheVenueWithTheEvent(String string, String string2) {
         // Write code here that turns the phrase above into concrete actions
+        venueToBeAssociated.setAssociatedEvent(associatedEvent);
         venueToBeAssociated.setAssociatedEvent(associatedEvent);
         associatedEvent.setAssociatedVenue(venueToBeAssociated);
 

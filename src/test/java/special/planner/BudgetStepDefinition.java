@@ -14,6 +14,7 @@ public class BudgetStepDefinition {
     Event nobudgetEvent;
     Vendor associatedVendor;
     Venue associatedVenue;
+    EventManagement eventManagement;
     public static final String USER = "User";
 
     public BudgetStepDefinition(){
@@ -28,7 +29,9 @@ public class BudgetStepDefinition {
         associatedVendor = new Vendor("loc@gmail.com","123", "singers", "salfeet",
                 3000, 2, "my price is 1000 brother take it or leave it");
         associatedVenue = new Venue("hello", 20, "am", 5000);
-
+        eventManagement = new EventManagement();
+        eventManagement.addEvent(budgetEvent);
+        eventManagement.addEvent(nobudgetEvent);
     }
     @Given("I am an organizer4")
     public void iAmAnOrganizer4() {
@@ -49,12 +52,14 @@ public class BudgetStepDefinition {
     public void theSystemShouldDisplayAReportWithAllTheVenuesAndTheVendorsAssociatedWithTheEvent() {
         // Write code here that turns the phrase above into concrete actions
         assertEquals(this.haveBudgetOrginizer.budget, 2_000);
+        eventManagement.printEventsReports(haveBudgetOrginizer);
     }
 
     @Given("I don't have a sufficient budget for venue")
     public void iDonTHaveASufficientBudgetForVenue() {
         // Write code here that turns the phrase above into concrete actions
         doesntHaveBudgetOrganizer.setBudget(4_000);
+
 
 
     }

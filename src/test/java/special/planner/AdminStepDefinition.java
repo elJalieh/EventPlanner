@@ -48,6 +48,7 @@ public class AdminStepDefinition {
     public void iShouldSeeASuccessMessageConfirmingTheAccountCreation() {
         // Write code here that turns the phrase above into concrete actions
         assertTrue(login.vendorExists(email));
+        assertFalse(login.vendorExists("hello@email.doesnotexist"));
     }
 
 

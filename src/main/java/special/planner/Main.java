@@ -76,8 +76,8 @@ public class Main {
         switch (choice){
             case 1 -> showPackages();
             case 2 -> addPackage();
-            case 3 -> editPackage();
-            case 4 -> deletePackage();
+            case 3 -> alterPackage("edit");
+            case 4 -> alterPackage("delete");
             case 5 -> editAddContract();
             case 6 -> showConstumerDetails();
             case 7 -> manageUserRegistration();
@@ -115,44 +115,31 @@ public class Main {
         serviceProviderScreen();
     }
 
-    private static void deletePackage() {
+
+    private static void alterPackage(String alterationType) {
         if(currentVendor.Packages.isEmpty()){
-            LOGGER.info("add a package first to delete");
+            LOGGER.info("add a package first to " + alterationType);
             serviceProviderScreen();
         }
         currentVendor.displayPackages();
-        LOGGER.info("enter package number you want to delete:");
+        LOGGER.info("enter package number you want to" + alterationType);
         int packageNo = scanner.nextInt();
         scanner.nextLine();
         if (packageNo > currentVendor.Packages.size()) {
             numberDoesntExistMessage();
             serviceProviderScreen();
         }
-        currentVendor.Packages.remove(packageNo-1);
-        LOGGER.info("package deleted successfully!");
+        if(alterationType.equalsIgnoreCase("delete")) {
+            currentVendor.Packages.remove(packageNo - 1);
+        } else if (alterationType.equalsIgnoreCase("edit")) {
+            LOGGER.info("Enter edit:");
+            String editedPackage = scanner.nextLine();
+            currentVendor.Packages.set(packageNo-1, editedPackage);
+        }
+        LOGGER.info("package " + alterationType +"ed successfully!");
         serviceProviderScreen();
     }
 
-    private static void editPackage() {
-        if(currentVendor.Packages.isEmpty()){
-            LOGGER.info("add a package first to edit");
-            serviceProviderScreen();
-        }
-        currentVendor.displayPackages();
-        LOGGER.info("enter package number you want to edit:");
-        int packageNo = scanner.nextInt();
-        scanner.nextLine();
-        if (packageNo > currentVendor.Packages.size()) {
-            numberDoesntExistMessage();
-            serviceProviderScreen();
-        }
-        LOGGER.info("Enter edit:");
-        String editedPackage = scanner.nextLine();
-        currentVendor.Packages.set(packageNo-1, editedPackage);
-        LOGGER.info("package edited successfully!");
-        serviceProviderScreen();
-
-    }
 
     private static void addPackage() {
         LOGGER.info("enter package you want to add:\n");
@@ -273,8 +260,8 @@ public class Main {
             case 5 -> bookVenue();
             case 6 -> displayAttendees();
             case 7 -> assignVendors();
-            case 8 -> releaseVendor();
-            case 9 -> releaseVenue();
+            case 8 -> releaseResource("vendor");
+            case 9 -> releaseResource("venue");
             case 10 -> addBudget();
             case 11 -> printBudgetReport();
             case 12 -> userScreen();
@@ -300,51 +287,31 @@ public class Main {
         manageEvents();
     }
 
-    private static void releaseVenue() {
+    private static void releaseResource(String resourceName) {
         eventManager.printEventsForOrganizer(currentUser);
-        LOGGER.info("Enter event number to release the venue for: ");
+        LOGGER.info("Enter event number to release the " + resourceName + " for: ");
         int eventNo = scanner.nextInt();
         scanner.nextLine();
         if (eventNo > eventManager.Events.size()) {
             numberDoesntExistMessage();
             manageEvents();
         }
-        Event pickedEvent = eventManager.Events.get(eventNo-1);
-        if(!pickedEvent.isTheOrganizerOfTheEvent(currentUser)){
+        Event pickedEvent = eventManager.Events.get(eventNo - 1);
+        if (!pickedEvent.isTheOrganizerOfTheEvent(currentUser)) {
             LOGGER.info("you're not the organizer of the event!");
             manageEvents();
         }
-        if (pickedEvent.hasVenue()){
+        if (resourceName.equals("venue") && pickedEvent.hasVenue()) {
             pickedEvent.releaseVenue();
-            LOGGER.info("the venue was released successfully!");
-        }
-            manageEvents();
-    }
-
-    private static void releaseVendor() {
-        eventManager.printEventsForOrganizer(currentUser);
-        LOGGER.info("Enter event number to release the vendor for: ");
-        int eventNo = scanner.nextInt();
-        scanner.nextLine();
-        if (eventNo > eventManager.Events.size()) {
-            numberDoesntExistMessage();
-            manageEvents();
-        }
-        Event pickedEvent = eventManager.Events.get(eventNo-1);
-        if(!pickedEvent.isTheOrganizerOfTheEvent(currentUser)){
-            LOGGER.info("you're not the organizer of the event!");
-
-            manageEvents();
-        }
-        if (pickedEvent.hasVenue()){
+            LOGGER.info("the " + resourceName + " was released successfully!");
+        } else if (resourceName.equals("vendor") && pickedEvent.hasVenue()) {
             pickedEvent.eventVendor.releaseEvent();
             pickedEvent.releaseVendor();
-
-            LOGGER.info("the vendor was released successfully!");
+            LOGGER.info("the " + resourceName + " was released successfully!");
         }
         manageEvents();
-
     }
+
 
     private static void addBudget() {
         LOGGER.info("Enter your budget\n");
@@ -497,7 +464,6 @@ public class Main {
     }
     private static void numberDoesntExistMessage(){
         LOGGER.info("Number does not exist!");
-
     }
     private static void editEvent() {
         eventManager.printEventsForOrganizer(currentUser);

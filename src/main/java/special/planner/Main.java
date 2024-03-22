@@ -79,7 +79,7 @@ public class Main {
             case 3 -> editPackage();
             case 4 -> deletePackage();
             case 5 -> editAddContract();
-            case 6 -> showConstumerDetails();
+            case 6 -> showCostumerDetails();
             case 7 -> manageUserRegistration();
             case 8 -> System.exit(0);
             default -> LOGGER.info("invalid choice!");
@@ -89,7 +89,7 @@ public class Main {
 
     }
 
-    private static void showConstumerDetails() {
+    private static void showCostumerDetails() {
         if(currentVendor.vendorEvent == null){
             LOGGER.info("you're not associated with an event!");
             serviceProviderScreen();
@@ -198,7 +198,7 @@ public class Main {
         }
         Event pickedEvent = eventManager.Events.get(eventNo-1);
         if(!pickedEvent.isTheOrganizerOfTheEvent(currentUser)){
-            LOGGER.info("you're not the organizer of the event!");
+            printNotOrganizer();
             manageEvents();
         }
         if (pickedEvent.hasVenue()){
@@ -311,7 +311,7 @@ public class Main {
         }
         Event pickedEvent = eventManager.Events.get(eventNo-1);
         if(!pickedEvent.isTheOrganizerOfTheEvent(currentUser)){
-            LOGGER.info("you're not the organizer of the event!");
+            printNotOrganizer();
             manageEvents();
         }
         if (pickedEvent.hasVenue()){
@@ -332,14 +332,12 @@ public class Main {
         }
         Event pickedEvent = eventManager.Events.get(eventNo-1);
         if(!pickedEvent.isTheOrganizerOfTheEvent(currentUser)){
-            LOGGER.info("you're not the organizer of the event!");
-
+            printNotOrganizer();
             manageEvents();
         }
         if (pickedEvent.hasVenue()){
             pickedEvent.eventVendor.releaseEvent();
             pickedEvent.releaseVendor();
-
             LOGGER.info("the vendor was released successfully!");
         }
         manageEvents();
@@ -355,7 +353,7 @@ public class Main {
 
     private static void assignVendors() {
         if (!eventManager.isOrganizerOfEvent(currentUser)) {
-            LOGGER.info("you're not an organizer of an event!\n");
+            printNotOrganizer();
             manageEvents();
         }
         eventManager.displayEventsForOrganizer(currentUser);
@@ -368,7 +366,7 @@ public class Main {
         }
         Event associatedEvent = eventManager.Events.get(eventNo - 1);
         if (!associatedEvent.isTheOrganizerOfTheEvent(currentUser)){
-            LOGGER.info("you're not the organizer of the event!");
+            printNotOrganizer();
             assignVendors();
         }
         if(associatedEvent.hasVendor()){
@@ -478,7 +476,7 @@ public class Main {
 
     private static void deleteEvent() {
         eventManager.printEventsForOrganizer(currentUser);
-        LOGGER.info("Enter event number: ");
+        LOGGER.info("Enter event number you want to delete: ");
         int eventNo = scanner.nextInt();
         scanner.nextLine();
         if (eventNo > eventManager.Events.size()) {
@@ -487,7 +485,7 @@ public class Main {
         }
         Event pickedEvent = eventManager.Events.get(eventNo - 1);
         if (!pickedEvent.isTheOrganizerOfTheEvent(currentUser)){
-            LOGGER.info("you're not the organizer of the event!");
+            printNotOrganizer();
             manageEvents();
         }
         pickedEvent.eventVendor.releaseEvent();
@@ -501,7 +499,7 @@ public class Main {
     }
     private static void editEvent() {
         eventManager.printEventsForOrganizer(currentUser);
-        LOGGER.info("Enter event number: ");
+        LOGGER.info("Enter event number you want to edit: ");
         int eventNo = scanner.nextInt();
         scanner.nextLine();
         if (eventNo > eventManager.Events.size()) {
@@ -510,7 +508,7 @@ public class Main {
         }
         Event pickedEvent = eventManager.Events.get(eventNo - 1);
         if (!pickedEvent.isTheOrganizerOfTheEvent(currentUser)){
-            LOGGER.info("you're not the organizer of the event!");
+            printNotOrganizer();
             editEvent();
         }
         LOGGER.info("Enter the Date: ");
@@ -592,7 +590,7 @@ public class Main {
         LOGGER.info("Enter email to delete:");
         emailToDelete = scanner.nextLine();
         if(Objects.equals(currentUser.getEmail(), emailToDelete)){
-            LOGGER.info("deleting your own account...");
+            LOGGER.info("Deleting your own account...");
             login.deleteUser(emailToDelete);
             manageUserRegistration();
         }
@@ -756,7 +754,7 @@ public class Main {
         String password = scanner.nextLine();
         whichType = login.isValid(email, password);
         if (whichType == NOT_VALID) {
-            LOGGER.info("not welcome!");
+            LOGGER.info("Not welcome!");
             manageUserRegistration();
         } else if (whichType == USER_TYPE) {
             currentUser = login.getCurrentUser(email, password);
@@ -768,9 +766,11 @@ public class Main {
             login.setLogInStatus(true);
 
         } else {
-            LOGGER.info("error signing in!");
+            LOGGER.info("Error signing in!");
             manageUserRegistration();
         }
     }
-
+    private static void printNotOrganizer(){
+        LOGGER.info("You're not the organizer of the event!");
+    }
 }

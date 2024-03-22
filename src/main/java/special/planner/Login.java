@@ -163,8 +163,7 @@ public class Login {
         int index = 1;
         for (Vendor v :
                 vendors) {
-            LOGGER.info(index + ". " + "Vendor email: " + v.email + " location: "+ v.Location + " availability: " + v.Availability +"\n"
-                    + "Review: "+ v.Reviews + " price: " + v.Pricing + "\n");
+            printVendorDetails(index, v);
             index++;
         }
     }
@@ -175,8 +174,7 @@ public class Login {
         for (Vendor v :
                 vendors) {
             if(Objects.equals(v.Location, location)){
-                LOGGER.info(index + ". " + "Vendor email: " + v.email + " location: "+ v.Location + " availability: " + v.Availability +"\n"
-                + "Review: "+ v.Reviews + " price: " + v.Pricing + "\n");
+                printVendorDetails(index, v);
                 email = v.email;
             }
                 index++;
@@ -190,8 +188,7 @@ public class Login {
         for (Vendor v :
                 vendors) {
             if(Objects.equals(v.Pricing, price)){
-                LOGGER.info(index + ". " +"Vendor email: " + v.email + " location: "+ v.Location + " availability: " + v.Availability +"\n"
-                        + "Review: "+ v.Reviews + " price: " + v.Pricing + "\n");
+                printVendorDetails(index, v);
                 email = v.email;
             }
                 index++;
@@ -206,8 +203,7 @@ public class Login {
         for (Vendor v :
                 vendors) {
             if(v.Availability == b){
-                LOGGER.info(index + ". " +"Vendor email: " + v.email + " location: "+ v.Location + " availability: " + v.Availability +"\n"
-                        + "Review: "+ v.Reviews + " price: " + v.Pricing + "\n");
+                printVendorDetails(index, v);
                 email = v.email;
             }
                 index++;
@@ -221,8 +217,7 @@ public class Login {
         for (Vendor v :
                 vendors) {
             if(v.Reviews == int1){
-                LOGGER.info(index + ". " +"Vendor email: " + v.email + " location: "+ v.Location + " availability: " + v.Availability +"\n"
-                        + "Review: "+ v.Reviews + " price: " + v.Pricing + "\n");
+                printVendorDetails(index, v);
                 email = v.email;
             }
                 index++;
@@ -233,7 +228,10 @@ public class Login {
     public int getNumberOfVendors(){
         return this.vendors.size();
     }
-
+    public static void printVendorDetails(int index, Vendor v){
+        LOGGER.info(index + ". " + "Vendor email: " + v.email + " Location: "+ v.Location + " Availability: " + v.Availability +"\n"
+                + "Review: "+ v.Reviews + " Price: " + v.Pricing + "\n");
+    }
 
 }
 

@@ -7,7 +7,7 @@ public class User {
     String password;
     String type;
     boolean organizer;
-    boolean Admin = false;
+    boolean admin = false;
     int budget;
 
 
@@ -46,7 +46,7 @@ public class User {
     public boolean isOrganizer(){
         return organizer;
     }
-    public void setAsAdmin(){this.Admin = true;}
+    public void setAsAdmin(){this.admin = true;}
 
     public void linkWithVendor( Vendor V) {
         V.setBooker(this);

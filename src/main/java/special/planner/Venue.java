@@ -11,7 +11,7 @@ public class Venue {
     int pricing;
     Event associatedEvent;
     boolean booked;
-    private static final Logger logger = Logger.getLogger(Main.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
     Venue(String venueName, int capacity, String amenities, int pricing){
         this.venueName = venueName;
@@ -33,7 +33,7 @@ public class Venue {
             booked = true;
             this.associatedEvent = associatedEvent;
         }
-        else  logger.info("this venue is booked!");
+        else  LOGGER.info("this venue is booked!");
 
     }
 

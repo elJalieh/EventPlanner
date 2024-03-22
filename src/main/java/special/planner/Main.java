@@ -480,7 +480,7 @@ public class Main {
 
     private static void createEvent() {
         //String Date, String Time,String Location, String Theme,String Description,int AttendeeCount, User Organizer
-        LOGGER.info("Enter the Date:");
+        LOGGER.info("Enter the Date: ");
         String date = scanner.nextLine();
 
         LOGGER.info("Enter the Time: ");
@@ -502,8 +502,6 @@ public class Main {
         eventManager.addEvent(newEvent);
         LOGGER.info("Event added successfully!\n");
         manageEvents();
-
-
     }
 
     private static void adminScreen() {

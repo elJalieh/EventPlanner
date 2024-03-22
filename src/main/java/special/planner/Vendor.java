@@ -40,7 +40,7 @@ public class Vendor {
     }
 
     public void setAvailability(boolean availability) {
-        availability = availability;
+        this.availability = availability;
     }
 
     public void addPackage(String p) {

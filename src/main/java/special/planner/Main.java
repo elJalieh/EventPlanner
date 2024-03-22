@@ -262,7 +262,7 @@ public class Main {
             case 14 -> displayNearEvents();
             case 15 -> System.exit(0);
 
-            default -> LOGGER.info("Invalid choice! Please try again.");
+            default -> LOGGER.info(INVALID_CHOICE_MESSAGE);
         }
         userScreen();
     }

@@ -54,19 +54,13 @@ public class Main {
                 continue;
             }
 
-            if (choice < 1 || choice > 3) {
-                LOGGER.info("Invalid choice! Please enter a number between 1 and 3.");
-                continue;
-            }
-
             switch (choice) {
                 case 1 -> signUp();
                 case 2 -> signIn();
-                case 3 -> {
+                default -> {
                     System.exit(0);
                     return;
                 }
-                default -> LOGGER.info(INVALID_CHOICE_MESSAGE);
             }
             if (login.isLoggedIn()) {
                 if(whichType == USER_TYPE) {

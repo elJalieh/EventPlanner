@@ -19,8 +19,9 @@ public class Event {
     Vendor eventVendor;
     Venue eventVenue;
     List<User> guestList=new ArrayList<>();
+    public static final String NOT_SET_MESSAGE = "not set!";
     private static final Logger LOGGER = Logger.getLogger(Event.class.getName());
-    Event(String date, String time,String location, String theme,String description,int attendeeCount, User organizer ){
+    Event(String date, String time, String location, String theme,String description,int attendeeCount, User organizer ){
         this.eventDate = date;
         this.eventTheme = theme;
         this.eventDescription = description;
@@ -29,7 +30,7 @@ public class Event {
         this.attendeeCount = attendeeCount;
         this.organizer = organizer;
         this.guestList.add(organizer);
-        vendorPackages = "not set!";
+        vendorPackages = NOT_SET_MESSAGE;
         eventVendor = null;
         eventVenue = null;
 
@@ -67,13 +68,13 @@ public class Event {
         String vendorName;
         String venueName;
         if(this.eventVendor == null){
-            vendorName = "not set!";
+            vendorName = NOT_SET_MESSAGE;
         }
         else{
             vendorName = this.eventVendor.email;
         }
         if(this.eventVenue == null){
-            venueName = "not set!";
+            venueName = NOT_SET_MESSAGE;
         }
         else{
             venueName = this.eventVenue.venueName;

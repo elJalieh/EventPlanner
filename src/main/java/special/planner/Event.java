@@ -51,8 +51,7 @@ public class Event {
         int index = 1;
         for (User i :
                 guestList) {
-            LOGGER.info("Attendee No." + index
-            + " email: " + i.getEmail() + "\n");
+            LOGGER.info(String.format("Attendee No. %d email: %s\n", index, i.getEmail()));
         }
     }
     public void setPackage(String vendorPackages){

@@ -34,9 +34,9 @@ public class VenueManagement {
 
         for (Venue i:
                 venues) {
-            LOGGER.info("venue no." +index +"\n" + i+"====================================================================================\n"
-                    +"venue name: " + i.venueName+"\nvenue capacity: " + i.capacity + "\t" + "venue amenities: " + i.amenities + "\t" +
-                    "venue pricing: " + i.pricing + "\t" + "booking status: " + i.booked);
+            LOGGER.info("Venue no." +index +"\n" + i+"====================================================================================\n"
+                    +"Venue name: " + i.venueName+"\nVenue capacity: " + i.capacity + "\t" + "Venue amenities: " + i.amenities + "\t" +
+                    "Venue pricing: " + i.pricing + "\t" + "Booking status: " + i.booked);
             index++;
         }
 

@@ -37,7 +37,7 @@ public class Event {
     }
     public void addAttendee(User attendee){
         if(guestList.size() == attendeeCount) {
-            LOGGER.info("maximum number of attendees reached!");
+            LOGGER.info("Maximum number of attendees reached!");
             return;
         }
         this.guestList.add(attendee);
@@ -51,7 +51,7 @@ public class Event {
         int index = 1;
         for (User i :
                 guestList) {
-            LOGGER.info(String.format("Attendee No. %d email: %s\n", index, i.getEmail()));
+            LOGGER.info("Attendee No." + index + " Email: " + i.getEmail() + "\n");
         }
     }
     public void setPackage(String vendorPackages){
@@ -76,8 +76,8 @@ public class Event {
             vendorName = this.eventVendor.email;
         }
         LOGGER.info("====================================================================================\n"
-                +"event organizer: " + this.organizer.getEmail()+"\nevent theme: " + this.eventTheme + "\t" + "event description: " + this.eventDescription + "\t" +
-                "event Date: " + this.eventDate + "\n" + "event Time: " + this.eventTime + "\t Associated Vendor: " + vendorName +"\t Associated Package: " + this.vendorPackages + "\n");
+                +"Event organizer: " + this.organizer.getEmail()+"\nEvent theme: " + this.eventTheme + "\t" + "Event description: " + this.eventDescription + "\t" +
+                "Event Date: " + this.eventDate + "\n" + "Event Time: " + this.eventTime + "\t Associated Vendor: " + vendorName +"\t Associated Package: " + this.vendorPackages + "\n");
     }
 
     public boolean isNotTheOrganizerOfTheEvent(User org){
@@ -85,12 +85,12 @@ public class Event {
     }
     public void setVendor(Vendor selectedVendor) {
         if (this.eventVendor != null){
-            LOGGER.info("vendor already booked!");
+            LOGGER.info("Vendor already booked!");
         }
         else if (this.organizer.budget >= selectedVendor.pricing) {
             this.eventVendor = selectedVendor;
             this.organizer.budget -= selectedVendor.pricing;
-            LOGGER.info("vendor associated successfully!");
+            LOGGER.info("Vendor associated successfully!");
 
         }
         else{
@@ -103,12 +103,12 @@ public class Event {
 
     public void setAssociatedVenue(Venue venueToBeAssociated) {
         if (this.eventVenue != null){
-            LOGGER.info("venue already booked!");
+            LOGGER.info("Venue already booked!");
         }
         else if (this.organizer.budget >= venueToBeAssociated.pricing) {
             this.eventVenue = venueToBeAssociated;
             this.organizer.budget -= venueToBeAssociated.pricing;
-            LOGGER.info("venue associated successfully!");
+            LOGGER.info("Venue associated successfully!");
         }
         else{
             LOGGER.info("Not enough budget!");
@@ -151,7 +151,7 @@ public class Event {
         LOGGER.info("Vendor payment : \t" + vendorPricing + "\n"+
                     "Venue payment : \t" + venuePricing + "\n"+
                     "=========================================================\n" +
-                    "Event Total : \t" + total + "\tremaining budget: \t" + this.organizer.budget+"\n"
+                    "Event Total : \t" + total + "\tRemaining budget: \t" + this.organizer.budget+"\n"
                 );
 
     }

@@ -14,7 +14,7 @@ public class Main {
     public static final String USER = "User";
     private static final String INVALID_CHOICE_MESSAGE = "Invalid choice! Please try again.";
     public static final int USER_TYPE = 1;
-    static int whichType = 0;
+    public static int whichType = 0;
     public static final int VENDOR_TYPE = 2;
     public static final int NOT_VALID = 0;
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
@@ -30,8 +30,6 @@ public class Main {
         eventManager = new EventManagement();
         venueManager = new VenueManagement();
         venueManager.initializeVenues();// will be removed later
-
-
         manageUserRegistration();
     }
 
@@ -49,6 +47,7 @@ public class Main {
                 case 1 -> signUp();
                 case 2 -> signIn();
                 case 3 -> {
+                    System.exit(0);
                     return;
                 }
                 default -> LOGGER.info(INVALID_CHOICE_MESSAGE);
@@ -75,7 +74,7 @@ public class Main {
                 2. Add a new package
                 3. Edit a package
                 4. Delete a package
-                5. Edit/add contract
+                5. Edit/Add contract
                 6. Show costumer details
                 7. Logout
                 8. Exit""");
@@ -89,7 +88,10 @@ public class Main {
             case 5 -> editAddContract();
             case 6 -> showCostumerDetails();
             case 7 -> manageUserRegistration();
-            case 8 -> System.exit(0);
+            case 8 -> {
+                System.exit(0);
+                return;
+            }
             default -> LOGGER.info("Invalid choice!");
         }
         serviceProviderScreen();
@@ -172,7 +174,10 @@ public class Main {
             case 1 -> manageEvents();
             case 2 -> registerInEvent();
             case 3 -> manageUserRegistration();
-            case 4 -> System.exit(0);
+            case 4 -> {
+                System.exit(0);
+                return;
+            }
             default -> LOGGER.info(INVALID_CHOICE_MESSAGE);
         }
         userScreen();
@@ -573,7 +578,10 @@ public class Main {
             case 4 -> printVenues();
             case 5 -> displayBookedEvent();
             case 6 -> userScreen();
-            case 7 -> System.exit(0);
+            case 7 -> {
+                System.exit(0);
+                return;
+            }
 
             default -> LOGGER.info(INVALID_CHOICE_MESSAGE);
         }
@@ -594,7 +602,6 @@ public class Main {
             LOGGER.info("Venue is not booked!");
         }
         manageVenues();
-
     }
 
     private static void printVenues() {

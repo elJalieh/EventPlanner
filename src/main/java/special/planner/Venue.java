@@ -30,7 +30,7 @@ public class Venue {
             booked = true;
             this.associatedEvent = associatedEvent;
         }
-        else  LOGGER.info("this venue is booked!");
+        else  LOGGER.info("This venue is booked!");
 
     }
 

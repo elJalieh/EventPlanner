@@ -12,7 +12,6 @@ public class Login {
     List<Vendor> vendors = new ArrayList<>();
     boolean logInStatus;
     private static final Logger LOGGER = Logger.getLogger(Login.class.getName());
-
     public void initializeUsers(){
         User a=new User("a","123", admin);
         User u1=new User("alaraid2003@gmail.com","123", admin);
@@ -51,7 +50,6 @@ public class Login {
         vendors.add(v3);
         logInStatus = false;
     }
-
     public int isValid(String email, String password) {
         if(email.isEmpty() || password.isEmpty()) return 0;
         for (User i :
@@ -60,7 +58,6 @@ public class Login {
                 logInStatus = true;
                 return 1;
             }
-
         }
         for (Vendor i :
                 vendors) {
@@ -68,25 +65,21 @@ public class Login {
                 logInStatus = true;
                 return 2;
             }
-
         }
         return 0;
     }
     public boolean isLoggedIn(){
         return this.logInStatus;
     }
-
     public void setLogInStatus(boolean logInStatus) {
         this.logInStatus = logInStatus;
     }
-
     public boolean emailExists(String email){
         for (User i :
                 users) {
             if (i.getEmail().equals(email) ) {
                 return true;
             }
-
         }
         return false;
     }
@@ -96,7 +89,6 @@ public class Login {
             if (i.getEmail().equals(email) ) {
                 return true;
             }
-
         }
         return false;
     }
@@ -105,38 +97,29 @@ public class Login {
         for (User i :
                 users) {
             if (i.getEmail().equals(email) && i.getPassword().equals(password)) {
-
                 return i;
             }
-
         }
         return null;
     }
-
     public Vendor getCurrentVendor(String email, String password){
         if(email.isEmpty() || password.isEmpty()) return null;
         for (Vendor i :
                 vendors) {
             if (i.getEmail().equals(email) && i.getPassword().equals(password)) {
-
                 return i;
             }
-
         }
         return null;
     }
-
     public void addUser(String email, String password) {
         User newUser = new User(email, password, user);
         users.add(newUser);
     }
-
-
     public void addServiceProvider(String email, String password,String category, String location, int pricing, int reviews, String contractDescription){
         Vendor newVendor = new Vendor(email, password, category, location, pricing, reviews, contractDescription);
         vendors.add(newVendor);
     }
-
     public void deleteUser(String email){
         int toRemove = -1;
         for (User i: users){
@@ -147,11 +130,9 @@ public class Login {
         }
         users.remove(toRemove);
     }
-
     public void addVendor(Vendor vendor) {
         vendors.add(vendor);
     }
-
     public void displayAllVendors(){
         int index = 1;
         for (Vendor v :
@@ -160,7 +141,6 @@ public class Login {
             index++;
         }
     }
-
     public String displayVendorByLocation(String location) {
         String email = "";
         int index = 1;
@@ -174,7 +154,6 @@ public class Login {
         }
         return email;
     }
-
     public String displayVendorByPrice(Integer price) {
         String email = "";
         int index = 1;
@@ -188,8 +167,6 @@ public class Login {
         }
         return email;
     }
-
-
     public String displayVendorByAvailability(boolean b) {
         String email = "";
         int index = 1;
@@ -203,7 +180,6 @@ public class Login {
         }
         return email;
     }
-
     public String displayVendorByReview(Integer int1) {
         String email = "";
         int index = 1;
@@ -217,15 +193,13 @@ public class Login {
         }
         return email;
     }
-
     public int getNumberOfVendors(){
         return this.vendors.size();
     }
     public static void printVendorDetails(int index, Vendor v){
         LOGGER.info(index + ". " + "Vendor email: " + v.email + " Location: "+ v.location + " Availability: " + v.availability +"\n"
-                + "Review: "+ v.reviews + " Price: " + v.pricing + "\n");
+                + "Review: "+ v.reviews + " Price: " + v.pricing);
     }
-
 }
 
 

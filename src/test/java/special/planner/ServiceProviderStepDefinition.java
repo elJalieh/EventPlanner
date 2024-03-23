@@ -9,7 +9,6 @@ public class ServiceProviderStepDefinition {
     User u;
     Event e;
     int index = -1;
-
     public ServiceProviderStepDefinition(Login login){
         this.login = login;
         v = new Vendor("Ayman","123", "Singer", "Salfit",

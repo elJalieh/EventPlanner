@@ -32,8 +32,6 @@ public class CalendarStepDefinition {
         eventManagement.addEvent(eventUpComing1Day);
         eventManagement.addEvent(eventUpComing3Days);
         eventManagement.addEvent(oldEvent);
-
-
     }
 
     @Given("I am user\\/organizer")

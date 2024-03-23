@@ -33,7 +33,6 @@ public class BudgetStepDefinition {
         assertTrue(haveBudgetOrganizer.isOrganizer());
         budgetEvent.setAssociatedVenue(associatedVenue);
         budgetEvent.setVendor(associatedVendor);
-
     }
     @When("I view the budget report for an event")
     public void iViewTheBudgetReportForAnEvent() {

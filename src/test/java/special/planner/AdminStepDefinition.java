@@ -9,8 +9,6 @@ public class AdminStepDefinition {
     User currentUser;
     User testUser;
     String email;
-
-
     public AdminStepDefinition(Login login){
         this.login = login;
         currentUser = new User("email@email", "123", "Admin");

@@ -17,7 +17,6 @@ public class Vendor {
     String contractDescription;
     User booker;
     Event vendorEvent;
-
     public Vendor( String email, String password, String category, String location,
                     int pricing, int reviews, String contractDescription){
         this.email = email;
@@ -37,15 +36,12 @@ public class Vendor {
     public String getContractDescription(){
         return this.contractDescription;
     }
-
     public void setAvailability(boolean availability) {
         this.availability = availability;
     }
-
     public void addPackage(String p) {
         vendorPackages.add(p);
     }
-
     public String getPackageName(int packageIndex, User booker) {
         return (this.booker.equals(booker)) ? vendorPackages.get(packageIndex) : "Not Permitted";
 
@@ -56,11 +52,9 @@ public class Vendor {
     public String getPassword(){
         return this.password;
     }
-
     public boolean isAvailable() {
         return this.availability;
     }
-
     public void displayPackages() {
         int index = 1;
         for (String i :
@@ -69,11 +63,9 @@ public class Vendor {
             index++;
         }
     }
-
     public boolean isPackageInlist(String package0) {
         return this.vendorPackages.contains(package0);
     }
-
     public void deletePackage(String package0) {
         int toRemove = -1;
         for (String i: vendorPackages){
@@ -84,7 +76,6 @@ public class Vendor {
         }
         vendorPackages.remove(toRemove);
     }
-
     public int getPackageNum(String search) {
         int index = -1;
         for (String i: vendorPackages){
@@ -95,12 +86,10 @@ public class Vendor {
         }
         return index;
     }
-
     public boolean viewPackages() {
         for (String aPackage : vendorPackages) LOGGER.info(aPackage);
         return true;
     }
-
     public Boolean checkBooker() {
         if(booker!=null){
             vendorEvent.printEventDetails();
@@ -108,18 +97,13 @@ public class Vendor {
         }
         return false;
     }
-
     public void setEvent(Event associatedEvent) {
         this.vendorEvent = associatedEvent;
     }
-
     public void releaseEvent() {
         this.vendorEvent = null;
     }
-
     public void setContractDescription(String contractDescription) {
         this.contractDescription = contractDescription;
     }
-
-
 }

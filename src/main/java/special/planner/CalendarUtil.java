@@ -8,18 +8,14 @@ public class CalendarUtil {
     public static final int DATED = 0;
     public static final int WITHIN_2_DAYS = 1;
     public static final int WITHIN_3_OR_MORE = 2;
-
     private CalendarUtil(){}
     public static int eventDateType(String eventDate) {
         // Parse the event date string to LocalDate
         LocalDate parsedEventDate = LocalDate.parse(eventDate);
-
         // Get current date
         LocalDate currentDate = LocalDate.now();
-
         // Calculate the difference in days between current date and event date
         long daysDifference = ChronoUnit.DAYS.between(currentDate, parsedEventDate);
-
         // Determine the type of event date
         if (daysDifference <= 0) {
             // Event is today
@@ -38,7 +34,4 @@ public class CalendarUtil {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return newDate.format(formatter);
     }
-
-
-
 }

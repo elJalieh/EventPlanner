@@ -20,7 +20,6 @@ public class Event {
     Venue eventVenue;
     List<User> guestList=new ArrayList<>();
     private static final Logger LOGGER = Logger.getLogger(Event.class.getName());
-
     Event(String date, String time,String location, String theme,String description,int attendeeCount, User organizer ){
         this.eventDate = date;
         this.eventTheme = theme;
@@ -46,18 +45,16 @@ public class Event {
     public void removeAttendee(User attendee){
         this.guestList.remove(attendee);
     }
-    
     public void printAttendees(){
         int index = 1;
         for (User i :
                 guestList) {
-            LOGGER.info("Attendee No." + index + " Email: " + i.getEmail() + "\n");
+            LOGGER.info("Attendee No." + index++ + " Email: " + i.getEmail());
         }
     }
     public void setPackage(String vendorPackages){
         this.vendorPackages = vendorPackages;
     }
-
     public void updateEvent(String date, String time,String location, String theme,String description,int attendeeCount){
         this.eventDate = date;
         this.eventTheme = theme;
@@ -66,20 +63,31 @@ public class Event {
         this.eventTime = time;
         this.attendeeCount = attendeeCount;
     }
-
     public void printEventDetails(){
         String vendorName;
+        String venueName;
         if(this.eventVendor == null){
             vendorName = "not set!";
         }
         else{
             vendorName = this.eventVendor.email;
         }
+        if(this.eventVenue == null){
+            venueName = "not set!";
+        }
+        else{
+            venueName = this.eventVenue.venueName;
+        }
         LOGGER.info("====================================================================================\n"
-                +"Event organizer: " + this.organizer.getEmail()+"\nEvent theme: " + this.eventTheme + "\t" + "Event description: " + this.eventDescription + "\t" +
-                "Event Date: " + this.eventDate + "\n" + "Event Time: " + this.eventTime + "\t Associated Vendor: " + vendorName +"\t Associated Package: " + this.vendorPackages + "\n");
+                +"Event organizer: " + this.organizer.getEmail()
+                +"\nEvent theme: " + this.eventTheme
+                + "\t" + "Event description: " + this.eventDescription
+                + "\t" + "Event Date: " + this.eventDate
+                + "\nEvent Time: " + this.eventTime
+                + "\t Associated Vendor: " + vendorName
+                +"\t Associated Package: " + this.vendorPackages
+                + "\nAssociated Venue: " + venueName);
     }
-
     public boolean isNotTheOrganizerOfTheEvent(User org){
         return !Objects.equals(this.organizer, org);
     }
@@ -100,7 +108,6 @@ public class Event {
     public boolean hasVenue(){
         return this.eventVenue != null;
     }
-
     public void setAssociatedVenue(Venue venueToBeAssociated) {
         if (this.eventVenue != null){
             LOGGER.info("Venue already booked!");
@@ -114,18 +121,13 @@ public class Event {
             LOGGER.info("Not enough budget!");
         }
     }
-
-    public void releaseVendor( ){
+    public void releaseVendor(){
         this.eventVendor = null;
+        this.vendorPackages = null;
     }
-
     public void releaseVenue(){
         this.eventVenue = null;
     }
-
-
-
-
     public void printReport(){
         int total;
         String vendorPricing;
@@ -151,15 +153,11 @@ public class Event {
         LOGGER.info("Vendor payment : \t" + vendorPricing + "\n"+
                     "Venue payment : \t" + venuePricing + "\n"+
                     "=========================================================\n" +
-                    "Event Total : \t" + total + "\tRemaining budget: \t" + this.organizer.budget+"\n"
-                );
-
+                    "Event Total : \t" + total + "\tRemaining budget: \t" + this.organizer.budget);
     }
-
     public void setOrganizer(User organizer) {
         this.organizer = organizer;
     }
-
     public boolean hasVendor() {
         return this.eventVendor != null;
     }

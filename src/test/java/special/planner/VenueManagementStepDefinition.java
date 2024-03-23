@@ -75,7 +75,6 @@ public class VenueManagementStepDefinition {
             fail();
         }
     }
-
     @When("I delete the venue {string}")
     public void iDeleteTheVenue(String string) {
         // Write code here that turns the phrase above into concrete actions

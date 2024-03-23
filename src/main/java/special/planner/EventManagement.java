@@ -5,47 +5,42 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class EventManagement {
-
     private static final Logger LOGGER = Logger.getLogger(EventManagement.class.getName());
     public static final int DATED = 0;
     public static final int WITHIN_2_DAYS = 1;
-    public List<Event> events = new ArrayList<>();
-
+    List<Event> events = new ArrayList<>();
     public void addEvent(Event newEvent){
         events.add(newEvent);
     }
     public void deleteEvent(Event deleteEvent){
         events.remove(deleteEvent);
     }
-
     public boolean isEventInList(Event eventSearch){
         for (Event i :
-                events) {
+                getEvents()) {
             if (i.equals(eventSearch) ) {
                 return true;
             }
         }
         return false;
     }
-
     public void printEventsForOrganizer(User organizer) {
         int index = 1;
 
         for (Event i:
              events) {
             if (i.organizer == organizer) {
-                LOGGER.info("Event no." + index + "\n");
+                LOGGER.info("Event no." + index);
                 i.printEventDetails();
             }
             index++;
         }
     }
-
     public void printEvents() {
         int index = 1;
         for (Event i:
                 events) {
-                LOGGER.info("Event no." + index + "\n");
+                LOGGER.info("Event no." + index);
                 i.printEventDetails();
             index++;
         }
@@ -59,7 +54,6 @@ public class EventManagement {
             }
         return false;
     }
-
     public void displayEventsForOrganizer(User currentUser) {
         int index = 1;
         for (Event i:
@@ -71,7 +65,6 @@ public class EventManagement {
             index++;
         }
     }
-
     public void printEventsReports(User currentUser) {
         int index = 1;
         for (Event i:
@@ -83,7 +76,6 @@ public class EventManagement {
             index++;
         }
     }
-
     public void displayUpComingEvents(User user) {
         int index = 1;
         for (Event i:
@@ -95,7 +87,6 @@ public class EventManagement {
             index++;
         }
     }
-
     public void displayEventsWithin2Days(User user) {
         int index = 1;
         for (Event i:
@@ -108,4 +99,7 @@ public class EventManagement {
         }
     }
     public static void printEventNum(int index){LOGGER.info("Event No. " + index);}
+    public List<Event> getEvents() {
+        return events;
+    }
 }

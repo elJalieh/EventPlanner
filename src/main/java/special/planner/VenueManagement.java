@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 
 public class VenueManagement {
     private static final Logger LOGGER = Logger.getLogger(VenueManagement.class.getName());
-
     public void initializeVenues(){
         Venue v1 = new Venue("hello1", 200, "am1", 1500);
         Venue v2 = new Venue("hello2", 220, "am2", 2500);
@@ -14,24 +13,18 @@ public class VenueManagement {
         venues.add(v2);
         venues.add(v3);
     }
-
-    public List<Venue> venues = new ArrayList<>();
+    List<Venue> venues = new ArrayList<>();
     public void addVenue(Venue newVenue){
         venues.add(newVenue);
     }
-
     public boolean isVenueInList(Venue venueSearch) {
         return venues.contains(venueSearch);
-
     }
-
     public void deleteVenue(Venue venueToBeDeleted) {
         this.venues.remove(venueToBeDeleted);
     }
-
     public void displayVenues() {
         int index = 1;
-
         for (Venue i:
                 venues) {
             LOGGER.info("Venue no." +index +"\n" + i+"====================================================================================\n"
@@ -39,7 +32,8 @@ public class VenueManagement {
                     "Venue pricing: " + i.pricing + "\t" + "Booking status: " + i.booked);
             index++;
         }
-
-
+    }
+    public List<Venue> getVenues() {
+        return venues;
     }
 }

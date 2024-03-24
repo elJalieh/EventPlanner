@@ -16,6 +16,7 @@ public class Main {
     public static final String ADMIN = "Admin";
     public static final String USER = "User";
     private static final String INVALID_CHOICE_MESSAGE = "Invalid choice! Please try again.";
+    public static final String NOT_ORGANIZER_MESSAGE ="You're not the organizer of the event!";
     public static final int USER_TYPE = 1;
     private static int whichType = 0;
     public static final int VENDOR_TYPE = 2;
@@ -202,7 +203,7 @@ public class Main {
         LOGGER.info("Enter event number to book a venue for: ");
         Event pickedEvent = selectEvent();
         if(pickedEvent.isNotTheOrganizerOfTheEvent(currentUser)){
-            printNotOrganizer();
+            LOGGER.info(NOT_ORGANIZER_MESSAGE);
             manageEvents();
         }
         if (pickedEvent.hasVenue()){
@@ -309,7 +310,7 @@ public class Main {
         LOGGER.info("Enter event number to release the " + resourceName + " for: ");
         Event pickedEvent = selectEvent();
         if (pickedEvent.isNotTheOrganizerOfTheEvent(currentUser)) {
-            printNotOrganizer();
+            LOGGER.info(NOT_ORGANIZER_MESSAGE);
             manageEvents();
         }
         if (resourceName.equals("venue") && pickedEvent.hasVenue()) {
@@ -342,7 +343,7 @@ public class Main {
 
     private static void isOrganizerEventAndHasVendor(Event associatedEvent){
         if (associatedEvent.isNotTheOrganizerOfTheEvent(currentUser)){
-            printNotOrganizer();
+            LOGGER.info(NOT_ORGANIZER_MESSAGE);
             assignVendors();
         }
         if(associatedEvent.hasVendor()){
@@ -459,7 +460,7 @@ public class Main {
         LOGGER.info("Enter event number you want to delete: ");
         Event pickedEvent = selectEvent();
         if (pickedEvent.isNotTheOrganizerOfTheEvent(currentUser)){
-            printNotOrganizer();
+            LOGGER.info(NOT_ORGANIZER_MESSAGE);
             manageEvents();
         }
         try {
@@ -479,7 +480,7 @@ public class Main {
         LOGGER.info("Enter event number: ");
         Event pickedEvent = selectEvent();
         if (pickedEvent.isNotTheOrganizerOfTheEvent(currentUser)){
-            printNotOrganizer();
+            LOGGER.info(NOT_ORGANIZER_MESSAGE);
             editEvent();
         }
         eventInformation();
@@ -738,8 +739,5 @@ public class Main {
             LOGGER.info("Error signing in!");
             manageUserRegistration();
         }
-    }
-    private static void printNotOrganizer(){
-        LOGGER.info("You're not the organizer of the event!");
     }
 }

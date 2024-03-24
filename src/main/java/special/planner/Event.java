@@ -3,6 +3,7 @@ package special.planner;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Event {
@@ -50,7 +51,7 @@ public class Event {
         int index = 1;
         for (User i :
                 guestList) {
-            LOGGER.info("Attendee No." + index++ + " Email: " + i.getEmail());
+            LOGGER.log(Level.INFO, "Attendee No. {0} Email: {1}", new Object[]{index++, i.getEmail()});
         }
     }
     public void setPackage(String vendorPackages){

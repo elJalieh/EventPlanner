@@ -31,7 +31,7 @@ public class EventManagement {
         for (Event i:
              events) {
             if (i.organizer == organizer) {
-                LOGGER.log(Level.INFO, "Event No.{0}", index);
+                printEventNum(index);
                 i.printEventDetails();
             }
             index++;
@@ -41,7 +41,7 @@ public class EventManagement {
         int index = 1;
         for (Event i:
                 events) {
-            LOGGER.log(Level.INFO, "Event No.{0}", index);
+                printEventNum(index);
                 i.printEventDetails();
             index++;
         }
@@ -99,8 +99,7 @@ public class EventManagement {
             index++;
         }
     }
-    public static void printEventNum(int index){LOGGER.log(Level.INFO, "Event No.{0}", index);
-    }
+    public static void printEventNum(int index){LOGGER.log(Level.INFO, "Event No.{0}", index);}
     public List<Event> getEvents() {
         return events;
     }

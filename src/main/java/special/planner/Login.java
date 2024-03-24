@@ -50,7 +50,7 @@ public class Login {
         vendors.add(v3);
         logInStatus = false;
     }
-    public int isValid(String email, String password) {
+    public int getTypeNumber(String email, String password) {
         if(email.isEmpty() || password.isEmpty()) return 0;
         for (User i :
                 users) {
@@ -68,6 +68,7 @@ public class Login {
         }
         return 0;
     }
+
     public boolean isLoggedIn(){
         return this.logInStatus;
     }
@@ -201,11 +202,4 @@ public class Login {
                 + "Review: "+ v.reviews + " Price: " + v.pricing);
     }
 }
-
-
-
-
-
-
-
 

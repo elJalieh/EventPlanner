@@ -6,9 +6,13 @@ import static org.junit.Assert.*;
 public class loginStepDefinition {
 
     private final Login login;
+    User currentUser;
 
     public loginStepDefinition(Login login){
         this.login = login;
+        currentUser = new User("user@email", "123", "user");
+        login.users.add(currentUser);
+
     }
     @Given("that the user is not logged in")
     public void thatTheUserIsNotLoggedIn() {
@@ -20,7 +24,7 @@ public class loginStepDefinition {
     @When("the information is valid email is {string} and password is {string}")
     public void theInformationIsValidEmailIsAndPasswordIs(String email, String password) {
         // Write code here that turns the phrase above into concrete actions
-        if(login.isValid(email, password ) == 1 || login.isValid(email, password ) == 2){
+        if(login.getTypeNumber(email, password ) == 1 || login.getTypeNumber(email, password ) == 2){
             login.setLogInStatus(true);
         }
 
@@ -31,6 +35,8 @@ public class loginStepDefinition {
         // Write code here that turns the phrase above into concrete actions
         //System.out.println("welcome");
         assertTrue(login.isLoggedIn());
+        assertEquals(currentUser, login.getCurrentUser("user@email", "123"));
+
 
 
     }
@@ -38,7 +44,7 @@ public class loginStepDefinition {
     @When("the email is invalid email is {string} and password is {string}")
     public void theEmailIsInvalidEmailIsAndPasswordIs(String email, String password) {
         // Write code here that turns the phrase above into concrete actions
-        if(login.isValid(email, password ) == 0){
+        if(login.getTypeNumber(email, password ) == 0){
             login.setLogInStatus(false);
         }
 
@@ -54,7 +60,7 @@ public class loginStepDefinition {
     @When("the password is invalid email is {string} and password is {string}")
     public void thePasswordIsInvalidEmailIsAndPasswordIs(String email, String password) {
         // Write code here that turns the phrase above into concrete actions
-        if(login.isValid(email, password) == 0){
+        if(login.getTypeNumber(email, password) == 0){
             login.setLogInStatus(false);
         }
         assertFalse(login.isLoggedIn());
@@ -64,7 +70,7 @@ public class loginStepDefinition {
     @When("the information is invalid, email is {string} and password is {string}")
     public void theInformationAreInvalidEmailIsAndPasswordIs(String email, String password) {
         // Write code here that turns the phrase above into concrete actions
-        if(login.isValid(email, password) == 0){
+        if(login.getTypeNumber(email, password) == 0){
             login.setLogInStatus(false);
         }
         assertFalse(login.isLoggedIn());
@@ -92,6 +98,7 @@ public class loginStepDefinition {
     public void theInformationExistsTheEmailIsNot(String email) {
         // Write code here that turns the phrase above into concrete actions
         assertFalse(login.emailExists(email));
+        login.addUser(email, "123");
     }
     @Then("signing up succeeds")
     public void signingUpSucceeds() {

@@ -58,6 +58,17 @@ public class VendorManagementStepDefinition {
         // Write code here that turns the phrase above into concrete actions
         assertTrue(currentUserOrg.isOrganizer());
     }
+
+    @When("choose to display all vendors")
+    public void chooseToDisplayAllVendors() {
+
+    }
+
+    @Then("the list of vendors appears.")
+    public void theListOfVendorsAppears() {
+        login.displayAllVendors();
+
+    }
     @When("I search for the vendor by location {string}")
     public void iSearchForTheVendorByLocation(String location) {
           email = login.displayVendorByLocation(location);
@@ -108,7 +119,7 @@ public class VendorManagementStepDefinition {
     @When("I negotiate the contract terms with the vendor")
     public void iNegotiateTheContractTermsWithTheVendor() {
         // Write code here that turns the phrase above into concrete actions
-        System.out.println(vendorPackage.contractDescription);
+        System.out.println(vendorPackage.getContractDescription());
     }
     @When("I accept the contract")
     public void iAcceptTheContract() {
@@ -121,9 +132,10 @@ public class VendorManagementStepDefinition {
         assertFalse(vendorPackage.isAvailable());
     }
 
-    @When("I request a package {int} from the vendor for an event")
+    @When("I request a package {int} from the vendor for an event after displaying them")
     public void iRequestAPackageFromTheVendorForAnEvent(int packageIndex) {
         // Write code here that turns the phrase above into concrete actions
+        vendorPackage.displayPackages();
         associatedEvent.setPackage(vendorPackage.getPackageName(packageIndex, currentUserOrg));
         associatedEvent.setVendor(vendorPackage);
     }
@@ -135,11 +147,16 @@ public class VendorManagementStepDefinition {
        assertEquals(associatedEvent.eventVendor, vendorPackage);
     }
 
+    @When("I choose to release the vendor from my event")
+    public void iChooseToReleaseTheVendorFromMyEvent() {
+        associatedEvent.setVendor(vendorPackage);
+        associatedEvent.releaseVendor();
+    }
 
 
-
-
-
-
-
+    @Then("The vendor will be released and my event will have no vendor set")
+    public void theVendorWillBeReleasedAndMyEventWillHaveNoVendorSet() {
+        assertNull(associatedEvent.eventVendor);
+    }
 }
+

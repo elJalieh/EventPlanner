@@ -721,7 +721,7 @@ public class Main {
 
         LOGGER.info("Enter your password: ");
         String password = scanner.nextLine();
-        whichType = login.isValid(email, password);
+        whichType = login.getTypeNumber(email, password);
         if (whichType == NOT_VALID) {
             LOGGER.info("Not welcome!");
             manageUserRegistration();

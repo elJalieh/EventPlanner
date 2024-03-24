@@ -32,6 +32,7 @@ public class BudgetStepDefinition {
         // Write code here that turns the phrase above into concrete actions
         assertTrue(haveBudgetOrganizer.isOrganizer());
         budgetEvent.setAssociatedVenue(associatedVenue);
+        budgetEvent.setAssociatedVenue(associatedVenue);
         budgetEvent.setVendor(associatedVendor);
     }
     @When("I view the budget report for an event")

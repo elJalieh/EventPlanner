@@ -28,7 +28,10 @@ public class ServiceProviderStepDefinition {
     public void iAmServiceProvider() {
         // Write code here that turns the phrase above into concrete actions
         login.vendors.add(v);
-        assertEquals(2, login.isValid(v.email,v.password));
+        String vendorEmail = v.email;
+        String vendorPassword = v.password;
+        assertEquals(2, login.getTypeNumber(vendorEmail,vendorPassword));
+        assertEquals(v, login.getCurrentVendor(vendorEmail, vendorPassword));
     }
     @When("I choose to add a new package to my list")
     public void iChooseToAddANewPackageToMyList() {

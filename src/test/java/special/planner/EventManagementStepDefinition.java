@@ -55,6 +55,7 @@ Event eventToBeDeleted;
         int attendeeCount = Integer.parseInt(data.getFirst().get("Attendee Count"));
 
         newEvent = new Event(date, time, location, theme, description, attendeeCount, currentUser);
+        assertFalse(newEvent.isNotTheOrganizerOfTheEvent(currentUser));
         eventManagement.addEvent(newEvent);
     }
     @When("I manage the guest list for the event")

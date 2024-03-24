@@ -29,7 +29,6 @@ public class Venue {
             this.associatedEvent = associatedEvent;
         }
         else  LOGGER.info("This venue is booked!");
-
     }
     public Event getAssociatedEvent(){
         return this.associatedEvent;

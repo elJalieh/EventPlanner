@@ -29,7 +29,10 @@ public class Main {
     static String theme;
     static String description;
     static int attendeeCount;
-
+    static String amenities;
+    static String name;
+    static int capacity;
+    static int pricing;
     public static void main(String[] args) {
         login.initializeUsers();
         eventManager = new EventManagement();
@@ -37,7 +40,6 @@ public class Main {
         venueManager.initializeVenues();// will be removed later
         manageUserRegistration();
     }
-
     public static void manageUserRegistration() {
         login.setLogInStatus(false);
         int choice;
@@ -50,11 +52,10 @@ public class Main {
             try {
                 choice = scanner.nextInt();
                 scanner.nextLine();
-            }catch (Exception e){
+            } catch (Exception e) {
                 scanner.nextLine();
                 continue;
             }
-
             switch (choice) {
                 case 1 -> signUp();
                 case 2 -> signIn();
@@ -68,21 +69,17 @@ public class Main {
             }
         }
     }
-
     private static void determineScreenAfterLogin(){
-            if(whichType == USER_TYPE) {
-                switch (currentUser.getType()) {
-                    case ADMIN -> adminScreen();
-                    case USER -> userScreen();
-                    default -> manageUserRegistration();
-                }
-            } else if (whichType == VENDOR_TYPE) {
+        if(whichType == USER_TYPE) {
+            switch (currentUser.getType()) {
+                case ADMIN -> adminScreen();
+                case USER -> userScreen();
+                default -> manageUserRegistration();
+            }
+        } else if (whichType == VENDOR_TYPE) {
                 serviceProviderScreen();
-            } else manageUserRegistration();
-        }
-
-
-
+        } else manageUserRegistration();
+    }
     private static void serviceProviderScreen() {
         LOGGER.info("Service Provider Screen");
         LOGGER.info("""
@@ -113,7 +110,6 @@ public class Main {
         }
         serviceProviderScreen();
     }
-
     private static void showCostumerDetails() {
         if(currentVendor.vendorEvent == null){
             LOGGER.info("You're not associated with an event!");
@@ -161,7 +157,6 @@ public class Main {
         LOGGER.log(Level.INFO, "Package {0}ed successfully!", alterationType);
         serviceProviderScreen();
     }
-
     private static void addPackage() {
         LOGGER.info("Enter package you want to add:");
         String newPackage = scanner.nextLine();
@@ -169,12 +164,10 @@ public class Main {
         LOGGER.info("Package added successfully!");
         serviceProviderScreen();
     }
-
     private static void showPackages() {
         currentVendor.displayPackages();
         serviceProviderScreen();
     }
-
     private static void userScreen() {
         LOGGER.info("User Screen");
         LOGGER.info("""
@@ -197,7 +190,6 @@ public class Main {
         }
         userScreen();
     }
-
     private static void bookVenue() {
         eventManager.printEventsForOrganizer(currentUser);
         LOGGER.info("Enter event number to book a venue for: ");
@@ -233,7 +225,6 @@ public class Main {
         pickedEvent.setAssociatedVenue(pickedVenue);
         manageEvents();
     }
-
     private static void registerInEvent() {
         eventManager.printEvents();
         LOGGER.info("Enter event number to register: ");
@@ -249,7 +240,6 @@ public class Main {
 
 
     }
-
     private static void manageEvents() {
         LOGGER.info("""
                 Enter your choice of management:
@@ -291,20 +281,16 @@ public class Main {
         }
         userScreen();
     }
-
     private static void displayNearEvents() {
         eventManager.displayEventsWithin2Days(currentUser);
     }
-
     private static void displayUpComingEvents() {
         eventManager.displayUpComingEvents(currentUser);
     }
-
     private static void printBudgetReport() {
         eventManager.printEventsReports(currentUser);
         manageEvents();
     }
-
     private static void releaseResource(String resourceName) {
         eventManager.printEventsForOrganizer(currentUser);
         LOGGER.log(Level.INFO, "Enter event number to release the {0} for: ", resourceName);
@@ -323,8 +309,6 @@ public class Main {
         }
         manageEvents();
     }
-
-
     private static void addBudget() {
         LOGGER.info("Enter your budget:");
         int budget = scanner.nextInt();
@@ -340,7 +324,6 @@ public class Main {
         }
         return eventManager.getEvents().get(eventNo - 1);
     }
-
     private static void isOrganizerEventAndHasVendor(Event associatedEvent){
         if (associatedEvent.isNotTheOrganizerOfTheEvent(currentUser)){
             LOGGER.info(NOT_ORGANIZER_MESSAGE);
@@ -418,7 +401,6 @@ public class Main {
         manageEvents();
 
     }
-
     private static int getPackageFromVendor(Vendor selectedVendor){
         int packageChoice;
         while (true) {
@@ -516,7 +498,6 @@ public class Main {
             }
         } while (!validDate);
     }
-
     private static void createEvent() {
         eventInformation();
         Event newEvent = new Event(date, time, location, theme, description, attendeeCount, currentUser);
@@ -524,7 +505,6 @@ public class Main {
         LOGGER.info("Event added successfully!");
         manageEvents();
     }
-
     private static void adminScreen() {
         LOGGER.info("Admin screen");
         LOGGER.info("""
@@ -581,7 +561,6 @@ public class Main {
         login.addServiceProvider(serviceProviderEmail, serviceProviderPassword, serviceProviderCategory, serviceProviderLocation, serviceProviderPricing , serviceProviderReview, null);
         adminScreen();
     }
-
     private static void manageVenues() {
         LOGGER.info("""
                 Enter your choice of management:
@@ -609,7 +588,6 @@ public class Main {
         }
         manageVenues();
     }
-
     private static void displayBookedEvent() {
         LOGGER.info("Enter venue number: ");
         int venueNo = scanner.nextInt();
@@ -625,11 +603,9 @@ public class Main {
         }
         manageVenues();
     }
-
     private static void printVenues() {
         venueManager.displayVenues();
     }
-
     private static void deleteVenue() {
         LOGGER.info("Enter venue number to delete: ");
         int venueNo = scanner.nextInt();
@@ -651,45 +627,30 @@ public class Main {
             numberDoesntExistMessage();
             editVenue();
         }
-
-        LOGGER.info("Enter the updated Name: ");
-        String name = scanner.nextLine();
-
-        LOGGER.info("Enter the updated Capacity: ");
-        String capacityStr = scanner.nextLine();
-        int capacity = Integer.parseInt(capacityStr);
-        LOGGER.info("Enter the updated amenities: ");
-        String amenities = scanner.nextLine();
-
-        LOGGER.info("Enter the updated pricing: ");
-        String pricingStr = scanner.nextLine();
-        int pricing = Integer.parseInt(pricingStr);
-
+        venueInformation();
         venueManager.getVenues().get(venueNo - 1).editVenue(name, capacity, amenities, pricing);
         LOGGER.info("Venue updated successfully!");
         manageVenues();
     }
-
     private static void addVenue() {
         //String venueName, int capacity, String amenities, int pricing
-        LOGGER.info("Enter the Name: ");
-        String name = scanner.nextLine();
-
-        LOGGER.info("Enter the Capacity: ");
-        String capacityStr = scanner.nextLine();
-        int capacity = Integer.parseInt(capacityStr);
-        LOGGER.info("Enter the amenities: ");
-        String amenities = scanner.nextLine();
-
-        LOGGER.info("Enter the pricing: ");
-        String pricingStr = scanner.nextLine();
-        int pricing = Integer.parseInt(pricingStr);
-
+        venueInformation();
         venueManager.addVenue(new Venue(name, capacity, amenities, pricing));
         LOGGER.info("Venue added successfully!");
         manageVenues();
     }
-
+    public static void venueInformation(){
+        LOGGER.info("Enter the venue name: ");
+        name = scanner.nextLine();
+        LOGGER.info("Enter the capacity: ");
+        String capacityStr = scanner.nextLine();
+        capacity = Integer.parseInt(capacityStr);
+        LOGGER.info("Enter the amenities: ");
+        amenities = scanner.nextLine();
+        LOGGER.info("Enter the pricing: ");
+        String pricingStr = scanner.nextLine();
+        pricing = Integer.parseInt(pricingStr);
+    }
     private static void signUp() {
         LOGGER.info("Enter email you want to sign up with: ");
         String email = scanner.nextLine();
@@ -702,18 +663,16 @@ public class Main {
 
         login.addUser(email, password);
     }
-
     private static void signIn() {
         whichType = NOT_VALID;
         LOGGER.info("Enter your email: ");
-
         String email = scanner.nextLine();
-
         LOGGER.info("Enter your password: ");
         String password = scanner.nextLine();
         whichType = login.getTypeNumber(email, password);
+
         if (whichType == NOT_VALID) {
-            LOGGER.info("Not welcome!");
+            LOGGER.info("Your account doesn't exist. Please proceed to sign up.");
             manageUserRegistration();
         } else if (whichType == USER_TYPE) {
             currentUser = login.getCurrentUser(email, password);

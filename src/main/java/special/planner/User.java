@@ -35,7 +35,9 @@ public class User {
     public boolean isOrganizer(){
         return organizer;
     }
-    public void setAsAdmin(){this.admin = true;}
+    public void setAsAdmin(){
+        this.admin = true;
+    }
     public void linkWithVendor( Vendor v) {
         v.setBooker(this);
     }

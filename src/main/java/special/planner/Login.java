@@ -32,7 +32,6 @@ public class Login {
         v3.addPackage("broom");
         v3.addPackage("water");
         v3.addPackage("cleaner");
-
         User u3=new User("mo.matar123@gmail.com","123", user);
         User u4=new User("u1","123", user);
         User u5=new User("u2","123", user);
@@ -203,7 +202,6 @@ public class Login {
                 "{0}. Vendor email: {1} Location: {2} Availability: {3}\n" +
                         "Review: {4} Price: {5}",
                 new Object[]{index, v.email, v.location, v.availability, v.reviews, v.pricing});
-
     }
 }
 

@@ -45,7 +45,6 @@ public class Vendor {
     }
     public String getPackageName(int packageIndex, User booker) {
         return (this.booker.equals(booker)) ? vendorPackages.get(packageIndex) : "Not Permitted";
-
     }
     public String getEmail(){
         return this.email;

@@ -19,15 +19,12 @@ public class EventManagement {
     public boolean isEventInList(Event eventSearch){
         for (Event i :
                 getEvents()) {
-            if (i.equals(eventSearch) ) {
-                return true;
-            }
+            if (i.equals(eventSearch)) return true;
         }
         return false;
     }
     public void printEventsForOrganizer(User organizer) {
         int index = 1;
-
         for (Event i:
              events) {
             if (i.organizer == organizer) {
@@ -49,10 +46,8 @@ public class EventManagement {
     public boolean isOrganizerOfEvent(User organizer){
         for (Event i :
                 events) {
-            if (i.organizer.equals(organizer)) {
-                return true;
-            }
-            }
+            if (i.organizer.equals(organizer)) return true;
+        }
         return false;
     }
     public void displayEventsForOrganizer(User currentUser) {
@@ -99,7 +94,9 @@ public class EventManagement {
             index++;
         }
     }
-    public static void printEventNum(int index){LOGGER.log(Level.INFO, "Event No.{0}", index);}
+    public static void printEventNum(int index){
+        LOGGER.log(Level.INFO, "Event No.{0}", index);
+    }
     public List<Event> getEvents() {
         return events;
     }

@@ -34,7 +34,6 @@ public class Event {
         vendorPackages = NOT_SET_MESSAGE;
         eventVendor = null;
         eventVenue = null;
-
     }
     public void addAttendee(User attendee){
         if(guestList.size() == attendeeCount) {
@@ -42,7 +41,6 @@ public class Event {
             return;
         }
         this.guestList.add(attendee);
-
     }
     public void removeAttendee(User attendee){
         this.guestList.remove(attendee);
@@ -92,7 +90,6 @@ public class Event {
                         Associated Venue: {7}""",
                 new Object[]{this.organizer.getEmail(), this.eventTheme, this.eventDescription, this.eventDate,
                         this.eventTime, vendorName, this.vendorPackages, venueName});
-
     }
     public boolean isNotTheOrganizerOfTheEvent(User org){
         return !Objects.equals(this.organizer, org);
@@ -105,7 +102,6 @@ public class Event {
             this.eventVendor = selectedVendor;
             this.organizer.budget -= selectedVendor.pricing;
             LOGGER.info("Vendor associated successfully!");
-
         }
         else{
             LOGGER.info("Not enough budget!");

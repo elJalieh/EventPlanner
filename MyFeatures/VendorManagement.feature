@@ -34,8 +34,9 @@ Feature: Service Provider (Vendor) Management
     And I have booked the vendor
     And I request a package 2 from the vendor for an event after displaying them
     Then the vendor with his packets will be booked by me
-@vendor_release
-Scenario: release a vendor after contracting
-  Given I am an organizer3
-  When I choose to release the vendor from my event
-  Then The vendor will be released and my event will have no vendor set
+
+  @vendor_release
+  Scenario: release a vendor after contracting
+    Given I am an organizer3
+    When I choose to release the vendor from my event
+    Then The vendor will be released and my event will have no vendor set

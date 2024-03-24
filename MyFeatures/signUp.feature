@@ -1,5 +1,4 @@
-Feature:Sign up
-
+Feature:  Sign up
 
   Scenario Outline:trying to signing up with an existing email
     Given that the user is not logged in
@@ -29,8 +28,3 @@ Feature:Sign up
       | m7mdMa234523@gmail.com     |
       | AlAA234521334521@gmail.com |
       | a3y3m3a3n@gmail.com        |
-
-
-
-
-

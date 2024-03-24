@@ -115,10 +115,8 @@ public class Main {
             LOGGER.info("You're not associated with an event!");
             serviceProviderScreen();
         }
-
         currentVendor.vendorEvent.printEventDetails();
         serviceProviderScreen();
-
     }
     private static void editAddContract() {
         LOGGER.info("This is your current contract.");
@@ -237,8 +235,6 @@ public class Main {
         eventManager.getEvents().get(eventNo - 1).addAttendee(currentUser);
         LOGGER.info("Registration successful!");
         userScreen();
-
-
     }
     private static void manageEvents() {
         LOGGER.info("""
@@ -399,7 +395,6 @@ public class Main {
             LOGGER.info("Package is added to event successfully!");
         }
         manageEvents();
-
     }
     private static int getPackageFromVendor(Vendor selectedVendor){
         int packageChoice;
@@ -616,7 +611,6 @@ public class Main {
         }
         venueManager.deleteVenue(venueManager.getVenues().get(venueNo - 1));
         LOGGER.info("Venue deleted successfully!");
-
     }
 
     private static void editVenue() {
@@ -660,7 +654,6 @@ public class Main {
         }
         LOGGER.info("Create password: ");
         String password = scanner.nextLine();
-
         login.addUser(email, password);
     }
     private static void signIn() {
@@ -670,7 +663,6 @@ public class Main {
         LOGGER.info("Enter your password: ");
         String password = scanner.nextLine();
         whichType = login.getTypeNumber(email, password);
-
         if (whichType == NOT_VALID) {
             LOGGER.info("Your account doesn't exist. Please proceed to sign up.");
             manageUserRegistration();

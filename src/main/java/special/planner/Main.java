@@ -17,7 +17,7 @@ public class Main {
     public static final String USER = "User";
     private static final String INVALID_CHOICE_MESSAGE = "Invalid choice! Please try again.";
     public static final int USER_TYPE = 1;
-    public static int whichType = 0;
+    private static int whichType = 0;
     public static final int VENDOR_TYPE = 2;
     public static final int NOT_VALID = 0;
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());

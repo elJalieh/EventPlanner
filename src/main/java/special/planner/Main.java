@@ -62,19 +62,25 @@ public class Main {
                     return;
                 }
             }
-            if (login.isLoggedIn()) {
-                if(whichType == USER_TYPE) {
-                    switch (currentUser.getType()) {
-                        case ADMIN -> adminScreen();
-                        case USER -> userScreen();
-                        default -> manageUserRegistration();
-                    }
-                } else if (whichType == VENDOR_TYPE) {
-                    serviceProviderScreen();
-                } else manageUserRegistration();
+            if(login.isLoggedIn()) {
+                determineScreenAfterLogin();
             }
         }
     }
+
+    private static void determineScreenAfterLogin(){
+            if(whichType == USER_TYPE) {
+                switch (currentUser.getType()) {
+                    case ADMIN -> adminScreen();
+                    case USER -> userScreen();
+                    default -> manageUserRegistration();
+                }
+            } else if (whichType == VENDOR_TYPE) {
+                serviceProviderScreen();
+            } else manageUserRegistration();
+        }
+
+
 
     private static void serviceProviderScreen() {
         LOGGER.info("Service Provider Screen");

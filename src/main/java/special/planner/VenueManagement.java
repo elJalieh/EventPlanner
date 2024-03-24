@@ -1,6 +1,7 @@
 package special.planner;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class VenueManagement {
@@ -27,10 +28,16 @@ public class VenueManagement {
         int index = 1;
         for (Venue i:
                 venues) {
-            LOGGER.info("Venue no." +index +"\n" + i+"====================================================================================\n"
-                    +"Venue name: " + i.venueName+"\nVenue capacity: " + i.capacity + "\t" + "Venue amenities: " + i.amenities + "\t" +
-                    "Venue pricing: " + i.pricing + "\t" + "Booking status: " + i.booked);
-            index++;
+            LOGGER.log(Level.INFO,
+                    """
+                            =======================================================
+                            Venue No. {0}
+                            Venue Name: {1}
+                            Venue Capacity: {2}
+                            Venue Amenities: {3}
+                            Venue Pricing: {4}
+                            Booking Status: {5}""",
+                    new Object[]{index++, i.venueName, i.capacity, i.amenities, i.pricing, i.booked});
         }
     }
     public List<Venue> getVenues() {

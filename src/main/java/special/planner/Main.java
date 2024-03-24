@@ -87,12 +87,12 @@ public class Main {
         LOGGER.info("Service Provider Screen");
         LOGGER.info("""
                 Please enter your choice:
-                1. Show packages
-                2. Add a new package
-                3. Edit a package
-                4. Delete a package
-                5. Edit/Add contract
-                6. Show costumer details
+                1. Show Packages
+                2. Add a New Package
+                3. Edit a Package
+                4. Delete a Package
+                5. Edit/Add Contract
+                6. Show Costumer Details
                 7. Logout
                 8. Exit""");
         int choice = scanner.nextInt();
@@ -140,11 +140,11 @@ public class Main {
     }
     private static void alterPackage(String alterationType) {
         if(currentVendor.vendorPackages.isEmpty()){
-            LOGGER.info("Add a package first to " + alterationType);
+            LOGGER.log(Level.INFO, "Add a package first to {0}", alterationType);
             serviceProviderScreen();
         }
         currentVendor.displayPackages();
-        LOGGER.info("Enter package number you want to" + alterationType);
+        LOGGER.log(Level.INFO, "Enter package number you want to {0}", alterationType);
         int packageNo = scanner.nextInt();
         scanner.nextLine();
         if (packageNo > currentVendor.vendorPackages.size()) {
@@ -158,7 +158,7 @@ public class Main {
             String editedPackage = scanner.nextLine();
             currentVendor.vendorPackages.set(packageNo-1, editedPackage);
         }
-        LOGGER.info("Package " + alterationType +"ed successfully!");
+        LOGGER.log(Level.INFO, "Package {0}ed successfully!", alterationType);
         serviceProviderScreen();
     }
 
@@ -179,8 +179,8 @@ public class Main {
         LOGGER.info("User Screen");
         LOGGER.info("""
                 Please enter your choice:
-                1. Manage events
-                2. Register in an event
+                1. Manage Events
+                2. Register in an Event
                 3. Logout
                 4. Exit""");
         int choice = scanner.nextInt();
@@ -210,7 +210,7 @@ public class Main {
             LOGGER.info("The event is already associated with a venue!");
             manageEvents();
         }
-        LOGGER.info("Your current budget is: " + currentUser.budget);
+        LOGGER.log(Level.INFO, "Your current budget is: {0}", currentUser.budget);
         printVenues();
         LOGGER.info("Enter venue number to book: ");
         int venueNo = scanner.nextInt();
@@ -252,21 +252,21 @@ public class Main {
 
     private static void manageEvents() {
         LOGGER.info("""
-                enter your choice of management:
-                1. Create event
-                2. Edit event
-                3. Delete event
-                4. Display all of the events
-                5. Book a venue for a specified event
-                6. Display attendees of an event
-                7. Filter and assign vendors to an event
-                8. Release vendor of an event
-                9. Release venue of an event
-                10. Add budget
-                11. Print budget report
-                12. Go back to user screen
-                13. See upcoming events
-                14. Reminders and notifications for near events
+                Enter your choice of management:
+                1. Create Event
+                2. Edit Event
+                3. Delete Event
+                4. Display All of the Events
+                5. Book a Venue for a Specified Event
+                6. Display Attendees of an Event
+                7. Filter and Assign Vendors to an Event
+                8. Release Vendor of an Event
+                9. Release Venue of an Event
+                10. Add Budget
+                11. Print Budget Report
+                12. Reminders and Notifications for Near Events
+                13. See Upcoming Events
+                14. Go Back to User Screen
                 15. Exit""");
         int choice = scanner.nextInt();
         scanner.nextLine();
@@ -282,9 +282,9 @@ public class Main {
             case 9 -> releaseResource("venue");
             case 10 -> addBudget();
             case 11 -> printBudgetReport();
-            case 12 -> userScreen();
+            case 12 -> displayNearEvents();
             case 13 -> displayUpComingEvents();
-            case 14 -> displayNearEvents();
+            case 14 -> userScreen();
             case 15 -> System.exit(0);
 
             default -> LOGGER.info(INVALID_CHOICE_MESSAGE);
@@ -307,7 +307,7 @@ public class Main {
 
     private static void releaseResource(String resourceName) {
         eventManager.printEventsForOrganizer(currentUser);
-        LOGGER.info("Enter event number to release the " + resourceName + " for: ");
+        LOGGER.log(Level.INFO, "Enter event number to release the {0} for: ", resourceName);
         Event pickedEvent = selectEvent();
         if (pickedEvent.isNotTheOrganizerOfTheEvent(currentUser)) {
             LOGGER.info(NOT_ORGANIZER_MESSAGE);
@@ -315,11 +315,11 @@ public class Main {
         }
         if (resourceName.equals("venue") && pickedEvent.hasVenue()) {
             pickedEvent.releaseVenue();
-            LOGGER.info("The " + resourceName + " was released successfully!");
+            LOGGER.log(Level.INFO, "The {0} was released successfully!", resourceName);
         } else if (resourceName.equals("vendor") && pickedEvent.hasVendor()) {
             pickedEvent.eventVendor.releaseEvent();
             pickedEvent.releaseVendor();
-            LOGGER.info("The " + resourceName + " was released successfully!");
+            LOGGER.log(Level.INFO, "The {0} was released successfully!", resourceName);
         }
         manageEvents();
     }
@@ -364,16 +364,16 @@ public class Main {
         do {
             LOGGER.info("""
                     Select how to filter vendors:
-                    1. Display all vendors
-                    2. Display vendors by availability
-                    3. Display vendors by pricing
-                    4. Display vendors by location
-                    5. Display vendors by reviews
-                    6. Go back to user screen
+                    1. Display All Vendors
+                    2. Display Vendors by Availability
+                    3. Display Vendors by Pricing
+                    4. Display Vendors by Location
+                    5. Display Vendors by Reviews
+                    6. Go Back to User Screen
                     7. Exit""");
             int choice = scanner.nextInt();
             scanner.nextLine();
-            LOGGER.info("Your current budget is: " + currentUser.budget);
+            LOGGER.log(Level.INFO, "Your current budget is: {0}", currentUser.budget);
             switch (choice) {
                 case 1 -> login.displayAllVendors();
                 case 2 -> login.displayVendorByAvailability(true);
@@ -430,31 +430,24 @@ public class Main {
             LOGGER.info("Package number does not exist!, try again.");
         }
     }
-
     private static void displayByReviews() {
         LOGGER.info("Enter desired review: ");
         int review = Integer.parseInt(scanner.nextLine());
         login.displayVendorByPrice(review);
     }
-
     private static void displayByLocation() {
         LOGGER.info("Enter desired location: ");
         login.displayVendorByLocation(scanner.nextLine());
     }
-
     private static void displayByPricing() {
         LOGGER.info("Enter desired price: ");
         int price = Integer.parseInt(scanner.nextLine());
         login.displayVendorByPrice(price);
     }
-
-
     private static void displayAttendees() {
         LOGGER.info("Enter event number: ");
         selectEvent().printAttendees();
     }
-
-
     private static void deleteEvent() {
         eventManager.printEventsForOrganizer(currentUser);
         LOGGER.info("Enter event number you want to delete: ");
@@ -489,7 +482,6 @@ public class Main {
         LOGGER.info("Event updated successfully!");
         manageEvents();
     }
-
     private static void eventInformation() {
 
         getDateFromUser();
@@ -536,10 +528,10 @@ public class Main {
     private static void adminScreen() {
         LOGGER.info("Admin screen");
         LOGGER.info("""
-                Please enter your choice
-                1. Manage venues
-                2. Delete account
-                3. Create account for "Service Provider"
+                Please enter your choice:
+                1. Manage Venues
+                2. Delete Account
+                3. Create Account for "Service Provider"
                 4. Logout
                 5. Exit""");
         int choice = scanner.nextInt();
@@ -553,7 +545,6 @@ public class Main {
             default -> LOGGER.info(INVALID_CHOICE_MESSAGE);
         }
     }
-
     private static void deleteAccount() {
         String emailToDelete;
         LOGGER.info("Enter email to delete:");
@@ -566,7 +557,6 @@ public class Main {
         login.deleteUser(emailToDelete);
         adminScreen();
     }
-
     private static void addServiceProviderAccount() {
         String serviceProviderEmail;
         String serviceProviderPassword;
@@ -595,12 +585,12 @@ public class Main {
     private static void manageVenues() {
         LOGGER.info("""
                 Enter your choice of management:
-                1. Add venue
-                2. Edit venue
-                3. Delete venue
-                4. Display the venues
-                5. Display booked event
-                6. Go back to user screen
+                1. Add Venue
+                2. Edit Venue
+                3. Delete Venue
+                4. Display the Venues
+                5. Display Booked Event
+                6. Go Back to User Screen
                 7. Exit""");
         int choice = scanner.nextInt();
         scanner.nextLine();
@@ -615,7 +605,6 @@ public class Main {
                 System.exit(0);
                 return;
             }
-
             default -> LOGGER.info(INVALID_CHOICE_MESSAGE);
         }
         manageVenues();

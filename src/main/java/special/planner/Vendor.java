@@ -2,6 +2,7 @@ package special.planner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Vendor {
@@ -59,7 +60,7 @@ public class Vendor {
         int index = 1;
         for (String i :
                 vendorPackages) {
-            LOGGER.info(index +". "+ i + "\n");
+            LOGGER.log(Level.INFO, "{0}. {1}", new Object[]{index, i});
             index++;
         }
     }

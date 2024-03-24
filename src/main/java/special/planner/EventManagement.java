@@ -2,6 +2,7 @@ package special.planner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class EventManagement {
@@ -30,7 +31,7 @@ public class EventManagement {
         for (Event i:
              events) {
             if (i.organizer == organizer) {
-                LOGGER.info("Event no." + index);
+                LOGGER.log(Level.INFO, "Event No.{0}", index);
                 i.printEventDetails();
             }
             index++;
@@ -40,7 +41,7 @@ public class EventManagement {
         int index = 1;
         for (Event i:
                 events) {
-                LOGGER.info("Event no." + index);
+            LOGGER.log(Level.INFO, "Event No.{0}", index);
                 i.printEventDetails();
             index++;
         }
@@ -98,7 +99,8 @@ public class EventManagement {
             index++;
         }
     }
-    public static void printEventNum(int index){LOGGER.info("Event No. " + index);}
+    public static void printEventNum(int index){LOGGER.log(Level.INFO, "Event No.{0}", index);
+    }
     public List<Event> getEvents() {
         return events;
     }

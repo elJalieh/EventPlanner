@@ -80,15 +80,19 @@ public class Event {
         else{
             venueName = this.eventVenue.venueName;
         }
-        LOGGER.info("====================================================================================\n"
-                +"Event organizer: " + this.organizer.getEmail()
-                +"\nEvent theme: " + this.eventTheme
-                + "\t" + "Event description: " + this.eventDescription
-                + "\t" + "Event Date: " + this.eventDate
-                + "\nEvent Time: " + this.eventTime
-                + "\t Associated Vendor: " + vendorName
-                +"\t Associated Package: " + this.vendorPackages
-                + "\nAssociated Venue: " + venueName);
+        LOGGER.log(Level.INFO,
+                """
+                        ====================================================================================
+                        Event Organizer: {0}
+                        Event Theme: {1}
+                        Event Description: {2}
+                        Event Date: {3}
+                        Event Time: {4}
+                        Associated Vendor: {5}\tAssociated Package: {6}
+                        Associated Venue: {7}""",
+                new Object[]{this.organizer.getEmail(), this.eventTheme, this.eventDescription, this.eventDate,
+                        this.eventTime, vendorName, this.vendorPackages, venueName});
+
     }
     public boolean isNotTheOrganizerOfTheEvent(User org){
         return !Objects.equals(this.organizer, org);
@@ -152,10 +156,14 @@ public class Event {
             vendorPricing = "N/A";
             total = 0;
         }
-        LOGGER.info("Vendor payment : \t" + vendorPricing + "\n"+
-                    "Venue payment : \t" + venuePricing + "\n"+
-                    "=========================================================\n" +
-                    "Event Total : \t" + total + "\tRemaining budget: \t" + this.organizer.budget);
+        LOGGER.log(Level.INFO,
+                """
+                        Vendor Payment : {0}
+                        Venue Payment : {1}
+                        =========================================
+                        Event Total Payment: {2}
+                        Remaining Budget: {3}""",
+                new Object[]{vendorPricing, venuePricing, total, this.organizer.budget});
     }
     public void setOrganizer(User organizer) {
         this.organizer = organizer;

@@ -3,6 +3,7 @@ package special.planner;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Login {
@@ -198,8 +199,11 @@ public class Login {
         return this.vendors.size();
     }
     public static void printVendorDetails(int index, Vendor v){
-        LOGGER.info(index + ". " + "Vendor email: " + v.email + " Location: "+ v.location + " Availability: " + v.availability +"\n"
-                + "Review: "+ v.reviews + " Price: " + v.pricing);
+        LOGGER.log(Level.INFO,
+                "{0}. Vendor email: {1} Location: {2} Availability: {3}\n" +
+                        "Review: {4} Price: {5}",
+                new Object[]{index, v.email, v.location, v.availability, v.reviews, v.pricing});
+
     }
 }
 

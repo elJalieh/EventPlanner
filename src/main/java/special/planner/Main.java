@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 public class Main {
     static User currentUser;
+    static int verificationCode;
     static Vendor currentVendor;
     static EventManagement eventManager;
     static VenueManagement venueManager;
@@ -669,14 +670,27 @@ public class Main {
         } else if (whichType == USER_TYPE) {
             currentUser = login.getCurrentUser(email, password);
             currentVendor = null;
+            checking();
             login.setLogInStatus(true);
         } else if (whichType == VENDOR_TYPE) {
             currentVendor = login.getCurrentVendor(email, password);
             currentUser = null;
+            checking();
             login.setLogInStatus(true);
-
         } else {
             LOGGER.info("Error signing in!");
+            manageUserRegistration();
+        }
+    }
+    public static void kop(){
+        LOGGER.info("Nothing");
+    }
+    public static void checking(){
+        LOGGER.info("Enter your verification code: ");
+        verificationCode = scanner.nextInt();
+        scanner.nextLine();
+        if (!login.confirmLogin(verificationCode)){
+            LOGGER.info("Your verification code is not true");
             manageUserRegistration();
         }
     }

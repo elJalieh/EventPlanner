@@ -2,7 +2,9 @@ name: Our first CI
 
 on:
   push:
-    branches: [master]
+    branches:
+      - master
+      - alaa
 
 jobs:
   build-on-ubuntu:

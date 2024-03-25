@@ -58,8 +58,11 @@
             <version>5.8.0</version>
             <scope>test</scope>
         </dependency>
-
-
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -68,14 +71,7 @@
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
             <version>0.8.11</version>
-            <configuration>
-
-                <excludes>
-                    <exclude>**car_accessories/MainClass.class</exclude>
-                </excludes>
-            </configuration>
             <executions>
-
                 <execution>
                     <id>prepare-agent</id>
                     <goals>

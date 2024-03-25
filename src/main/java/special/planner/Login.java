@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 public class Login {
     String admin = "Admin";
     String user = "User";
+    Mailing mail;
     List<User> users=new ArrayList<>();
     List<Vendor> vendors = new ArrayList<>();
     boolean logInStatus;
@@ -55,6 +56,8 @@ public class Login {
         for (User i :
                 users) {
             if (i.getEmail().equals(email) && i.getPassword().equals(password)) {
+                mail = new Mailing(i.getEmail());
+                mail.sendVerificationCode();
                 logInStatus = true;
                 return 1;
             }
@@ -62,13 +65,17 @@ public class Login {
         for (Vendor i :
                 vendors) {
             if (i.getEmail().equals(email) && i.getPassword().equals(password)) {
+                mail = new Mailing(i.getEmail());
+                mail.sendVerificationCode();
                 logInStatus = true;
                 return 2;
             }
         }
         return 0;
     }
-
+    public boolean confirmLogin(int verificationCode){
+        return mail.verificationCode == verificationCode;
+    }
     public boolean isLoggedIn(){
         return this.logInStatus;
     }

@@ -15,40 +15,17 @@ public class Login {
     boolean logInStatus;
     private static final Logger LOGGER = Logger.getLogger(Login.class.getName());
     public void initializeUsers(){
-        User a=new User("a","123", admin);
-        User u1=new User("alaraid2003@gmail.com","123", admin);
-        User u2=new User("a2y2m2a2n@gmail.com","123", user);
-        Vendor v =new Vendor("v1","123", "singers", "Salfit",
+        User u1 = new User("alaraid2003@gmail.com","123", admin);
+        User u2 = new User("a2y2m2a2n@gmail.com","123", user);
+        User u3 = new User("mo.matar123@gmail.com","123", user);
+        Vendor v = new Vendor("s12112161@stu.najah.edu","123", "singers", "Salfit",
         1000, 3, "my price is 1000 brother take it or leave it");
-        Vendor v2 =new Vendor("v2","123", "Restaurant", "Nablus",
-        5000, 4, "my price is 5000 brother take it or leave it");
-        Vendor v3 =new Vendor("v3","123", "cleaners", "Betoonia",
-        4000, 5, "my price is 4000 brother take it or leave it");
-        v.addPackage("7afleh");
-        v.addPackage("7aaafleeeeh");
-        v.addPackage("daance");
-        v2.addPackage("cookies");
-        v2.addPackage("catering");
-        v2.addPackage("sharshaf");
-        v3.addPackage("broom");
-        v3.addPackage("water");
-        v3.addPackage("cleaner");
-        User u3=new User("mo.matar123@gmail.com","123", user);
-        User u4=new User("u1","123", user);
-        User u5=new User("u2","123", user);
-        User u6=new User("u3","123", user);
-        User u7=new User("u4","123", user);
+        v.addPackage("Party Package");
+        v.addPackage("Wedding Package");
         users.add(u1);
         users.add(u2);
         users.add(u3);
-        users.add(u4);
-        users.add(u5);
-        users.add(u6);
-        users.add(u7);
-        users.add(a);
         vendors.add(v);
-        vendors.add(v2);
-        vendors.add(v3);
         logInStatus = false;
     }
     public int getTypeNumber(String email, String password) {

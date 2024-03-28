@@ -12,14 +12,12 @@ public class loginStepDefinition {
         this.login = login;
         currentUser = new User("user@email", "123", "user");
         login.users.add(currentUser);
-
     }
     @Given("that the user is not logged in")
     public void thatTheUserIsNotLoggedIn() {
         // Write code here that turns the phrase above into concrete actions
         login.initializeUsers();
         assertFalse(login.isLoggedIn());
-
     }
     @When("the information is valid email is {string} and password is {string}")
     public void theInformationIsValidEmailIsAndPasswordIs(String email, String password) {
@@ -27,8 +25,6 @@ public class loginStepDefinition {
         if(login.getTypeNumber(email, password ) == 1 || login.getTypeNumber(email, password ) == 2){
             login.setLogInStatus(true);
         }
-
-
     }
     @Then("user successfully log in")
     public void userSuccessfullyLogIn() {
@@ -36,9 +32,6 @@ public class loginStepDefinition {
         //System.out.println("welcome");
         assertTrue(login.isLoggedIn());
         assertEquals(currentUser, login.getCurrentUser("user@email", "123"));
-
-
-
     }
 
     @When("the email is invalid email is {string} and password is {string}")
@@ -47,14 +40,11 @@ public class loginStepDefinition {
         if(login.getTypeNumber(email, password ) == 0){
             login.setLogInStatus(false);
         }
-
-
     }
     @Then("user failed in log in")
     public void userFailedInLogIn() {
         // Write code here that turns the phrase above into concrete actions
         assertFalse(login.isLoggedIn());
-
     }
 
     @When("the password is invalid email is {string} and password is {string}")
@@ -64,7 +54,6 @@ public class loginStepDefinition {
             login.setLogInStatus(false);
         }
         assertFalse(login.isLoggedIn());
-
     }
 
     @When("the information is invalid, email is {string} and password is {string}")
@@ -74,8 +63,6 @@ public class loginStepDefinition {
             login.setLogInStatus(false);
         }
         assertFalse(login.isLoggedIn());
-
-
     }
 
     @When("the information exists, the email is {string}")

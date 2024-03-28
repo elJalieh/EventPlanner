@@ -71,15 +71,27 @@ public class Main {
         }
     }
     private static void determineScreenAfterLogin(){
-        if(whichType == USER_TYPE) {
-            switch (currentUser.getType()) {
-                case ADMIN -> adminScreen();
-                case USER -> userScreen();
-                default -> manageUserRegistration();
-            }
-        } else if (whichType == VENDOR_TYPE) {
+        switch (whichType) {
+            case USER_TYPE:
+                switch (currentUser.getType()) {
+                    case ADMIN:
+                        adminScreen();
+                        break;
+                    case USER:
+                        userScreen();
+                        break;
+                    default:
+                        manageUserRegistration();
+                        break;
+                }
+                break;
+            case VENDOR_TYPE:
                 serviceProviderScreen();
-        } else manageUserRegistration();
+                break;
+            default:
+                manageUserRegistration();
+                break;
+        }
     }
     private static void serviceProviderScreen() {
         LOGGER.info("Service Provider Screen");
@@ -664,22 +676,27 @@ public class Main {
         LOGGER.info("Enter your password: ");
         String password = scanner.nextLine();
         whichType = login.getTypeNumber(email, password);
-        if (whichType == NOT_VALID) {
-            LOGGER.info("Your account doesn't exist. Please proceed to sign up.");
-            manageUserRegistration();
-        } else if (whichType == USER_TYPE) {
-            currentUser = login.getCurrentUser(email, password);
-            currentVendor = null;
-            checking();
-            login.setLogInStatus(true);
-        } else if (whichType == VENDOR_TYPE) {
-            currentVendor = login.getCurrentVendor(email, password);
-            currentUser = null;
-            checking();
-            login.setLogInStatus(true);
-        } else {
-            LOGGER.info("Error signing in!");
-            manageUserRegistration();
+        switch (whichType) {
+            case NOT_VALID:
+                LOGGER.info("Your account doesn't exist. Please proceed to sign up.");
+                manageUserRegistration();
+                break;
+            case USER_TYPE:
+                currentUser = login.getCurrentUser(email, password);
+                currentVendor = null;
+                checking();
+                login.setLogInStatus(true);
+                break;
+            case VENDOR_TYPE:
+                currentVendor = login.getCurrentVendor(email, password);
+                currentUser = null;
+                checking();
+                login.setLogInStatus(true);
+                break;
+            default:
+                LOGGER.info("Error signing in!");
+                manageUserRegistration();
+                break;
         }
     }
     public static void kop(){

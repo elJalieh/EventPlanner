@@ -716,23 +716,29 @@ public class Main {
             if (event.organizer.email.equals(email)) {
                 if (event.eventVenue != null) {
                     String venueName = event.eventVenue.venueName;
-                    for (Venue venue : venueManager.venues) {
-                        if (Objects.equals(venue.venueName, venueName)) {
-                            venue.booked = false;
-                            break;
-                        }
-                    }
+                    forVenue(venueName);
                 }
                 if (event.eventVendor != null) {
                     String vendorEmail = event.eventVendor.email;
-                    for (Vendor vendor : login.vendors) {
-                        if (Objects.equals(vendor.email, vendorEmail)) {
-                            vendor.availability = true;
-                            break;
-                        }
-                    }
+                    forVendor(vendorEmail);
                 }
-                iterator.remove(); // Safe removal using iterator
+                iterator.remove();
+            }
+        }
+    }
+    public static void forVenue(String venueName){
+        for (Venue venue : venueManager.venues) {
+            if (Objects.equals(venue.venueName, venueName)) {
+                venue.booked = false;
+                break;
+            }
+        }
+    }
+    public static void forVendor(String vendorEmail){
+        for (Vendor vendor : login.vendors) {
+            if (Objects.equals(vendor.email, vendorEmail)) {
+                vendor.availability = true;
+                break;
             }
         }
     }

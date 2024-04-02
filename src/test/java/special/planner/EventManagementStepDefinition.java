@@ -61,13 +61,17 @@ Event eventToBeDeleted;
     @When("I manage the guest list for the event")
     public void iManageTheGuestListForTheEvent() {
         // Write code here that turns the phrase above into concrete actions
+        newEvent.guestList.size();
        newEvent.addAttendee(attendeeUser1);
        newEvent.addAttendee(attendeeUser2);
+       newEvent.addAttendee(attendeeUser2);
+       newEvent.printAttendees();
     }
     @Then("the new event {string} should be added to the event list")
     public void theNewEventShouldBeAddedToTheEventList(String string) {
         // Write code here that turns the phrase above into concrete actions
         assertTrue(eventManagement.isEventInList(newEvent));
+        assertEquals(3, newEvent.guestList.size());
     }
     @When("I edit the event details for {string} as follows:")
     public void iEditTheEventDetailsForAsFollows(String string, io.cucumber.datatable.DataTable dataTable) {

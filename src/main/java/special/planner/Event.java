@@ -39,6 +39,9 @@ public class Event {
         if(guestList.size() == attendeeCount) {
             LOGGER.info("Maximum number of attendees reached!");
             return;
+        } else if (guestList.contains(attendee)) {
+            LOGGER.info("already registered!");
+            return;
         }
         this.guestList.add(attendee);
     }

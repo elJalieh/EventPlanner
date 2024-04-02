@@ -34,11 +34,11 @@ public class CalendarStepDefinition {
         eventManagement.addEvent(oldEvent);
     }
 
-    @Given("I am user\\/organizer")
+    @Given("I am user or organizer")
     public void iAmUserOrganizer() {
         // Write code here that turns the phrase above into concrete actions
         assertTrue(currentUserOrg.isOrganizer());
-        assertTrue(attendee instanceof User);
+        assertFalse(attendee.isOrganizer());
     }
     @When("I view the calendar")
     public void iViewTheCalendar() {

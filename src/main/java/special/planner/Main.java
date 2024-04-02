@@ -538,7 +538,10 @@ public class Main {
         String emailToDelete;
         LOGGER.info("Enter email to delete:");
         emailToDelete = scanner.nextLine();
-        LOGGER.info("Deleting your own account...");
+        if(currentUser.getEmail().equals(emailToDelete)) {
+            LOGGER.info("Can't delete your own account...");
+            adminScreen();
+        }
         deleteOrganizerEvents(emailToDelete);
         login.deleteUser(emailToDelete);
         adminScreen();

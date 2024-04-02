@@ -106,6 +106,7 @@ public class Login {
         vendors.add(newVendor);
     }
     public void deleteUser(String email){
+
         int toRemove;
         for (User i: users){
             if(i.email.equals(email)){

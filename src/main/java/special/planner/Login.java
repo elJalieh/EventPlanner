@@ -106,14 +106,14 @@ public class Login {
         vendors.add(newVendor);
     }
     public void deleteUser(String email){
-        int toRemove = -1;
+        int toRemove;
         for (User i: users){
             if(i.email.equals(email)){
                 toRemove = users.indexOf(i);
+                users.remove(toRemove);
                 break;
             }
         }
-        users.remove(toRemove);
     }
     public void addVendor(Vendor vendor) {
         vendors.add(vendor);

@@ -1,5 +1,6 @@
 package special.planner;
 
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.logging.*;
@@ -537,11 +538,8 @@ public class Main {
         String emailToDelete;
         LOGGER.info("Enter email to delete:");
         emailToDelete = scanner.nextLine();
-        if(Objects.equals(currentUser.getEmail(), emailToDelete)){
-            LOGGER.info("Deleting your own account...");
-            login.deleteUser(emailToDelete);
-            manageUserRegistration();
-        }
+        LOGGER.info("Deleting your own account...");
+        deleteOrganizerEvents(emailToDelete);
         login.deleteUser(emailToDelete);
         adminScreen();
     }
@@ -709,6 +707,33 @@ public class Main {
         if (!login.confirmLogin(verificationCode)){
             LOGGER.info("Your verification code is not true");
             manageUserRegistration();
+        }
+    }
+    public static void deleteOrganizerEvents(String email) {
+        Iterator<Event> iterator = eventManager.events.iterator();
+        while (iterator.hasNext()) {
+            Event event = iterator.next();
+            if (event.organizer.email.equals(email)) {
+                if (event.eventVenue != null) {
+                    String venueName = event.eventVenue.venueName;
+                    for (Venue venue : venueManager.venues) {
+                        if (Objects.equals(venue.venueName, venueName)) {
+                            venue.booked = false;
+                            break;
+                        }
+                    }
+                }
+                if (event.eventVendor != null) {
+                    String vendorEmail = event.eventVendor.email;
+                    for (Vendor vendor : login.vendors) {
+                        if (Objects.equals(vendor.email, vendorEmail)) {
+                            vendor.availability = true;
+                            break;
+                        }
+                    }
+                }
+                iterator.remove(); // Safe removal using iterator
+            }
         }
     }
 }
